@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Measured — Issue No. 1 · April 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream: #F5F0E8;
+    --warm-white: #FAF8F4;
+    --ink: #1C1C1A;
+    --muted: #6B6560;
+    --accent: #B85C38;
+    --accent-soft: #E8D5CB;
+    --gold: #C4965A;
+    --border: rgba(28,28,26,0.1);
+    --green: #3A7D44;
+    --green-soft: #D8EBD9;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.7;
+    padding: 40px 20px 60px;
+  }
+
+  .email-wrap {
+    max-width: 600px;
+    margin: 0 auto;
+    background: var(--warm-white);
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06), 0 16px 48px rgba(0,0,0,0.08);
+  }
+
+  /* ── MASTHEAD ── */
+  .masthead {
+    background: var(--ink);
+    padding: 20px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .masthead-left {}
+  .masthead-name {
+    font-family: 'Lora', serif;
+    color: var(--warm-white);
+    font-size: 22px;
+    letter-spacing: 0.02em;
+  }
+  .masthead-sub {
+    font-size: 11px;
+    color: rgba(250,248,244,0.45);
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+  .masthead-issue {
+    font-size: 11px;
+    color: rgba(250,248,244,0.35);
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    text-align: right;
+  }
+
+  /* ── AUTHOR BAR ── */
+  .author-bar {
+    background: var(--accent-soft);
+    padding: 16px 40px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    border-bottom: 1px solid var(--border);
+  }
+  .avatar {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--gold) 0%, var(--accent) 100%);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Lora', serif;
+    font-size: 18px; color: white;
+    flex-shrink: 0;
+    box-shadow: 0 2px 6px rgba(184,92,56,0.25);
+  }
+  .author-name { font-size: 14px; font-weight: 500; color: var(--ink); }
+  .author-bio { font-size: 12px; color: var(--muted); margin-top: 1px; }
+
+  /* ── BODY ── */
+  .body { padding: 40px 40px 36px; }
+
+  /* Date label */
+  .date-label {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 500;
+    margin-bottom: 20px;
+  }
+
+  /* Opening */
+  .opener {
+    font-family: 'Lora', serif;
+    font-size: 14.5px;
+    line-height: 1.75;
+    color: var(--ink);
+    font-style: italic;
+    margin-bottom: 28px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* Section headers */
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+  .section-num {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: var(--ink);
+    color: white;
+    font-size: 11px;
+    font-weight: 500;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .section-title {
+    font-family: 'Lora', serif;
+    font-size: 18px;
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  /* Section blocks */
+  .section {
+    margin-bottom: 36px;
+    padding-bottom: 36px;
+    border-bottom: 1px solid var(--border);
+  }
+  .section:last-of-type { border-bottom: none; margin-bottom: 0; }
+
+  p { font-size: 14.5px; line-height: 1.75; color: #3A3733; margin-bottom: 14px; }
+  p:last-child { margin-bottom: 0; }
+  strong { color: var(--ink); font-weight: 500; }
+
+  /* Callout box */
+  .callout {
+    background: var(--cream);
+    border-left: 3px solid var(--accent);
+    padding: 16px 20px;
+    border-radius: 0 3px 3px 0;
+    margin: 18px 0;
+  }
+  .callout p { font-family: 'Lora', serif; font-style: italic; font-size: 14px; margin-bottom: 0; }
+  .callout-source {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 8px !important;
+    font-style: normal !important;
+    font-family: 'DM Sans', sans-serif !important;
+    letter-spacing: 0.04em;
+  }
+
+  /* Stat row */
+  .stat-row {
+    display: flex;
+    gap: 12px;
+    margin: 18px 0;
+    flex-wrap: wrap;
+  }
+  .stat-box {
+    flex: 1;
+    min-width: 130px;
+    background: var(--cream);
+    border-radius: 3px;
+    padding: 14px 16px;
+    border-top: 2px solid var(--gold);
+  }
+  .stat-box.green { border-top-color: var(--green); }
+  .stat-box.red { border-top-color: var(--accent); }
+  .stat-num {
+    font-family: 'Lora', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--ink);
+    line-height: 1.1;
+  }
+  .stat-label { font-size: 11px; color: var(--muted); margin-top: 4px; letter-spacing: 0.03em; }
+
+  /* The advantage box */
+  .advantage {
+    background: var(--green-soft);
+    border: 1px solid rgba(58,125,68,0.2);
+    border-radius: 3px;
+    padding: 20px 22px;
+    margin-top: 18px;
+  }
+  .advantage-title {
+    font-size: 11px;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--green);
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+  .advantage p { font-size: 14px; color: #2A4D2E; margin-bottom: 0; }
+  .advantage strong { color: #1C3A1F; }
+
+  /* Bottom CTA */
+  .cta-section {
+    background: var(--ink);
+    padding: 32px 40px;
+    text-align: center;
+  }
+  .cta-section h3 {
+    font-family: 'Lora', serif;
+    color: var(--warm-white);
+    font-size: 18px;
+    font-weight: 400;
+    margin-bottom: 8px;
+  }
+  .cta-section p { font-size: 13px; color: rgba(250,248,244,0.55); margin-bottom: 20px; }
+  .cta-btn {
+    display: inline-block;
+    background: var(--accent);
+    color: white;
+    font-size: 13.5px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    padding: 13px 28px;
+    border-radius: 3px;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .cta-btn:hover { background: #a04e2c; }
+  .cta-note {
+    font-size: 11px;
+    color: rgba(250,248,244,0.3);
+    margin-top: 12px;
+  }
+
+  /* Footer */
+  .footer {
+    padding: 18px 40px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .footer-sig { font-family: 'Lora', serif; font-size: 13px; color: var(--muted); font-style: italic; }
+  .footer-sig span { color: var(--ink); }
+  .footer-note { font-size: 11px; color: rgba(107,101,96,0.5); }
+
+  /* Divider ornament */
+  .ornament {
+    display: flex; align-items: center; gap: 10px;
+    margin: 28px 0;
+  }
+  .ornament hr { flex: 1; border: none; border-top: 1px solid var(--border); }
+  .ornament span { font-size: 11px; color: var(--gold); letter-spacing: 0.1em; }
+</style>
+</head>
+<body>
+<div class="email-wrap">
+
+  <!-- MASTHEAD -->
+  <div class="masthead">
+    <div class="masthead-left">
+      <div class="masthead-name">Measured</div>
+      <div class="masthead-sub">A weekly note on mortgage decisions that matter</div>
+    </div>
+    <div class="masthead-issue">Issue No. 1<br>April 25, 2026</div>
+  </div>
+
+  <!-- AUTHOR BAR -->
+  <div class="author-bar">
+    <div class="avatar">A</div>
+    <div>
+      <div class="author-name">Anthony</div>
+      <div class="author-bio">Mortgage advisor · wholesale lending · writing plainly about what banks don't explain</div>
+    </div>
+  </div>
+
+  <!-- BODY -->
+  <div class="body">
+
+    <div class="date-label">Week of April 25, 2026 · Issue No. 1</div>
+
+    <p class="opener">Hey — welcome to the first issue of Measured. I started this because I kept having the same conversation with people: they'd read a headline about mortgage rates and have no idea what it actually meant for them. So every week I'll break down one or two things that I think matter right now — no jargon, no pitch, just the straight story. Let's get into it.</p>
+
+    <!-- SECTION 1 -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-num">1</div>
+        <div class="section-title">Where rates actually are this week</div>
+      </div>
+
+      <p>You've probably seen a headline this week saying the 30-year mortgage rate fell to <strong>6.23%</strong>. That's the Freddie Mac number, and it's real — it's also the lowest rate we've seen during any spring homebuying season in three years. The 15-year fixed came in at <strong>5.58%</strong>. This is the third straight week of declines after rates spiked as high as 6.46% in early April when tensions with Iran pushed oil prices up and spooked bond markets.</p>
+
+      <div class="stat-row">
+        <div class="stat-box green">
+          <div class="stat-num">6.23%</div>
+          <div class="stat-label">30-yr fixed (Freddie Mac, Apr 23)</div>
+        </div>
+        <div class="stat-box green">
+          <div class="stat-num">5.58%</div>
+          <div class="stat-label">15-yr fixed (Freddie Mac, Apr 23)</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">6.81%</div>
+          <div class="stat-label">30-yr fixed — one year ago</div>
+        </div>
+      </div>
+
+      <p>That year-over-year drop from 6.81% to 6.23% is actually meaningful. On a $350,000 loan, that's about <strong>$140 less per month</strong> compared to what buyers were paying this time last year. Not life-changing, but real money.</p>
+
+      <div class="callout">
+        <p>"Rates currently stand at their lowest level in the last three spring homebuying seasons."</p>
+        <p class="callout-source">— Sam Khater, Chief Economist, Freddie Mac · April 23, 2026</p>
+      </div>
+
+      <p>Now here's what Freddie Mac doesn't tell you: those numbers are based on borrowers with excellent credit, a 20% down payment, and no points paid. Real-world retail rates from big banks and online lenders are running <strong>6.35%–6.55%</strong> for most borrowers right now. I'll come back to why that gap matters in a minute.</p>
+    </div>
+
+    <!-- SECTION 2 -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-num">2</div>
+        <div class="section-title">What's actually driving rates — and why it's complicated right now</div>
+      </div>
+
+      <p>A lot of people think the Fed controls mortgage rates. They don't — not directly. The Fed controls the overnight lending rate between banks (currently <strong>3.50–3.75%</strong>). Mortgage rates follow the 10-year Treasury yield, which is being pulled in opposite directions by two forces right now.</p>
+
+      <p><strong>Force pushing rates up:</strong> Inflation came in at 3.3% year-over-year in March — the fastest pace since early 2024. A lot of that is driven by a 21% spike in gas prices tied to the Iran conflict. When inflation runs hot, bond investors demand higher yields to protect their returns, and that pushes mortgage rates up.</p>
+
+      <p><strong>Force pushing rates down:</strong> The ceasefire between the U.S. and Iran in early April knocked oil prices down roughly $23/barrel in days. When energy prices fall, inflation expectations cool, and bond yields — and with them, mortgage rates — tend to follow.</p>
+
+      <p>The Fed meets again April 28–29. Markets expect them to hold rates where they are, which is the smart move given the mixed picture. Fed Chair Powell's term ends in May, and his likely replacement, Kevin Warsh, told the Senate Banking Committee this week that controlling inflation remains the priority. Translation: don't expect rate cuts to rescue affordability anytime soon.</p>
+
+      <div class="callout">
+        <p>The real number to watch isn't the Fed rate. It's the 10-year Treasury yield. When it's around 4.25% like it is now, mortgage rates tend to run 1.75–2.0 points above it. That math pencils out to roughly 6.0–6.25% — which is exactly where we are.</p>
+        <p class="callout-source">— Logan Mohtashami, HousingWire · mortgage spread analysis, April 2026</p>
+      </div>
+    </div>
+
+    <!-- SECTION 3 -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-num">3</div>
+        <div class="section-title">The housing market in plain English</div>
+      </div>
+
+      <p>Here's the honest picture of where we are: more homes are coming to market, buyers are showing up, but the math is still tight for a lot of people.</p>
+
+      <div class="stat-row">
+        <div class="stat-box">
+          <div class="stat-num">+8.1%</div>
+          <div class="stat-label">Active inventory vs. a year ago</div>
+        </div>
+        <div class="stat-box red">
+          <div class="stat-num">-3.6%</div>
+          <div class="stat-label">Existing home sales in March (NAR)</div>
+        </div>
+        <div class="stat-box green">
+          <div class="stat-num">+1.5%</div>
+          <div class="stat-label">Pending sales, March (NAR)</div>
+        </div>
+      </div>
+
+      <p>The slight disconnect between "pending sales rising" and "closed sales falling" makes sense — pending sales reflect contracts signed weeks earlier when rates were lower. What matters is that <strong>buyers are coming back</strong>, even with rates in the mid-6s. Pent-up demand from three years of a frozen market is real.</p>
+
+      <p>On prices: the national median list price is down about 2% year-over-year — the largest annual dip in over a year. That's not a crash, it's a reset. In Sun Belt markets like Tampa, Phoenix, and North Port, nearly <strong>half of all listings have already taken price cuts</strong>. In the Northeast and Midwest? Still tight. Still appreciating slightly. The national headline doesn't apply equally everywhere.</p>
+
+      <p>If you're buying: you have more time and more negotiating room than you did in 2022. Days on market in many areas are in the 40–50 day range. You can get an inspection done. You can ask for concessions. That's new.</p>
+
+      <p>If you're waiting for rates to fall before buying: you may be waiting a while. Most forecasters expect 30-year rates to hover between 6.0–6.5% through mid-2026, with possible easing to the high 5s by year-end if inflation cooperates.</p>
+    </div>
+
+    <!-- SECTION 4 — THE INSIGHT -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-num">4</div>
+        <div class="section-title">The thing most borrowers don't know about their rate</div>
+      </div>
+
+      <p>This is the part I want you to actually remember.</p>
+
+      <p>When CNN or CNBC says rates are at 6.23%, that number comes from a survey of what banks offered to near-perfect borrowers. It does not reflect what your bank or an online lender will quote you when you apply. Retail lenders — the big banks, the advertised apps, the mortgage desks at credit unions — add their margin on top of what it actually costs to fund a loan.</p>
+
+      <p>There's another channel most consumers don't know exists: <strong>wholesale lending</strong>. Wholesale lenders sell directly to licensed mortgage brokers, who then pass the pricing to borrowers without the retail markup. The result, consistently, is a lower rate for the borrower — not because the broker is doing you a favor, but because the distribution structure is cheaper and the savings get passed on.</p>
+
+      <div class="advantage">
+        <div class="advantage-title">The Measured Advantage</div>
+        <p>Right now, while published retail rates sit in the <strong>6.35–6.55% range</strong> for most qualified borrowers, wholesale pricing on the same loan is running <strong>0.375–0.50% lower</strong>. On a $400,000 loan, that difference is roughly <strong>$90–$120/month</strong>, or about <strong>$32,000–$43,000</strong> over the life of a 30-year loan. The loan is identical. The rate is not.</p>
+      </div>
+
+      <p style="margin-top:18px;">I'm not saying this to impress you — I'm saying it because this is the exact thing that most borrowers find out after they've already closed with their bank. Rates are public; pricing channels are not. That gap is real, and it compounds for the life of your loan.</p>
+    </div>
+
+    <!-- SECTION 5 -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-num">5</div>
+        <div class="section-title">One thing to watch this week</div>
+      </div>
+
+      <p>The FOMC meeting wraps April 29. No rate cut is expected, but the language around the decision matters. If the Fed sounds more worried about inflation than about economic slowdown, bond yields may tick up and you'll see mortgage rates drift back toward 6.4–6.5%. If they sound more cautious about growth, we could test 6.0% again.</p>
+
+      <p>Also watch oil prices. WTI crude is sitting around $89/barrel after the Iran ceasefire pulled it down from $112. Every sustained $10 drop in oil is worth roughly 5–10 basis points on mortgage rates, given its effect on inflation expectations. It's not a guarantee, but it's a real relationship.</p>
+
+      <p>The short version: <strong>rates have room to improve, but nothing is locked in.</strong> If you're thinking about refinancing or buying in the next 60–90 days, it's worth having a real conversation about whether this window is worth acting on.</p>
+    </div>
+
+    <div class="ornament">
+      <hr>
+      <span>· · ·</span>
+      <hr>
+    </div>
+
+    <p style="font-family:'Lora',serif; font-style:italic; font-size:14px; color:var(--muted);">That's issue one. If something in here made you think, or you have a question you'd like me to dig into next week, just reply to this email. I read everything. — Anthony</p>
+
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-section">
+    <h3>Know someone who should be reading this?</h3>
+    <p>Forward it along. Measured is $2/month — paid subscribers only — and every issue stays this focused.</p>
+    <a href="#" class="cta-btn">Subscribe to Measured →</a>
+    <p class="cta-note">No sales calls. Cancel any time.</p>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <span class="footer-sig">Written by <span>Anthony</span> · April 25, 2026</span>
+    <span class="footer-note">Measured · Issue No. 1</span>
+  </div>
+
+</div>
+</body>
+</html>
