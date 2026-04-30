@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Measured — Issue No. 2 · May 2, 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;1,8..60,300&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --paper:    #F8F4EE;
+    --white:    #FDFBF8;
+    --ink:      #1A1915;
+    --muted:    #6A6358;
+    --rule:     rgba(26,25,21,0.10);
+    --rust:     #B05A32;
+    --rust-lt:  #ECD9CE;
+    --gold:     #C2913A;
+    --forest:   #2F6B3E;
+    --forest-lt:#D4E8D9;
+    --navy:     #1E3A5F;
+    --navy-lt:  #D2DFF0;
+    --amber:    #D4820A;
+    --amber-lt: #FAE9CB;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: #EDE8DF;
+    color: var(--ink);
+    padding: 32px 16px 64px;
+  }
+
+  /* ── WRAPPER ── */
+  .wrap {
+    max-width: 620px;
+    margin: 0 auto;
+    background: var(--white);
+    border-radius: 2px;
+    overflow: hidden;
+    box-shadow:
+      0 1px 2px rgba(0,0,0,0.04),
+      0 8px 24px rgba(0,0,0,0.07),
+      0 32px 64px rgba(0,0,0,0.07);
+  }
+
+  /* ── HEADER ── */
+  .header {
+    background: var(--ink);
+    padding: 0;
+  }
+  .header-top {
+    display: flex;
+    align-items: stretch;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+  }
+  .header-brand {
+    flex: 1;
+    padding: 22px 36px;
+  }
+  .brand-name {
+    font-family: 'Playfair Display', serif;
+    color: #F8F4EE;
+    font-size: 26px;
+    letter-spacing: 0.01em;
+    line-height: 1;
+  }
+  .brand-sub {
+    font-size: 10.5px;
+    color: rgba(248,244,238,0.38);
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+    margin-top: 5px;
+  }
+  .header-meta {
+    padding: 22px 36px;
+    text-align: right;
+    border-left: 1px solid rgba(255,255,255,0.07);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+  }
+  .meta-issue {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+  .meta-date {
+    font-size: 11px;
+    color: rgba(248,244,238,0.35);
+    letter-spacing: 0.04em;
+  }
+
+  /* Author strip */
+  .author-strip {
+    background: var(--rust-lt);
+    padding: 14px 36px;
+    display: flex;
+    align-items: center;
+    gap: 13px;
+  }
+  .avatar {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--gold), var(--rust));
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 17px; color: white;
+    flex-shrink: 0;
+    box-shadow: 0 2px 6px rgba(176,90,50,0.3);
+  }
+  .author-name { font-size: 13.5px; font-weight: 500; color: var(--ink); }
+  .author-role { font-size: 11.5px; color: var(--muted); margin-top: 1px; }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--ink);
+    padding: 36px 36px 32px;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -60px; right: -60px;
+    width: 220px; height: 220px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(194,145,58,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-kicker {
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 500;
+    margin-bottom: 14px;
+  }
+  .hero-headline {
+    font-family: 'Playfair Display', serif;
+    font-size: 30px;
+    line-height: 1.22;
+    color: #F8F4EE;
+    margin-bottom: 14px;
+    max-width: 480px;
+  }
+  .hero-headline em { font-style: italic; color: var(--gold); }
+  .hero-deck {
+    font-size: 13.5px;
+    color: rgba(248,244,238,0.52);
+    line-height: 1.65;
+    max-width: 440px;
+  }
+
+  /* ── BODY ── */
+  .body { padding: 36px 36px 32px; }
+
+  /* Opener */
+  .opener {
+    font-family: 'Source Serif 4', serif;
+    font-size: 15px;
+    line-height: 1.78;
+    color: var(--ink);
+    font-style: italic;
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 32px;
+  }
+
+  p {
+    font-size: 14.5px;
+    line-height: 1.78;
+    color: #38342E;
+    margin-bottom: 15px;
+  }
+  p:last-child { margin-bottom: 0; }
+  strong { color: var(--ink); font-weight: 500; }
+
+  /* Section wrapper */
+  .section {
+    margin-bottom: 34px;
+    padding-bottom: 34px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .section:last-of-type { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+  /* Section label */
+  .section-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+  .label-pip {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--rust);
+    flex-shrink: 0;
+  }
+  .label-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    color: var(--ink);
+    font-weight: 500;
+  }
+
+  /* Rate trio */
+  .rate-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin: 20px 0;
+  }
+  .rate-card {
+    background: var(--paper);
+    border-radius: 2px;
+    padding: 14px 16px;
+    border-top: 2px solid var(--rule);
+  }
+  .rate-card.good { border-top-color: var(--forest); }
+  .rate-card.warn { border-top-color: var(--amber); }
+  .rate-card.neutral { border-top-color: var(--navy); }
+  .rate-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    color: var(--ink);
+    line-height: 1;
+  }
+  .rate-desc { font-size: 11px; color: var(--muted); margin-top: 5px; line-height: 1.4; }
+  .rate-delta { font-size: 11.5px; margin-top: 4px; }
+  .rate-delta.down { color: var(--forest); }
+  .rate-delta.flat { color: var(--muted); }
+
+  /* Pull quote */
+  .pull {
+    border-left: 3px solid var(--rust);
+    background: var(--paper);
+    padding: 16px 20px;
+    margin: 20px 0;
+    border-radius: 0 2px 2px 0;
+  }
+  .pull p {
+    font-family: 'Source Serif 4', serif;
+    font-style: italic;
+    font-size: 14.5px;
+    color: var(--ink);
+    margin-bottom: 0;
+    line-height: 1.7;
+  }
+  .pull-attr {
+    font-size: 10.5px !important;
+    color: var(--muted) !important;
+    margin-top: 8px !important;
+    font-style: normal !important;
+    font-family: 'DM Sans', sans-serif !important;
+    letter-spacing: 0.05em;
+  }
+
+  /* FOMC alert box */
+  .alert-box {
+    border: 1px solid rgba(30,58,95,0.18);
+    background: var(--navy-lt);
+    border-radius: 2px;
+    padding: 18px 20px;
+    margin: 20px 0;
+  }
+  .alert-label {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--navy);
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+  .alert-box p { font-size: 14px; color: #1A2D42; margin-bottom: 0; line-height: 1.7; }
+  .alert-box strong { color: #0F1E2E; }
+
+  /* Spread box */
+  .spread-box {
+    border: 1px solid rgba(212,130,10,0.2);
+    background: var(--amber-lt);
+    border-radius: 2px;
+    padding: 18px 20px;
+    margin: 20px 0;
+  }
+  .spread-label {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--amber);
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+  .spread-box p { font-size: 14px; color: #4A2D05; margin-bottom: 0; line-height: 1.7; }
+  .spread-box strong { color: #2E1A00; }
+
+  /* VantageScore highlight */
+  .vs-box {
+    border: 1px solid rgba(47,107,62,0.2);
+    background: var(--forest-lt);
+    border-radius: 2px;
+    padding: 20px 22px;
+    margin: 20px 0;
+  }
+  .vs-label {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--forest);
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+  .vs-box p { font-size: 14px; color: #1C3D24; margin-bottom: 8px; line-height: 1.7; }
+  .vs-box p:last-child { margin-bottom: 0; }
+  .vs-box strong { color: #122618; }
+
+  /* Who benefits list */
+  .benefit-list {
+    margin: 14px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+  }
+  .benefit-item {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    font-size: 14px;
+    color: #1C3D24;
+    line-height: 1.6;
+  }
+  .benefit-dot {
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    background: rgba(47,107,62,0.15);
+    border: 1.5px solid rgba(47,107,62,0.4);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+    font-size: 9px;
+    color: var(--forest);
+    font-weight: 700;
+  }
+
+  /* Anthony's take */
+  .take-box {
+    border: 1px solid rgba(176,90,50,0.2);
+    background: var(--rust-lt);
+    border-radius: 2px;
+    padding: 20px 22px;
+    margin: 20px 0;
+  }
+  .take-label {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--rust);
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+  .take-box p { font-size: 14px; color: #3D1E0A; margin-bottom: 8px; line-height: 1.72; }
+  .take-box p:last-child { margin-bottom: 0; }
+  .take-box strong { color: #231005; }
+
+  /* Ornament divider */
+  .ornament {
+    display: flex; align-items: center; gap: 12px;
+    margin: 30px 0;
+  }
+  .ornament hr { flex: 1; border: none; border-top: 1px solid var(--rule); }
+  .ornament-mark { font-size: 10px; color: var(--gold); letter-spacing: 0.12em; }
+
+  /* Closing note */
+  .closing {
+    font-family: 'Source Serif 4', serif;
+    font-size: 14.5px;
+    font-style: italic;
+    color: var(--muted);
+    line-height: 1.75;
+    padding-top: 24px;
+    border-top: 1px solid var(--rule);
+  }
+  .closing span { color: var(--ink); }
+
+  /* ── FOOTER ── */
+  .footer {
+    background: var(--paper);
+    border-top: 1px solid var(--rule);
+    padding: 18px 36px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .footer-sig {
+    font-family: 'Source Serif 4', serif;
+    font-style: italic;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .footer-sig b { color: var(--ink); font-style: normal; font-weight: 500; }
+  .footer-issue {
+    font-size: 10.5px;
+    color: rgba(106,99,88,0.5);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-top">
+      <div class="header-brand">
+        <div class="brand-name">Measured</div>
+        <div class="brand-sub">A weekly note on mortgage decisions that matter</div>
+      </div>
+      <div class="header-meta">
+        <div class="meta-issue">Issue No. 2</div>
+        <div class="meta-date">May 2, 2026</div>
+      </div>
+    </div>
+
+    <div class="author-strip">
+      <div class="avatar">A</div>
+      <div>
+        <div class="author-name">Anthony</div>
+        <div class="author-role">Mortgage advisor · wholesale lending · plain English, always</div>
+      </div>
+    </div>
+
+    <!-- HERO -->
+    <div class="hero">
+      <div class="hero-kicker">This week in Measured</div>
+      <div class="hero-headline">The Fed just spoke.<br>Rates are calming down.<br>And the rules of <em>who qualifies</em> just changed.</div>
+      <div class="hero-deck">A big week: Powell's final meeting, the VantageScore shift nobody is explaining clearly, and what falling MBS volatility actually means for your rate right now.</div>
+    </div>
+  </div>
+
+  <!-- BODY -->
+  <div class="body">
+
+    <p class="opener">Last week was one of the most consequential in mortgage markets in a while — and most people woke up Friday having no idea. The Fed held rates, Powell gave his farewell, the credit scoring system that has governed mortgage lending for decades just got its first real competition, and bond markets quietly settled down in ways that matter for every buyer and homeowner. Let me walk you through all of it. — Anthony</p>
+
+    <!-- SECTION 1: RATES -->
+    <div class="section">
+      <div class="section-label">
+        <div class="label-pip"></div>
+        <div class="label-text">Where rates stand right now</div>
+      </div>
+
+      <p>After a brutal stretch in early April where the 30-year climbed as high as <strong>6.46%</strong> on the back of the Iran conflict and oil price spikes, rates have been retreating steadily. Here's the current snapshot:</p>
+
+      <div class="rate-row">
+        <div class="rate-card good">
+          <div class="rate-num">6.23%</div>
+          <div class="rate-desc">30-yr fixed<br>Freddie Mac, Apr 23</div>
+          <div class="rate-delta down">↓ 3rd straight weekly drop</div>
+        </div>
+        <div class="rate-card good">
+          <div class="rate-num">5.58%</div>
+          <div class="rate-desc">15-yr fixed<br>Freddie Mac, Apr 23</div>
+          <div class="rate-delta down">↓ Lowest since March</div>
+        </div>
+        <div class="rate-card neutral">
+          <div class="rate-num">6.81%</div>
+          <div class="rate-desc">30-yr fixed<br>One year ago today</div>
+          <div class="rate-delta flat">Year-over-year context</div>
+        </div>
+      </div>
+
+      <p>To put that year-over-year number in dollars: on a <strong>$350,000 loan</strong>, the difference between 6.81% and 6.23% is roughly <strong>$130 less per month</strong> than buyers were paying this time last year. That adds up to over $46,000 across a 30-year loan. Rates still feel high compared to 2020 and 2021. But compared to where we were just 12 months ago, the picture has meaningfully improved.</p>
+
+      <p>Freddie Mac's chief economist called the current rate the <strong>lowest during a spring homebuying season in three years</strong>. That matters because spring is when the most buyers are active — and lower competition from rate-scared buyers means more negotiating room for the ones who do act.</p>
+    </div>
+
+    <!-- SECTION 2: FED DECISION -->
+    <div class="section">
+      <div class="section-label">
+        <div class="label-pip"></div>
+        <div class="label-text">The Fed held — but this meeting was anything but routine</div>
+      </div>
+
+      <p>On Wednesday April 29, the Federal Open Market Committee voted to hold the federal funds rate at <strong>3.50–3.75%</strong>. That was expected. What was not expected was just how divided the committee was when it did it.</p>
+
+      <div class="alert-box">
+        <div class="alert-label">🏛 FOMC Decision · April 29, 2026</div>
+        <p>The final vote was <strong>8-4</strong> — the most dissent the FOMC has seen since October 1992. One dissenter (Stephen Miran) wanted to <em>cut</em> rates immediately. Three others (Hammack, Kashkari, Logan) voted to hold, but wanted to strip out the language suggesting future cuts are still on the table. It was Powell's final meeting as chair, and he leaves behind a committee at odds with itself over what comes next.</p>
+      </div>
+
+      <p>What this means practically: there is now real disagreement inside the Fed about whether rate cuts are coming at all in 2026. Markets are currently pricing in <strong>zero cuts this year</strong> and one possible cut in late 2027. That is a significant shift from where expectations were just a few months ago.</p>
+
+      <p>Powell will remain on the Fed's Board of Governors after Kevin Warsh takes over as chair — which is actually good news for anyone worried about the Fed being pushed into politically motivated rate cuts. Two voices of caution remain in the room.</p>
+
+      <div class="pull">
+        <p>"Every supply shock has the capability of driving inflation up and unemployment up, and the central bank has a really hard time knowing what to do. The right thing to do is to try to balance the achievement of those two goals."</p>
+        <p class="pull-attr">— Jerome Powell, final press conference as Fed Chair · April 29, 2026</p>
+      </div>
+
+      <p>For mortgage borrowers, the takeaway is simple: <strong>don't wait for the Fed to rescue your rate.</strong> Mortgage rates are tied to the 10-year Treasury, not the federal funds rate. The best path forward is improving your credit profile and accessing the right lending channel — not sitting on the sideline waiting for a cut that may not come until 2027.</p>
+    </div>
+
+    <!-- SECTION 3: MBS VOLATILITY -->
+    <div class="section">
+      <div class="section-label">
+        <div class="label-pip"></div>
+        <div class="label-text">The quiet story that's actually moving your rate: MBS spreads are normalizing</div>
+      </div>
+
+      <p>This one requires a little explanation, but it's worth understanding because it's the reason rates have been coming down even while the Fed hasn't moved.</p>
+
+      <p>When a lender makes you a mortgage, they don't just hold that loan — they package it into a bond called a mortgage-backed security (MBS) and sell it to investors. The price investors are willing to pay for those bonds directly determines the rate you get offered. When investors are nervous, they demand a higher return to hold MBS — and that drives your rate up. When they're calm and confident, spreads tighten — and your rate comes down.</p>
+
+      <div class="spread-box">
+        <div class="spread-label">📊 MBS Spread Watch · HousingWire / Logan Mohtashami</div>
+        <p>Historically, the spread between MBS yields and the 10-year Treasury has ranged between <strong>1.60% and 1.80%</strong>. In 2023, when volatility peaked, spreads blew out to <strong>3.10%</strong> — which is why rates hit 8%. As of late April 2026, spreads have tightened back to approximately <strong>1.93–1.94%</strong>, and they've been falling steadily since the Iran ceasefire eased oil prices. If spreads had remained at their 2023 peak, your 30-year rate today would be approximately <strong>7.59%</strong> instead of 6.23%. The spread compression alone has saved borrowers over a full point on their rate.</p>
+      </div>
+
+      <p>According to HousingWire lead analyst Logan Mohtashami, <strong>mortgage rates have eased about 15 basis points over the past two weeks</strong>, largely reflecting a pullback in rate volatility as geopolitical risks begin to stabilize. He also notes that mortgage spreads are tightening — a sign that investors are growing more comfortable stepping back into the space.</p>
+
+      <p>The practical meaning: the calmer the bond market stays, the more room there is for rates to continue drifting lower — even without a Fed cut. Oil prices, geopolitical headlines, and inflation data are the three variables to keep watching. Each time those improve, MBS investors relax, spreads tighten, and rates follow.</p>
+    </div>
+
+    <!-- SECTION 4: VANTAGESCORE -->
+    <div class="section">
+      <div class="section-label">
+        <div class="label-pip"></div>
+        <div class="label-text">The biggest change to mortgage qualifying in decades — and almost nobody's talking about it</div>
+      </div>
+
+      <p>On April 22, something happened that I genuinely believe will open homeownership to millions of people who had been unfairly locked out. The Federal Housing Finance Agency and HUD jointly announced that <strong>FHA, Fannie Mae, and Freddie Mac will now accept VantageScore 4.0</strong> as an eligible credit scoring model alongside the Classic FICO that has been the only game in town for decades.</p>
+
+      <p>Here's why this is a bigger deal than it sounds.</p>
+
+      <p>Classic FICO was built on a snapshot model — it looks at your credit balances and payment history at a single point in time. It was designed in the 1980s and hasn't fundamentally changed since. <strong>VantageScore 4.0 uses trended data</strong> — it watches how your balances move over time, whether you're paying things down or running them up, and it can incorporate <strong>on-time rent payment history</strong>, which Classic FICO largely ignores.</p>
+
+      <div class="vs-box">
+        <div class="vs-label">🏠 What VantageScore 4.0 Means for Borrowers</div>
+        <p><strong>VantageScore 4.0 scores 33 million more people</strong> than traditional FICO models — meaning there are tens of millions of Americans who were essentially invisible to the mortgage system under the old rules. Many of them are creditworthy. They just have a thin credit file, a non-traditional credit history, or years of on-time rent payments that Classic FICO never counted.</p>
+        <div class="benefit-list">
+          <div class="benefit-item">
+            <div class="benefit-dot">✓</div>
+            <div><strong>Renters who pay on time</strong> — Years of on-time rent payments can now factor into your score. If you've been renting for five years without a single late payment, VantageScore 4.0 can see that.</div>
+          </div>
+          <div class="benefit-item">
+            <div class="benefit-dot">✓</div>
+            <div><strong>Thin-file borrowers</strong> — People with limited credit history who couldn't get a FICO score, or whose score didn't reflect their actual financial behavior.</div>
+          </div>
+          <div class="benefit-item">
+            <div class="benefit-dot">✓</div>
+            <div><strong>People on the edge of a threshold</strong> — If your Classic FICO sits just below 620 or 640, your VantageScore 4.0 may land you in a better tier, opening access to better programs and better rates.</div>
+          </div>
+          <div class="benefit-item">
+            <div class="benefit-dot">✓</div>
+            <div><strong>First-time buyers</strong> — Over 80% of FHA loans went to first-time buyers in 2024. The FHA adoption of VantageScore 4.0 is specifically aimed at that group.</div>
+          </div>
+        </div>
+      </div>
+
+      <p>One important caveat: not every lender has opted in yet, and this is rolling out in stages. Classic FICO isn't going anywhere — lenders can still use it. But the door is now open. And for a lot of people who assumed they didn't qualify, it's worth having a real conversation to find out which scoring model works in their favor.</p>
+
+      <div class="take-box">
+        <div class="take-label">Anthony's Take</div>
+        <p>I've worked with borrowers over the years who had every financial habit of a creditworthy homeowner — paid their rent on time for years, managed their bills, kept their balances low — but whose FICO score told a different story because of a thin credit file or a couple of old marks. Classic FICO wasn't built for them. VantageScore 4.0 is.</p>
+        <p>This is the kind of change where timing actually matters. If you've been told "your score isn't quite there" by a retail lender, it may be worth getting a second look under the new scoring model. <strong>The rules changed last week.</strong> What was true about your qualification status two months ago may not be true today.</p>
+      </div>
+    </div>
+
+    <!-- SECTION 5: HOUSING MARKET -->
+    <div class="section">
+      <div class="section-label">
+        <div class="label-pip"></div>
+        <div class="label-text">The housing market: buyers are moving, sellers are adjusting</div>
+      </div>
+
+      <p>The spring market is doing something interesting right now. More homes are coming onto the market — active inventory is up about <strong>8% year-over-year</strong> nationally — but prices haven't fallen off a cliff. What's happening instead is a slower, more rational adjustment: sellers who priced for the 2022 frenzy are taking price cuts, while buyers who are financially ready are finding real opportunities.</p>
+
+      <p>Pending home sales — contracts signed, not yet closed — rose <strong>1.5% in March</strong> according to NAR, and weekly pending data through mid-April showed <strong>73,241 new pending sales</strong>, up from 71,775 a year ago. That's real momentum. People are buying homes, even with rates in the mid-6s.</p>
+
+      <p>In markets like Tampa, Phoenix, and North Port-Sarasota, nearly <strong>half of all listings have taken price cuts</strong>. In the Northeast and most of the Midwest, it's a completely different story — supply is still tight and prices are still edging up. The national average obscures a lot. Where you're buying matters more than any headline number.</p>
+
+      <p>The one thing I'd flag for buyers watching from the sidelines: <strong>pent-up demand is real.</strong> Three years of people who wanted to buy but didn't have been building up. When rates move meaningfully lower — and most forecasters still expect a drift toward the high 5s by late 2026 — that demand is going to hit a market that doesn't have enough supply to absorb it cleanly. The buyers who moved before that happens will be glad they did.</p>
+    </div>
+
+    <!-- ORNAMENT -->
+    <div class="ornament">
+      <hr><div class="ornament-mark">· · ·</div><hr>
+    </div>
+
+    <!-- CLOSING -->
+    <p class="closing">A lot happened this week. The Fed is divided. Rates are calming. The credit scoring system just changed in ways that will open doors for people who had them closed. If any of this applies to your situation — or someone you know — I'm happy to talk through the specifics. Reply to this email anytime. <span>— Anthony</span></p>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-sig">Written by <b>Anthony</b> · May 2, 2026</div>
+    <div class="footer-issue">Measured · Issue No. 2</div>
+  </div>
+
+</div>
+</body>
+</html>
