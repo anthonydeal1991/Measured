@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Measured — Issue No. 3 · May 9, 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,400;1,500&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;1,8..60,300&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --paper:     #F8F4EE;
+    --white:     #FDFBF8;
+    --ink:       #1A1915;
+    --muted:     #6A6358;
+    --rule:      rgba(26,25,21,0.09);
+    --rust:      #B05A32;
+    --rust-lt:   #ECD9CE;
+    --gold:      #C2913A;
+    --forest:    #2F6B3E;
+    --forest-lt: #D4E8D9;
+    --navy:      #1E3A5F;
+    --navy-lt:   #D2DFF0;
+    --amber:     #C47A10;
+    --amber-lt:  #FAE9CB;
+    --warning:   #8B2020;
+    --warning-lt:#F5D5D5;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: #EDE8DF;
+    color: var(--ink);
+    padding: 32px 16px 64px;
+  }
+
+  .wrap {
+    max-width: 620px;
+    margin: 0 auto;
+    background: var(--white);
+    border-radius: 2px;
+    overflow: hidden;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.07), 0 32px 64px rgba(0,0,0,0.07);
+  }
+
+  /* ── MASTHEAD ── */
+  .masthead {
+    background: var(--ink);
+  }
+  .masthead-top {
+    display: flex;
+    align-items: stretch;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .brand {
+    flex: 1;
+    padding: 22px 36px;
+  }
+  .brand-name {
+    font-family: 'Playfair Display', serif;
+    color: #F8F4EE;
+    font-size: 24px;
+    letter-spacing: 0.01em;
+    line-height: 1;
+  }
+  .brand-sub {
+    font-size: 10px;
+    color: rgba(248,244,238,0.35);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-top: 5px;
+  }
+  .masthead-meta {
+    padding: 22px 36px;
+    text-align: right;
+    border-left: 1px solid rgba(255,255,255,0.06);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+  }
+  .meta-issue {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+  .meta-date {
+    font-size: 11px;
+    color: rgba(248,244,238,0.3);
+  }
+
+  /* Author bar */
+  .author-bar {
+    background: var(--rust-lt);
+    padding: 14px 36px;
+    display: flex;
+    align-items: center;
+    gap: 13px;
+  }
+  .avatar {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--gold), var(--rust));
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 17px; color: white;
+    flex-shrink: 0;
+    box-shadow: 0 2px 6px rgba(176,90,50,0.3);
+  }
+  .author-name { font-size: 13.5px; font-weight: 500; color: var(--ink); }
+  .author-role { font-size: 11.5px; color: var(--muted); margin-top: 1px; }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--ink);
+    padding: 36px 36px 32px;
+    border-top: 1px solid rgba(255,255,255,0.04);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    top: -80px; right: -60px;
+    width: 280px; height: 280px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(194,145,58,0.07) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .hero-kicker {
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 500;
+    margin-bottom: 16px;
+  }
+  .hero-hed {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    line-height: 1.22;
+    color: #F8F4EE;
+    margin-bottom: 14px;
+    max-width: 480px;
+  }
+  .hero-hed em { font-style: italic; color: var(--gold); }
+  .hero-deck {
+    font-size: 13.5px;
+    color: rgba(248,244,238,0.48);
+    line-height: 1.65;
+    max-width: 440px;
+  }
+
+  /* ── BODY ── */
+  .body { padding: 36px 36px 32px; }
+
+  .opener {
+    font-family: 'Source Serif 4', serif;
+    font-size: 15px;
+    line-height: 1.78;
+    color: var(--ink);
+    font-style: italic;
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 32px;
+  }
+
+  p {
+    font-size: 14.5px;
+    line-height: 1.78;
+    color: #38342E;
+    margin-bottom: 15px;
+  }
+  p:last-child { margin-bottom: 0; }
+  strong { color: var(--ink); font-weight: 500; }
+
+  .section {
+    margin-bottom: 34px;
+    padding-bottom: 34px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .section:last-of-type { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+  /* Section label */
+  .sec-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+  .sec-pip {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--rust);
+    flex-shrink: 0;
+  }
+  .sec-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    color: var(--ink);
+    font-weight: 500;
+  }
+
+  /* Rate snapshot */
+  .rate-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin: 20px 0;
+  }
+  .rate-card {
+    background: var(--paper);
+    border-radius: 2px;
+    padding: 14px 15px;
+    border-top: 2px solid var(--rule);
+  }
+  .rate-card.up   { border-top-color: var(--rust); }
+  .rate-card.down { border-top-color: var(--forest); }
+  .rate-card.flat { border-top-color: var(--navy); }
+  .rate-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    color: var(--ink);
+    line-height: 1;
+  }
+  .rate-desc { font-size: 11px; color: var(--muted); margin-top: 5px; line-height: 1.4; }
+  .rate-delta { font-size: 11px; margin-top: 4px; }
+  .rate-delta.up   { color: var(--rust); }
+  .rate-delta.down { color: var(--forest); }
+  .rate-delta.flat { color: var(--muted); }
+
+  /* Callout boxes */
+  .callout {
+    border-left: 3px solid var(--rust);
+    background: var(--paper);
+    padding: 16px 20px;
+    margin: 20px 0;
+    border-radius: 0 2px 2px 0;
+  }
+  .callout p {
+    font-family: 'Source Serif 4', serif;
+    font-style: italic;
+    font-size: 14.5px;
+    color: var(--ink);
+    margin-bottom: 0;
+    line-height: 1.7;
+  }
+  .callout-attr {
+    font-size: 10.5px !important;
+    color: var(--muted) !important;
+    margin-top: 8px !important;
+    font-style: normal !important;
+    font-family: 'DM Sans', sans-serif !important;
+    letter-spacing: 0.05em;
+  }
+
+  /* Data box — blue/navy */
+  .data-box {
+    border: 1px solid rgba(30,58,95,0.18);
+    background: var(--navy-lt);
+    border-radius: 2px;
+    padding: 18px 20px;
+    margin: 20px 0;
+  }
+  .data-label {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--navy);
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+  .data-box p { font-size: 14px; color: #1A2D42; margin-bottom: 8px; line-height: 1.7; }
+  .data-box p:last-child { margin-bottom: 0; }
+  .data-box strong { color: #0F1E2E; }
+
+  /* Green opportunity box */
+  .opp-box {
+    border: 1px solid rgba(47,107,62,0.2);
+    background: var(--forest-lt);
+    border-radius: 2px;
+    padding: 20px 22px;
+    margin: 20px 0;
+  }
+  .opp-label {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--forest);
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+  .opp-box p { font-size: 14px; color: #1C3D24; margin-bottom: 8px; line-height: 1.7; }
+  .opp-box p:last-child { margin-bottom: 0; }
+  .opp-box strong { color: #122618; }
+
+  /* Warning / red box — DPA ugly side */
+  .warn-box {
+    border: 1px solid rgba(139,32,32,0.2);
+    background: var(--warning-lt);
+    border-radius: 2px;
+    padding: 20px 22px;
+    margin: 20px 0;
+  }
+  .warn-label {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--warning);
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+  .warn-box p { font-size: 14px; color: #2E0A0A; margin-bottom: 8px; line-height: 1.7; }
+  .warn-box p:last-child { margin-bottom: 0; }
+  .warn-box strong { color: #1A0505; }
+
+  /* Amber / watch box */
+  .watch-box {
+    border: 1px solid rgba(196,122,16,0.2);
+    background: var(--amber-lt);
+    border-radius: 2px;
+    padding: 18px 20px;
+    margin: 20px 0;
+  }
+  .watch-label {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--amber);
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+  .watch-box p { font-size: 14px; color: #3D2200; margin-bottom: 8px; line-height: 1.7; }
+  .watch-box p:last-child { margin-bottom: 0; }
+  .watch-box strong { color: #1F1000; }
+
+  /* Anthony's take */
+  .take-box {
+    border: 1px solid rgba(176,90,50,0.2);
+    background: var(--rust-lt);
+    border-radius: 2px;
+    padding: 20px 22px;
+    margin: 20px 0;
+  }
+  .take-label {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--rust);
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+  .take-box p { font-size: 14px; color: #3D1E0A; margin-bottom: 8px; line-height: 1.7; }
+  .take-box p:last-child { margin-bottom: 0; }
+  .take-box strong { color: #231005; }
+
+  /* DPA comparison table */
+  .dpa-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 13px;
+  }
+  .dpa-table thead tr { background: var(--ink); color: var(--white); }
+  .dpa-table thead th {
+    padding: 10px 14px;
+    text-align: left;
+    font-size: 10.5px;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .dpa-table tbody tr { border-bottom: 1px solid var(--rule); }
+  .dpa-table tbody tr:last-child { border-bottom: none; }
+  .dpa-table tbody td { padding: 10px 14px; color: #38342E; vertical-align: top; }
+  .dpa-table .good { color: var(--forest); font-weight: 500; }
+  .dpa-table .bad  { color: var(--warning); font-weight: 500; }
+  .dpa-table .type { font-weight: 500; color: var(--ink); }
+
+  /* Checklist */
+  .checklist { margin: 16px 0; display: flex; flex-direction: column; gap: 10px; }
+  .check-item { display: flex; gap: 12px; align-items: flex-start; font-size: 14px; color: #38342E; line-height: 1.6; }
+  .check-icon {
+    width: 20px; height: 20px; border-radius: 50%;
+    background: var(--forest-lt);
+    border: 1.5px solid rgba(47,107,62,0.35);
+    color: var(--forest);
+    font-size: 9px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; margin-top: 2px;
+  }
+  .check-icon.x {
+    background: var(--warning-lt);
+    border-color: rgba(139,32,32,0.3);
+    color: var(--warning);
+  }
+
+  /* Ornament */
+  .ornament { display: flex; align-items: center; gap: 12px; margin: 30px 0; }
+  .ornament hr { flex: 1; border: none; border-top: 1px solid var(--rule); }
+  .ornament-mark { font-size: 10px; color: var(--gold); letter-spacing: 0.12em; }
+
+  /* Closing */
+  .closing {
+    font-family: 'Source Serif 4', serif;
+    font-size: 14.5px;
+    font-style: italic;
+    color: var(--muted);
+    line-height: 1.75;
+    padding-top: 24px;
+    border-top: 1px solid var(--rule);
+  }
+  .closing b { color: var(--ink); font-style: normal; font-weight: 500; }
+
+  /* Footer */
+  .footer {
+    background: var(--paper);
+    border-top: 1px solid var(--rule);
+    padding: 18px 36px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .footer-sig {
+    font-family: 'Source Serif 4', serif;
+    font-style: italic;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .footer-sig b { color: var(--ink); font-style: normal; font-weight: 500; }
+  .footer-issue { font-size: 10.5px; color: rgba(106,99,88,0.45); letter-spacing: 0.06em; text-transform: uppercase; }
+
+  @media (max-width: 560px) {
+    .body { padding: 28px 20px 24px; }
+    .masthead-top { flex-direction: column; }
+    .masthead-meta { text-align: left; border-left: none; border-top: 1px solid rgba(255,255,255,0.06); padding: 14px 36px; }
+    .rate-row { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- MASTHEAD -->
+  <div class="masthead">
+    <div class="masthead-top">
+      <div class="brand">
+        <div class="brand-name">Measured</div>
+        <div class="brand-sub">A weekly note on mortgage decisions that matter</div>
+      </div>
+      <div class="masthead-meta">
+        <div class="meta-issue">Issue No. 3</div>
+        <div class="meta-date">May 9, 2026</div>
+      </div>
+    </div>
+    <div class="author-bar">
+      <div class="avatar">A</div>
+      <div>
+        <div class="author-name">Anthony</div>
+        <div class="author-role">Mortgage advisor · wholesale lending · plain English, always</div>
+      </div>
+    </div>
+    <div class="hero">
+      <div class="hero-kicker">This week in Measured</div>
+      <div class="hero-hed">Rates moved higher. The market moved forward. And <em>down payment assistance</em> isn't always what it seems.</div>
+      <div class="hero-deck">What pushed the 30-year back up to 6.37% this week, why serious buyers shouldn't blink, and the hidden cost inside most DPA programs that nobody puts in the brochure.</div>
+    </div>
+  </div>
+
+  <!-- BODY -->
+  <div class="body">
+
+    <p class="opener">Three weeks in and I keep getting the same two questions: "Should I wait for rates to drop?" and "I found a down payment assistance program — is it a good deal?" This issue answers both. The short version: no, and it depends. The longer version is below. — Anthony</p>
+
+    <!-- SECTION 1: WHAT MOVED RATES -->
+    <div class="section">
+      <div class="sec-label">
+        <div class="sec-pip"></div>
+        <div class="sec-title">What moved rates this week — and why it wasn't the Fed</div>
+      </div>
+
+      <p>Rates moved higher this week. The 30-year fixed averaged 6.37% as of May 7, up from 6.30% the previous week. The 15-year followed suit. Here's the full picture:</p>
+
+      <div class="rate-row">
+        <div class="rate-card up">
+          <div class="rate-num">6.37%</div>
+          <div class="rate-desc">30-yr fixed<br>Freddie Mac, May 7</div>
+          <div class="rate-delta up">↑ from 6.30% last week</div>
+        </div>
+        <div class="rate-card up">
+          <div class="rate-num">5.72%</div>
+          <div class="rate-desc">15-yr fixed<br>Freddie Mac, May 7</div>
+          <div class="rate-delta up">↑ from 5.64% last week</div>
+        </div>
+        <div class="rate-card flat">
+          <div class="rate-num">6.76%</div>
+          <div class="rate-desc">30-yr fixed<br>One year ago today</div>
+          <div class="rate-delta flat">Year-over-year context</div>
+        </div>
+      </div>
+
+      <p>That uptick — 7 basis points in a week — was driven by three things stacking on top of each other, none of them the Fed.</p>
+
+      <p><strong>First: the Iran ceasefire broke down.</strong> There is no clear path toward a permanent resolution to the Iran War. Oil prices are climbing higher, leading to uncertainty and fears of rising inflation, which is putting upward pressure on mortgage rates. When oil spikes, inflation expectations follow, and bond investors demand more yield to hold long-term debt. That pushes the 10-year Treasury up — and mortgage rates go with it.</p>
+
+      <p><strong>Second: the 10-year Treasury climbed hard early in the week.</strong> Mortgage rates climbed to 6.46% on Monday before pulling back, with the 10-year Treasury sitting at 4.358%. By Thursday, oil pulled back sharply to $91.21 a barrel, down $4.51, and the 10-year eased to 4.334%, giving borrowers a modestly improved backdrop. The week's range — from 6.46% Monday to 6.37% Thursday — tells you exactly how much oil is driving rate swings right now.</p>
+
+      <p><strong>Third: sticky inflation.</strong> Inflation risks are tilting higher again, which limits any meaningful drop in rates. The 10-year Treasury is the real driver, and if it pushes toward 4.5%, mortgage rates could quickly reach 6.60–6.75%.</p>
+
+      <div class="data-box">
+        <div class="data-label">📊 The Rate Equation Right Now · HousingWire / Scotsman Guide</div>
+        <p>The 10-year Treasury is running around <strong>4.33–4.41%</strong> this week. Mortgage rates historically run <strong>1.75–2.00 points above</strong> that yield. Do the math: 4.35% + 1.90% spread = <strong>6.25%</strong>. The fact that we're at 6.37% means spreads are slightly elevated — still nowhere near the 3.10% blowout of 2023, but not fully normalized either. Every time the ceasefire news improves, oil drops, and that spread compresses. Every time it falls apart, it widens again. <strong>Oil is the swing variable.</strong> Watch WTI crude. When it drops below $88, expect rate relief within 5–10 business days.</p>
+      </div>
+
+      <div class="callout">
+        <p>Even with this week's increase, the 30-year is still 39 basis points below where it was one year ago. On a $350,000 loan, that's roughly $85 per month less than buyers were paying last May.</p>
+        <p class="callout-attr">— Freddie Mac PMMS, May 7, 2026 vs. May 2025</p>
+      </div>
+
+      <p>Experts forecast rates remaining range-bound between 6.20–6.40% through May, with a slight downward bias if the ceasefire holds and Treasury yields continue to ease. If the 10-year breaks above 4.50%, though, the 30-year heads straight back toward 6.75% or higher. The window is real but fragile.</p>
+    </div>
+
+    <!-- SECTION 2: STAY IN THE HUNT -->
+    <div class="section">
+      <div class="sec-label">
+        <div class="sec-pip"></div>
+        <div class="sec-title">Why buyers who stay in the hunt right now will be glad they did</div>
+      </div>
+
+      <p>Here's the thing about waiting for rates to drop: everyone else is waiting too. And when rates move meaningfully lower, they all show up at the same time.</p>
+
+      <p>Median national list prices are down 2.2% year over year, and price cuts remain elevated at roughly 36% nationally. Buyers have not disappeared — they've become more payment-sensitive, location-sensitive and price-sensitive. Homes are still moving, but the market is rewarding buyers who engage when sellers are adjusting pricing rather than digging in.</p>
+
+      <p>That's the environment right now. Sellers are still chasing the 2022 market in their heads, but the data is forcing them back to reality. Spring inventory is rising and new listings are coming online faster — but pricing hasn't caught up. More sellers are resorting to price cuts and relistings rather than pricing in line with current market conditions. That pricing lag is your window.</p>
+
+      <div class="opp-box">
+        <div class="opp-label">📈 The Buyer's Opportunity Right Now · HousingWire Data</div>
+        <p>New listings totaled 50,303 in a recent week, up 9.7% year over year — one of the strongest early-season listing weeks since before the pandemic. Total inventory reached 695,628 single-family homes, up 10.5% year over year. More choices. Less competition. Sellers who need to move.</p>
+        <p>New-home prices are down to their lowest level since July 2021, and inventory is higher than in recent years. These trends could modestly ease affordability pressures through the spring homebuying season. Freddie Mac's own chief economist said it — this is the most buyer-friendly spring in three years.</p>
+      </div>
+
+      <p>Here's the scenario nobody talks about: rates drop to 5.75% later this year. What happens? If rates dip, demand could surge quickly — so buyers who are financially ready now should consider acting sooner rather than waiting. The buyers who waited are now competing in bidding wars on less inventory at prices that have re-accelerated. The buyers who moved when it was quiet are sitting in their homes watching the chaos from the couch.</p>
+
+      <div class="callout">
+        <p>Mortgage spreads remain well below 2023 levels, keeping rates from worsening further. As Logan Mohtashami at HousingWire noted this week: the housing market has historically stalled every time rates push above 7%. We're not there. The floor is holding.</p>
+        <p class="callout-attr">— Logan Mohtashami, HousingWire Housing Market Tracker · May 2026</p>
+      </div>
+
+      <p>The MBA's Purchase Applications Payment Index rose in March, indicating declining affordability month-over-month — but annual earnings are up 3.9%, contributing to 5.6% better affordability compared to a year ago. Wages are quietly catching up. The people who buy now lock in that math before the next crowd arrives.</p>
+
+      <div class="take-box">
+        <div class="take-label">Anthony's Take</div>
+        <p>I talk to buyers every week who are waiting for "the right time." The right time is when you're financially ready, you find a home you want to live in, and you're not competing with fifteen other offers. That describes most markets right now. <strong>The rate you get today can be refinanced when rates drop. The price you pay is permanent.</strong> Buying at 6.37% on a home priced realistically is a better position than buying at 5.75% on a home that's already re-inflated by pent-up demand. That's not a theory — it's what has happened in every rate-relief cycle since 2000.</p>
+      </div>
+    </div>
+
+    <!-- SECTION 3: DPA UGLY SIDE -->
+    <div class="section">
+      <div class="sec-label">
+        <div class="sec-pip"></div>
+        <div class="sec-title">Down payment assistance: the part nobody puts in the brochure</div>
+      </div>
+
+      <p>Down payment assistance programs are everywhere right now — and with good reason. As of April 1, 2026, there are 2,679 homebuyer assistance programs available nationwide, with an average benefit of $18,000 per borrower, and buyers are spending more than $31,000 beyond the down payment in upfront costs. On paper, DPA programs sound like free money. Sometimes they are. But the full picture is more complicated than the marketing suggests, and most borrowers find out too late.</p>
+
+      <p>Here's what you need to understand before you sign up for one.</p>
+
+      <p><strong>The rate markup — the cost nobody leads with.</strong> Most DPA programs are paired with a specific first mortgage at a rate set by the program — not by the market. That rate is almost always <em>above</em> what you'd get independently. New York's SONYMA program is one of the most transparent about this: interest rates for first-time mortgages with a DPAL attached will be 0.40% higher than mortgages without. That's just one example. Many programs carry rate premiums of 0.25–0.75%. On a $350,000 loan, a 0.50% rate penalty is worth about <strong>$112 more per month</strong> — or <strong>$40,000 over 30 years.</strong> If the DPA grant is $15,000, you've handed it back and then some over the life of the loan.</p>
+
+      <div class="warn-box">
+        <div class="warn-label">⚠️ The Real Math on DPA Programs</div>
+        <p>Let's use a real scenario. A buyer gets $15,000 in DPA on a $300,000 purchase. The DPA-paired rate is 6.75%. A wholesale broker could get the same buyer to 6.25% with no DPA requirement on a conventional loan with 5% down already saved.</p>
+        <p>At 6.25%: <strong>$1,661/month</strong> (P&I on $285,000 after 5% down)<br>At 6.75% with DPA: <strong>$1,946/month</strong> (P&I on $300,000 at 6.75%)</p>
+        <p>The DPA borrower pays <strong>$285 more per month</strong>. After just 53 months — less than 4.5 years — they've paid back the entire $15,000 grant in extra interest. After that, they're just paying more. <strong>The program gave them $15,000 and took back $40,000+.</strong></p>
+      </div>
+
+      <p><strong>The repayment trap.</strong> Depending on the program, you may have to pay interest on the assistance or stay in your home for a certain number of years to avoid repayment. Most DPA second mortgages require repayment when you sell, refinance, or stop living in the home. That means when rates drop and you want to refinance, you have to pay back the DPA first. That can easily be $10,000–$25,000 due at refinance closing — exactly when you thought you were saving money.</p>
+
+      <p><strong>The restricted lender problem.</strong> Most DPA programs require you to use an approved lender or loan type. That approved lender is rarely the one offering you the best rate. You're locked into their pricing, their timeline, and their underwriting. The programs that sound most generous often have the least lender competition — which means the least pricing pressure and the worst rates.</p>
+
+      <p><strong>The income limit squeeze.</strong> Many DPAs require borrowers to have an income of no more than 80–120% of their Area Median Income. That sounds reasonable until you realize that qualifying for the DPA — and therefore being subject to its rate — sometimes pushes borrowers <em>away</em> from better conventional loan structures that would serve them more cost-effectively.</p>
+
+      <p>Here's the table that tells the story:</p>
+
+      <table class="dpa-table">
+        <thead>
+          <tr>
+            <th>DPA Type</th>
+            <th>The Benefit</th>
+            <th>The Catch</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="type">Grant (true)</td>
+            <td class="good">Never repaid. Real free money.</td>
+            <td class="bad">Rate is often 0.25–0.75% above market. Restricted lenders only.</td>
+          </tr>
+          <tr>
+            <td class="type">Forgivable loan</td>
+            <td class="good">Forgiven after 5–15 years if you stay.</td>
+            <td class="bad">Repaid in full if you sell or refi before forgiveness date. Limits flexibility.</td>
+          </tr>
+          <tr>
+            <td class="type">Deferred 2nd mortgage</td>
+            <td class="good">No monthly payments on the 2nd.</td>
+            <td class="bad">Balance due when you sell or refinance. Reduces your equity at exit.</td>
+          </tr>
+          <tr>
+            <td class="type">Shared appreciation</td>
+            <td class="good">Large assistance (some up to 20% of purchase price).</td>
+            <td class="bad">Program takes a % of your home's appreciation when you sell. Can cost tens of thousands.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p><strong>So when is DPA actually worth it?</strong> Genuinely, sometimes. If you receive a true grant with a rate premium under 0.25% and you plan to stay in the home long-term, the math can work. If the choice is between DPA or not buying at all because you have no down payment saved, DPA gets you in. Equity and appreciation start on day one, not the day your savings account catches up.</p>
+
+      <div class="opp-box">
+        <div class="opp-label">✓ When DPA Makes Sense</div>
+        <div style="margin-top: 4px;">
+          <div class="checklist">
+            <div class="check-item">
+              <div class="check-icon">✓</div>
+              <div>The rate premium is <strong>under 0.25%</strong> above what you'd qualify for independently</div>
+            </div>
+            <div class="check-item">
+              <div class="check-icon">✓</div>
+              <div>You plan to stay in the home <strong>at least 7–10 years</strong> (long enough to absorb the rate cost)</div>
+            </div>
+            <div class="check-item">
+              <div class="check-icon">✓</div>
+              <div>The program is a <strong>true grant</strong> — not a deferred second mortgage due at refinance</div>
+            </div>
+            <div class="check-item">
+              <div class="check-icon">✓</div>
+              <div>Without DPA you <strong>cannot buy at all</strong> — and renting is costing you more than the rate penalty</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top: 14px;">
+        <div class="checklist">
+          <div class="check-item">
+            <div class="check-icon x">✗</div>
+            <div>You plan to <strong>refinance in 2–5 years</strong> when rates drop (the deferred balance will be due at closing)</div>
+          </div>
+          <div class="check-item">
+            <div class="check-icon x">✗</div>
+            <div>The rate markup is <strong>0.50% or more</strong> — you'll hand back the grant in extra interest within 4–5 years</div>
+          </div>
+          <div class="check-item">
+            <div class="check-icon x">✗</div>
+            <div>You have <strong>enough saved for a conventional loan</strong> — the DPA isn't solving a real problem, just creating new ones</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="take-box">
+        <div class="take-label">Anthony's Take</div>
+        <p>I've run these numbers with dozens of borrowers who came to me after being told they "qualified for free down payment assistance." Most of them didn't realize the rate attached to that program was going to cost them more than the assistance was worth. The ones who hadn't closed yet — we found better structures. The ones who already had — they refinanced as soon as rates allowed and paid back the second mortgage at closing, which wiped out most of their anticipated savings.</p>
+        <p><strong>The question to ask any lender offering DPA is: what is the first mortgage rate, and what would I qualify for on a conventional loan without the program?</strong> If they can't answer that clearly, get a second opinion before you sign anything.</p>
+      </div>
+    </div>
+
+    <!-- SECTION 4: WATCH THIS WEEK -->
+    <div class="section">
+      <div class="sec-label">
+        <div class="sec-pip"></div>
+        <div class="sec-title">What to watch the week of May 12</div>
+      </div>
+
+      <p>Three things worth tracking this week, in order of importance to your rate:</p>
+
+      <div class="watch-box">
+        <div class="watch-label">📅 Week Ahead · May 12–16, 2026</div>
+        <p><strong>Monday May 12 — CPI Inflation Report.</strong> This is the one. April's Consumer Price Index data drops at 8:30am ET. If it comes in below 3.0% year-over-year, bond markets will rally and mortgage rates could shed 10–15 basis points by end of week. If it prints hot — above 3.3% — expect rates to test 6.50% again. This single report will do more to move your rate than anything the Fed says in June.</p>
+        <p><strong>Tuesday May 13 — PPI (Producer Price Index).</strong> Wholesale inflation data — a leading indicator for where consumer prices go next. A soft PPI reading two days after a soft CPI would be a meaningful signal that the inflation spike is fading. That's the combination that moves rates lower sustainably.</p>
+        <p><strong>Thursday May 15 — Retail Sales + Jobless Claims.</strong> If consumers are pulling back spending and claims are rising, the economic slowdown narrative picks up — and with it, pressure on the Fed to eventually cut. Both would be rate-friendly for mortgage borrowers.</p>
+      </div>
+
+      <p>The honest summary: <strong>this is one of the most important data weeks of the quarter.</strong> If you're within 60 days of closing and haven't locked your rate yet, it's worth a conversation before Monday morning's number drops.</p>
+    </div>
+
+    <!-- ORNAMENT -->
+    <div class="ornament">
+      <hr><div class="ornament-mark">· · ·</div><hr>
+    </div>
+
+    <!-- CLOSING -->
+    <p class="closing">The down payment question and the rate question are the two I hear most often — and they're usually connected. If you want me to run the actual numbers on a DPA program you've been quoted, or you want to know what rate you'd qualify for through the wholesale channel on your specific profile, just reply to this email. I'll give you the real comparison, not the brochure version. <b>— Anthony</b></p>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-sig">Written by <b>Anthony</b> · May 9, 2026</div>
+    <div class="footer-issue">Measured · Issue No. 3</div>
+  </div>
+
+</div>
+</body>
+</html>
