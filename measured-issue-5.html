@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Measured — Issue No. 5 · May 23, 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,400;1,500&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;1,8..60,300&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --paper:#F8F4EE;--white:#FDFBF8;--ink:#1A1915;--muted:#6A6358;
+    --rule:rgba(26,25,21,0.09);--rust:#B05A32;--rust-lt:#ECD9CE;
+    --gold:#C2913A;--forest:#2F6B3E;--forest-lt:#D4E8D9;
+    --navy:#1E3A5F;--navy-lt:#D2DFF0;--amber:#C47A10;--amber-lt:#FAE9CB;
+    --warn:#8B2020;--warn-lt:#F5D5D5;--charcoal:#2D2D2A;
+  }
+  body{font-family:'DM Sans',sans-serif;background:#EDE8DF;color:var(--ink);padding:32px 16px 64px}
+  .wrap{max-width:620px;margin:0 auto;background:var(--white);border-radius:2px;overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,0.04),0 8px 24px rgba(0,0,0,0.07),0 32px 64px rgba(0,0,0,0.07)}
+
+  /* MASTHEAD */
+  .masthead{background:var(--ink)}
+  .masthead-top{display:flex;align-items:stretch;border-bottom:1px solid rgba(255,255,255,0.06)}
+  .brand{flex:1;padding:22px 36px}
+  .brand-name{font-family:'Playfair Display',serif;color:#F8F4EE;font-size:24px;letter-spacing:0.01em;line-height:1}
+  .brand-sub{font-size:10px;color:rgba(248,244,238,0.35);letter-spacing:0.12em;text-transform:uppercase;margin-top:5px}
+  .masthead-meta{padding:22px 36px;text-align:right;border-left:1px solid rgba(255,255,255,0.06);display:flex;flex-direction:column;justify-content:center;gap:4px}
+  .meta-issue{font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold)}
+  .meta-date{font-size:11px;color:rgba(248,244,238,0.3)}
+  .author-bar{background:var(--rust-lt);padding:14px 36px;display:flex;align-items:center;gap:13px}
+  .avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--rust));display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:17px;color:white;flex-shrink:0;box-shadow:0 2px 6px rgba(176,90,50,0.3)}
+  .author-name{font-size:13.5px;font-weight:500;color:var(--ink)}
+  .author-role{font-size:11.5px;color:var(--muted);margin-top:1px}
+
+  /* HERO */
+  .hero{background:var(--ink);padding:36px 36px 32px;border-top:1px solid rgba(255,255,255,0.04);position:relative;overflow:hidden}
+  .hero::after{content:'';position:absolute;top:-80px;right:-60px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(194,145,58,0.07) 0%,transparent 65%);pointer-events:none}
+  .hero-kicker{font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:16px}
+  .hero-hed{font-family:'Playfair Display',serif;font-size:28px;line-height:1.22;color:#F8F4EE;margin-bottom:14px;max-width:500px}
+  .hero-hed em{font-style:italic;color:var(--gold)}
+  .hero-deck{font-size:13.5px;color:rgba(248,244,238,0.48);line-height:1.65;max-width:460px}
+
+  /* BODY */
+  .body{padding:36px 36px 32px}
+  .opener{font-family:'Source Serif 4',serif;font-size:15px;line-height:1.78;color:var(--ink);font-style:italic;padding-bottom:28px;border-bottom:1px solid var(--rule);margin-bottom:32px}
+  p{font-size:14.5px;line-height:1.78;color:#38342E;margin-bottom:15px}
+  p:last-child{margin-bottom:0}
+  strong{color:var(--ink);font-weight:500}
+  .section{margin-bottom:34px;padding-bottom:34px;border-bottom:1px solid var(--rule)}
+  .section:last-of-type{border-bottom:none;margin-bottom:0;padding-bottom:0}
+  .sec-label{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+  .sec-pip{width:6px;height:6px;border-radius:50%;background:var(--rust);flex-shrink:0}
+  .sec-title{font-family:'Playfair Display',serif;font-size:17px;color:var(--ink);font-weight:500}
+
+  /* Rate cards */
+  .rate-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:20px 0}
+  .rate-card{background:var(--paper);border-radius:2px;padding:14px 15px;border-top:2px solid var(--rule)}
+  .rate-card.up{border-top-color:var(--warn)}
+  .rate-card.ok{border-top-color:var(--forest)}
+  .rate-card.flat{border-top-color:var(--navy)}
+  .rate-num{font-family:'Playfair Display',serif;font-size:22px;color:var(--ink);line-height:1}
+  .rate-desc{font-size:11px;color:var(--muted);margin-top:5px;line-height:1.4}
+  .rate-delta{font-size:11px;margin-top:4px}
+  .rate-delta.up{color:var(--warn)}
+  .rate-delta.ok{color:var(--forest)}
+  .rate-delta.flat{color:var(--muted)}
+
+  /* Callout */
+  .callout{border-left:3px solid var(--rust);background:var(--paper);padding:16px 20px;margin:20px 0;border-radius:0 2px 2px 0}
+  .callout p{font-family:'Source Serif 4',serif;font-style:italic;font-size:14.5px;color:var(--ink);margin-bottom:0;line-height:1.7}
+  .callout-attr{font-size:10.5px !important;color:var(--muted) !important;margin-top:8px !important;font-style:normal !important;font-family:'DM Sans',sans-serif !important;letter-spacing:0.05em}
+
+  /* Warning — red */
+  .warn-box{border:1px solid rgba(139,32,32,0.2);background:var(--warn-lt);border-radius:2px;padding:20px 22px;margin:20px 0}
+  .warn-label{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--warn);font-weight:500;margin-bottom:8px}
+  .warn-box p{font-size:14px;color:#2E0A0A;margin-bottom:8px;line-height:1.7}
+  .warn-box p:last-child{margin-bottom:0}
+  .warn-box strong{color:#1A0505}
+
+  /* Navy data */
+  .data-box{border:1px solid rgba(30,58,95,0.18);background:var(--navy-lt);border-radius:2px;padding:18px 20px;margin:20px 0}
+  .data-label{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--navy);font-weight:500;margin-bottom:8px}
+  .data-box p{font-size:14px;color:#1A2D42;margin-bottom:8px;line-height:1.7}
+  .data-box p:last-child{margin-bottom:0}
+  .data-box strong{color:#0F1E2E}
+
+  /* Green opportunity */
+  .opp-box{border:1px solid rgba(47,107,62,0.2);background:var(--forest-lt);border-radius:2px;padding:20px 22px;margin:20px 0}
+  .opp-label{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--forest);font-weight:500;margin-bottom:8px}
+  .opp-box p{font-size:14px;color:#1C3D24;margin-bottom:8px;line-height:1.72}
+  .opp-box p:last-child{margin-bottom:0}
+  .opp-box strong{color:#122618}
+
+  /* Amber */
+  .watch-box{border:1px solid rgba(196,122,16,0.2);background:var(--amber-lt);border-radius:2px;padding:18px 20px;margin:20px 0}
+  .watch-label{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--amber);font-weight:500;margin-bottom:8px}
+  .watch-box p{font-size:14px;color:#3D2200;margin-bottom:8px;line-height:1.7}
+  .watch-box p:last-child{margin-bottom:0}
+  .watch-box strong{color:#1F1000}
+
+  /* Anthony's take */
+  .take-box{border:1px solid rgba(176,90,50,0.2);background:var(--rust-lt);border-radius:2px;padding:20px 22px;margin:20px 0}
+  .take-label{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--rust);font-weight:500;margin-bottom:8px}
+  .take-box p{font-size:14px;color:#3D1E0A;margin-bottom:8px;line-height:1.72}
+  .take-box p:last-child{margin-bottom:0}
+  .take-box strong{color:#231005}
+
+  /* Dark stat row */
+  .stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:20px 0}
+  .stat-card{background:var(--paper);border-radius:2px;padding:14px 15px;border-top:2px solid var(--gold)}
+  .stat-card.green{border-top-color:var(--forest)}
+  .stat-num{font-family:'Playfair Display',serif;font-size:22px;color:var(--ink);line-height:1}
+  .stat-desc{font-size:11px;color:var(--muted);margin-top:5px;line-height:1.4}
+
+  /* Timeline / history strip */
+  .timeline{margin:20px 0;display:flex;flex-direction:column;gap:0}
+  .tl-item{display:flex;gap:16px;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--rule)}
+  .tl-item:last-child{border-bottom:none}
+  .tl-year{font-family:'Playfair Display',serif;font-size:15px;font-weight:500;color:var(--gold);width:44px;flex-shrink:0;padding-top:1px}
+  .tl-content{font-size:13.5px;color:#38342E;line-height:1.6}
+  .tl-content strong{color:var(--ink)}
+
+  /* Ornament */
+  .ornament{display:flex;align-items:center;gap:12px;margin:30px 0}
+  .ornament hr{flex:1;border:none;border-top:1px solid var(--rule)}
+  .ornament-mark{font-size:10px;color:var(--gold);letter-spacing:0.12em}
+
+  /* Closing */
+  .closing{font-family:'Source Serif 4',serif;font-size:14.5px;font-style:italic;color:var(--muted);line-height:1.75;padding-top:24px;border-top:1px solid var(--rule)}
+  .closing b{color:var(--ink);font-style:normal;font-weight:500}
+
+  /* Footer */
+  .footer{background:var(--paper);border-top:1px solid var(--rule);padding:18px 36px;display:flex;align-items:center;justify-content:space-between}
+  .footer-sig{font-family:'Source Serif 4',serif;font-style:italic;font-size:13px;color:var(--muted)}
+  .footer-sig b{color:var(--ink);font-style:normal;font-weight:500}
+  .footer-issue{font-size:10.5px;color:rgba(106,99,88,0.45);letter-spacing:0.06em;text-transform:uppercase}
+
+  @media(max-width:560px){
+    .body{padding:28px 20px 24px}
+    .masthead-top{flex-direction:column}
+    .masthead-meta{text-align:left;border-left:none;border-top:1px solid rgba(255,255,255,0.06);padding:14px 36px}
+    .rate-row,.stat-row{grid-template-columns:1fr 1fr}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- MASTHEAD -->
+  <div class="masthead">
+    <div class="masthead-top">
+      <div class="brand">
+        <div class="brand-name">Measured</div>
+        <div class="brand-sub">A weekly note on mortgage decisions that matter</div>
+      </div>
+      <div class="masthead-meta">
+        <div class="meta-issue">Issue No. 5</div>
+        <div class="meta-date">May 23, 2026</div>
+      </div>
+    </div>
+    <div class="author-bar">
+      <div class="avatar">A</div>
+      <div>
+        <div class="author-name">Anthony · Loan Pronto</div>
+        <div class="author-role">Mortgage advisor · wholesale lending · plain English, always</div>
+      </div>
+    </div>
+    <div class="hero">
+      <div class="hero-kicker">This week in Measured</div>
+      <div class="hero-hed">The U.S. just lost its last perfect credit rating. Here's what it means for <em>your mortgage.</em></div>
+      <div class="hero-deck">Moody's dropped the U.S. from Aaa to Aa1 — the first time all three major agencies have downgraded American debt. Rates jumped to 6.51% this week. The housing market is still moving. Here's the unfiltered picture.</div>
+    </div>
+  </div>
+
+  <!-- BODY -->
+  <div class="body">
+
+    <p class="opener">This was the week I'd been watching for since spring. Moody's made it official on Friday: the United States no longer holds a perfect credit rating from any of the three major agencies. That's never happened before in our lifetimes. Rates responded. Markets shrugged, then worried, then shrugged again. I want to cut through all of it and tell you what actually matters for your mortgage decision right now. — Anthony</p>
+
+    <!-- SECTION 1: MOODY'S + RATES -->
+    <div class="section">
+      <div class="sec-label"><div class="sec-pip"></div><div class="sec-title">What Moody's did — and why rates jumped to 6.51%</div></div>
+
+      <p>On Friday May 16, Moody's cut the U.S. sovereign credit rating from <strong>Aaa to Aa1</strong> — one notch below the top. The move was widely expected — Moody's had been considering it since 2023 — but the timing and its symbolic weight hit markets hard. This is now the <strong>third time a major agency has downgraded U.S. debt</strong>: S&P did it in 2011, Fitch in 2023, and now Moody's completes the trifecta. For the first time in modern history, no major rating agency gives the United States a perfect score.</p>
+
+      <div class="warn-box">
+        <div class="warn-label">⚠️ Why This Matters to Mortgage Borrowers · Specifically</div>
+        <p>When a country's credit rating drops, investors demand a higher return to hold that country's debt — because it's now officially considered slightly less safe. That means <strong>Treasury yields rise</strong>. And because mortgage rates track the 10-year Treasury, they rise too.</p>
+        <p>Within days of the Moody's announcement, the <strong>30-year Treasury yield briefly crossed 5%</strong>, the 10-year climbed to <strong>4.56%</strong> — up from 4.43% before the downgrade — and mortgage rates at some lenders temporarily pushed <strong>above 7%</strong> before pulling back. The Freddie Mac weekly survey settled at <strong>6.51%</strong> for the week ending May 21, up sharply from 6.36% the prior week.</p>
+      </div>
+
+      <div class="rate-row">
+        <div class="rate-card up">
+          <div class="rate-num">6.51%</div>
+          <div class="rate-desc">30-yr fixed<br>Freddie Mac, May 21</div>
+          <div class="rate-delta up">↑ +15 bps from last week</div>
+        </div>
+        <div class="rate-card up">
+          <div class="rate-num">4.56%</div>
+          <div class="rate-desc">10-yr Treasury yield<br>Post-downgrade</div>
+          <div class="rate-delta up">↑ from 4.43% pre-downgrade</div>
+        </div>
+        <div class="rate-card flat">
+          <div class="rate-num">6.86%</div>
+          <div class="rate-desc">30-yr fixed<br>One year ago today</div>
+          <div class="rate-delta flat">Still 35 bps better YoY</div>
+        </div>
+      </div>
+
+      <p>Here is the context that matters: <strong>the previous two downgrades did not cause long-term rate spikes.</strong> S&P's 2011 downgrade caused a sharp short-term move in yields, then rates actually fell as the market digested the news. Fitch's 2023 downgrade produced a similar short-lived reaction. In both cases, the U.S. remained the world's reserve currency and the bond market stabilized within weeks.</p>
+
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-year">2011</div>
+          <div class="tl-content"><strong>S&P downgrades U.S. to AA+.</strong> Markets panic briefly. Rates spike, then fall back within weeks as the dollar maintains its reserve status. Recession fears dissipate.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-year">2023</div>
+          <div class="tl-content"><strong>Fitch downgrades U.S. to AA+.</strong> Similar short-term bond market volatility. 10-year Treasury up briefly, then normalizes. No lasting rate impact.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-year">2026</div>
+          <div class="tl-content"><strong>Moody's downgrades U.S. to Aa1.</strong> All three agencies have now acted. Short-term yields spike. 10-year Treasury hits 4.56%. Mortgage rates push to 6.51%. Whether history rhymes is the question the market is now answering in real time.</div>
+        </div>
+      </div>
+
+      <div class="callout">
+        <p>Markets don't like what they can't measure. Policy uncertainty — especially around government fiscal battles, tax policy, and potential shutdowns — is a volatility amplifier. The Moody's downgrade didn't change America's ability to pay its debts. It changed how investors feel about holding them while that uncertainty persists.</p>
+        <p class="callout-attr">— Financial analyst commentary · Time Money · May 2026</p>
+      </div>
+
+      <p>The honest answer to "is this a big deal?" is: <strong>it's complicated.</strong> The Moody's downgrade is largely symbolic in the short run — the U.S. still has the world's largest economy and the dollar is still the global reserve currency. But the concern it reflects — rising government debt, growing interest obligations, and no clear fiscal path — is real and ongoing. If bond investors begin demanding a persistent "uncertainty premium" to hold U.S. debt, the era of sub-6% mortgage rates may be delayed significantly. That's not panic. It's math.</p>
+    </div>
+
+    <!-- SECTION 2: SHOPPING FOR RATES -->
+    <div class="section">
+      <div class="sec-label"><div class="sec-pip"></div><div class="sec-title">What 6.51% actually means for you — and how to close the gap</div></div>
+
+      <p>Sam Khater, Freddie Mac's chief economist, said something important alongside this week's rate data that I want to highlight: <strong>"By shopping around for the best mortgage rate and getting multiple quotes, borrowers can potentially save thousands."</strong></p>
+
+      <p>He's right — and in this rate environment, the difference between a borrower who shops and one who doesn't is larger than it's been in years. Here's why that matters right now specifically.</p>
+
+      <p>At 6.51%, the published retail rate feels heavy. But that number assumes a borrower going directly to a bank or online lender, at standard retail pricing, without any incentive programs applied. Strip away the retail markup — by accessing the wholesale channel — and the starting point is already <strong>0.375–0.50% lower</strong>. Apply UWM's Refi '86 incentive on top of that for eligible refinance borrowers and the effective savings widen further.</p>
+
+      <div class="data-box">
+        <div class="data-label">📊 The Real Rate Gap Right Now</div>
+        <p>Freddie Mac retail average: <strong>6.51%</strong><br>
+        Typical wholesale starting point: <strong>6.01–6.13%</strong><br>
+        With Refi '86 (86 bps, through June 30): <strong>effectively even lower</strong> on eligible refis</p>
+        <p>On a $400,000 loan, the difference between 6.51% and 6.05% is approximately <strong>$115/month</strong>. Over 30 years that's <strong>$41,400</strong>. The loan is identical. The channel is not. And the window on some of these incentives closes June 30.</p>
+      </div>
+
+      <p>This is the week where the conversation about "which lender" matters most. When rates are rising, borrowers who have already built a relationship with a broker who has wholesale access are in a fundamentally different position than borrowers starting from scratch at a retail bank. One call vs. starting over.</p>
+    </div>
+
+    <!-- SECTION 3: HOUSING MARKET -->
+    <div class="section">
+      <div class="sec-label"><div class="sec-pip"></div><div class="sec-title">The housing market right now: resilient, and picking up</div></div>
+
+      <p>Here's what I find remarkable: in a week where the U.S. lost its last perfect credit rating and mortgage rates spiked 15 basis points in a single survey, the housing market data came in strong.</p>
+
+      <div class="stat-row">
+        <div class="stat-card green">
+          <div class="stat-num">430K</div>
+          <div class="stat-desc">Pending single-family sales as of May 15 — up 4.9% year over year</div>
+        </div>
+        <div class="stat-card green">
+          <div class="stat-num">78,006</div>
+          <div class="stat-desc">New pending sales week of May 15 — up 6.1% annually</div>
+        </div>
+        <div class="stat-card green">
+          <div class="stat-num">+1.4%</div>
+          <div class="stat-desc">Pending home sales in April, per NAR — three of four regions gained</div>
+        </div>
+      </div>
+
+      <p>HousingWire's Market Tracker noted that 2026 is shaping up to be <strong>the first year of actual growth in existing home sales in years.</strong> That's not a small statement. It means the freeze that locked buyers and sellers in place from 2022 through 2025 is beginning to thaw — slowly, imperfectly, but genuinely.</p>
+
+      <p><strong>What's driving it:</strong> Inventory is up. Wages are rising. Sellers are adjusting pricing to match reality. The Northeast posted a 6.6% monthly gain in pending sales in April as weather-delayed buyers came back to the market. The Midwest showed solid gains. Even markets that were sluggish in Q1 are seeing absorption rates improve.</p>
+
+      <div class="opp-box">
+        <div class="opp-label">📈 The Gap That Creates Opportunity · HousingWire Data</div>
+        <p>When inventory rises but pricing stays anchored, a gap forms between seller expectations and buyer behavior. <strong>That gap is where negotiations happen. It is also where opportunity forms first.</strong></p>
+        <p>Right now, 34.2% of all listings have taken price cuts — nearly identical to last year's levels. Homes are still taking 40–60 days to sell in most markets. Days on market is up. That means buyers have time to do inspections, negotiate concessions, and make thoughtful decisions. That environment doesn't last when rates drop and demand surges. It's available right now.</p>
+      </div>
+
+      <p>Purchase applications rose <strong>18% year over year</strong> in the most recent weekly data. Refinance applications are up <strong>62% year over year</strong> as buyers from 2023 and 2024 find windows to lower their payment. This is a market with real activity underneath the headline noise. The Moody's story grabbed attention. The data told a different story.</p>
+    </div>
+
+    <!-- SECTION 4: WHAT TO DO -->
+    <div class="section">
+      <div class="sec-label"><div class="sec-pip"></div><div class="sec-title">What buyers and owners should actually do this week</div></div>
+
+      <p>Volatility like this week's tends to cause one of two responses: paralysis or panic. Neither is the right call. Here's the framework I use with my own clients right now.</p>
+
+      <p><strong>If you're buying:</strong> A 6.51% retail rate is not a reason to stop. A 6.05% wholesale rate on the same loan with better service is the actual conversation to be having. Rate uncertainty also means seller motivation is real — sellers who listed expecting a spring surge are now watching rates climb and buyers hesitate. That gives you leverage that didn't exist six months ago.</p>
+
+      <p><strong>If you're refinancing:</strong> The Refi '86 window closes June 30. If you're sitting on a rate above 7% — and a meaningful number of 2023 borrowers are — the math still pencils out through the wholesale channel even at current market rates. The question is whether you're running those numbers or assuming the answer without checking.</p>
+
+      <p><strong>If you're waiting for rates to drop:</strong> The Moody's downgrade complicates that thesis. If the U.S. government's fiscal trajectory doesn't improve, bond investors may demand a persistent premium that keeps the 10-year elevated — and with it, mortgage rates. "Wait for 5%" may be a longer wait than anyone expected at the start of 2026.</p>
+
+      <div class="watch-box">
+        <div class="watch-label">📅 What to Watch — Week of May 25</div>
+        <p><strong>Monday May 26 — Memorial Day.</strong> Bond markets closed. Expect thin trading and rate stability heading into the week.</p>
+        <p><strong>Tuesday–Wednesday:</strong> Federal Reserve speakers scheduled throughout the week. Any comments suggesting the downgrade or inflation data are pushing back rate cuts further will add pressure to yields. Watch the language carefully.</p>
+        <p><strong>Friday May 30 — PCE Inflation (April).</strong> This is the Fed's preferred inflation gauge and arguably the most important data point of the month. If it prints below 2.6%, we could see rates ease back toward 6.20–6.30% within two weeks. If it prints hot — above 2.8% — the 6.5% range becomes the new floor. <strong>This number matters more than any Fed statement.</strong></p>
+      </div>
+
+      <div class="take-box">
+        <div class="take-label">Anthony's Take — Cutting Through the Noise</div>
+        <p>Every week there's a new headline that sounds like the sky is falling. Moody's downgrade this week. The China trade deal last week. The Iran situation the week before. Each one moves rates. Each one generates fear. And each one eventually gets absorbed by a market that is, fundamentally, still functioning.</p>
+        <p>What doesn't change week to week is the structural advantage of the wholesale channel. When retail rates spike to 6.51%, wholesale rates spike less — because the margin is already thinner and there's less air to let out. When incentive programs like Refi '86 are running, the gap widens further. <strong>The borrowers who understand this don't panic when headlines move rates. They make a call and find out what the number actually is for them specifically.</strong></p>
+        <p>That's what I'm here for. If this week's noise has you second-guessing a decision — buying, refinancing, or waiting — reply to this email. Let's run the numbers for your actual situation, not the national average.</p>
+      </div>
+    </div>
+
+    <!-- ORNAMENT -->
+    <div class="ornament"><hr><div class="ornament-mark">· · ·</div><hr></div>
+
+    <p class="closing">Five issues in and I'll say this: the readers who reply are the ones getting the most out of Measured. The questions I've gotten this month have shaped what I write. If something this week landed for you — or raised more questions than it answered — hit reply. I read every one. <b>— Anthony</b></p>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-sig">Written by <b>Anthony</b> · Loan Pronto · May 23, 2026</div>
+    <div class="footer-issue">Measured · Issue No. 5</div>
+  </div>
+
+</div>
+</body>
+</html>
