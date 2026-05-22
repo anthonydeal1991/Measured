@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Measured — Issue No. 4 · May 16, 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,400;1,500&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;1,8..60,300&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --paper:     #F8F4EE;
+    --white:     #FDFBF8;
+    --ink:       #1A1915;
+    --muted:     #6A6358;
+    --rule:      rgba(26,25,21,0.09);
+    --rust:      #B05A32;
+    --rust-lt:   #ECD9CE;
+    --gold:      #C2913A;
+    --forest:    #2F6B3E;
+    --forest-lt: #D4E8D9;
+    --navy:      #1E3A5F;
+    --navy-lt:   #D2DFF0;
+    --amber:     #C47A10;
+    --amber-lt:  #FAE9CB;
+    --warn:      #8B2020;
+    --warn-lt:   #F5D5D5;
+    --charcoal:  #2D2D2A;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: #EDE8DF;
+    color: var(--ink);
+    padding: 32px 16px 64px;
+  }
+
+  .wrap {
+    max-width: 620px;
+    margin: 0 auto;
+    background: var(--white);
+    border-radius: 2px;
+    overflow: hidden;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.07), 0 32px 64px rgba(0,0,0,0.07);
+  }
+
+  /* ── MASTHEAD ── */
+  .masthead { background: var(--ink); }
+  .masthead-top {
+    display: flex; align-items: stretch;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .brand { flex: 1; padding: 22px 36px; }
+  .brand-name {
+    font-family: 'Playfair Display', serif;
+    color: #F8F4EE; font-size: 24px; letter-spacing: 0.01em; line-height: 1;
+  }
+  .brand-sub {
+    font-size: 10px; color: rgba(248,244,238,0.35);
+    letter-spacing: 0.12em; text-transform: uppercase; margin-top: 5px;
+  }
+  .masthead-meta {
+    padding: 22px 36px; text-align: right;
+    border-left: 1px solid rgba(255,255,255,0.06);
+    display: flex; flex-direction: column; justify-content: center; gap: 4px;
+  }
+  .meta-issue { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); }
+  .meta-date { font-size: 11px; color: rgba(248,244,238,0.3); }
+
+  .author-bar {
+    background: var(--rust-lt); padding: 14px 36px;
+    display: flex; align-items: center; gap: 13px;
+  }
+  .avatar {
+    width: 40px; height: 40px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--gold), var(--rust));
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif; font-size: 17px; color: white;
+    flex-shrink: 0; box-shadow: 0 2px 6px rgba(176,90,50,0.3);
+  }
+  .author-name { font-size: 13.5px; font-weight: 500; color: var(--ink); }
+  .author-role { font-size: 11.5px; color: var(--muted); margin-top: 1px; }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--ink); padding: 36px 36px 32px;
+    border-top: 1px solid rgba(255,255,255,0.04);
+    position: relative; overflow: hidden;
+  }
+  .hero::after {
+    content: '';
+    position: absolute; top: -80px; right: -60px;
+    width: 300px; height: 300px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(194,145,58,0.07) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .hero-kicker {
+    font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--gold); font-weight: 500; margin-bottom: 16px;
+  }
+  .hero-hed {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px; line-height: 1.22; color: #F8F4EE;
+    margin-bottom: 14px; max-width: 500px;
+  }
+  .hero-hed em { font-style: italic; color: var(--gold); }
+  .hero-deck {
+    font-size: 13.5px; color: rgba(248,244,238,0.48);
+    line-height: 1.65; max-width: 460px;
+  }
+
+  /* ── BODY ── */
+  .body { padding: 36px 36px 32px; }
+
+  .opener {
+    font-family: 'Source Serif 4', serif;
+    font-size: 15px; line-height: 1.78; color: var(--ink);
+    font-style: italic; padding-bottom: 28px;
+    border-bottom: 1px solid var(--rule); margin-bottom: 32px;
+  }
+
+  p { font-size: 14.5px; line-height: 1.78; color: #38342E; margin-bottom: 15px; }
+  p:last-child { margin-bottom: 0; }
+  strong { color: var(--ink); font-weight: 500; }
+
+  .section { margin-bottom: 34px; padding-bottom: 34px; border-bottom: 1px solid var(--rule); }
+  .section:last-of-type { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+  .sec-label { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+  .sec-pip { width: 6px; height: 6px; border-radius: 50%; background: var(--rust); flex-shrink: 0; }
+  .sec-title { font-family: 'Playfair Display', serif; font-size: 17px; color: var(--ink); font-weight: 500; }
+
+  /* Rate row */
+  .rate-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin: 20px 0; }
+  .rate-card { background: var(--paper); border-radius: 2px; padding: 14px 15px; border-top: 2px solid var(--rule); }
+  .rate-card.up   { border-top-color: var(--rust); }
+  .rate-card.down { border-top-color: var(--forest); }
+  .rate-card.flat { border-top-color: var(--navy); }
+  .rate-num { font-family: 'Playfair Display', serif; font-size: 22px; color: var(--ink); line-height: 1; }
+  .rate-desc { font-size: 11px; color: var(--muted); margin-top: 5px; line-height: 1.4; }
+  .rate-delta { font-size: 11px; margin-top: 4px; }
+  .rate-delta.up   { color: var(--rust); }
+  .rate-delta.down { color: var(--forest); }
+  .rate-delta.flat { color: var(--muted); }
+
+  /* Callout */
+  .callout {
+    border-left: 3px solid var(--rust); background: var(--paper);
+    padding: 16px 20px; margin: 20px 0; border-radius: 0 2px 2px 0;
+  }
+  .callout p { font-family: 'Source Serif 4', serif; font-style: italic; font-size: 14.5px; color: var(--ink); margin-bottom: 0; line-height: 1.7; }
+  .callout-attr {
+    font-size: 10.5px !important; color: var(--muted) !important;
+    margin-top: 8px !important; font-style: normal !important;
+    font-family: 'DM Sans', sans-serif !important; letter-spacing: 0.05em;
+  }
+
+  /* Data box — navy */
+  .data-box { border: 1px solid rgba(30,58,95,0.18); background: var(--navy-lt); border-radius: 2px; padding: 18px 20px; margin: 20px 0; }
+  .data-label { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--navy); font-weight: 500; margin-bottom: 8px; }
+  .data-box p { font-size: 14px; color: #1A2D42; margin-bottom: 8px; line-height: 1.7; }
+  .data-box p:last-child { margin-bottom: 0; }
+  .data-box strong { color: #0F1E2E; }
+
+  /* Gold / UWM box */
+  .uwm-box { border: 1px solid rgba(194,145,58,0.25); background: #FDF6E8; border-radius: 2px; padding: 20px 22px; margin: 20px 0; }
+  .uwm-label { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); font-weight: 500; margin-bottom: 8px; }
+  .uwm-box p { font-size: 14px; color: #3D2800; margin-bottom: 8px; line-height: 1.72; }
+  .uwm-box p:last-child { margin-bottom: 0; }
+  .uwm-box strong { color: #1F1200; }
+
+  /* Green opportunity */
+  .opp-box { border: 1px solid rgba(47,107,62,0.2); background: var(--forest-lt); border-radius: 2px; padding: 20px 22px; margin: 20px 0; }
+  .opp-label { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--forest); font-weight: 500; margin-bottom: 8px; }
+  .opp-box p { font-size: 14px; color: #1C3D24; margin-bottom: 8px; line-height: 1.72; }
+  .opp-box p:last-child { margin-bottom: 0; }
+  .opp-box strong { color: #122618; }
+
+  /* Amber watch */
+  .watch-box { border: 1px solid rgba(196,122,16,0.2); background: var(--amber-lt); border-radius: 2px; padding: 18px 20px; margin: 20px 0; }
+  .watch-label { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--amber); font-weight: 500; margin-bottom: 8px; }
+  .watch-box p { font-size: 14px; color: #3D2200; margin-bottom: 8px; line-height: 1.7; }
+  .watch-box p:last-child { margin-bottom: 0; }
+  .watch-box strong { color: #1F1000; }
+
+  /* Anthony's take — rust */
+  .take-box { border: 1px solid rgba(176,90,50,0.2); background: var(--rust-lt); border-radius: 2px; padding: 20px 22px; margin: 20px 0; }
+  .take-label { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--rust); font-weight: 500; margin-bottom: 8px; }
+  .take-box p { font-size: 14px; color: #3D1E0A; margin-bottom: 8px; line-height: 1.72; }
+  .take-box p:last-child { margin-bottom: 0; }
+  .take-box strong { color: #231005; }
+
+  /* Loan Pronto highlight — dark/charcoal */
+  .lp-box {
+    background: var(--charcoal); border-radius: 2px;
+    padding: 24px 26px; margin: 20px 0;
+    border-left: 3px solid var(--gold);
+  }
+  .lp-label { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); font-weight: 500; margin-bottom: 10px; }
+  .lp-box p { font-size: 14px; color: rgba(248,244,238,0.75); margin-bottom: 8px; line-height: 1.72; }
+  .lp-box p:last-child { margin-bottom: 0; }
+  .lp-box strong { color: #F8F4EE; }
+
+  /* Stat trio */
+  .stat-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin: 20px 0; }
+  .stat-card { background: var(--paper); border-radius: 2px; padding: 14px 15px; text-align: center; border-top: 2px solid var(--gold); }
+  .stat-num { font-family: 'Playfair Display', serif; font-size: 24px; color: var(--ink); line-height: 1; }
+  .stat-desc { font-size: 11px; color: var(--muted); margin-top: 5px; line-height: 1.4; }
+
+  /* Ornament */
+  .ornament { display: flex; align-items: center; gap: 12px; margin: 30px 0; }
+  .ornament hr { flex: 1; border: none; border-top: 1px solid var(--rule); }
+  .ornament-mark { font-size: 10px; color: var(--gold); letter-spacing: 0.12em; }
+
+  /* Closing */
+  .closing {
+    font-family: 'Source Serif 4', serif; font-size: 14.5px;
+    font-style: italic; color: var(--muted); line-height: 1.75;
+    padding-top: 24px; border-top: 1px solid var(--rule);
+  }
+  .closing b { color: var(--ink); font-style: normal; font-weight: 500; }
+
+  /* Footer */
+  .footer {
+    background: var(--paper); border-top: 1px solid var(--rule);
+    padding: 18px 36px; display: flex; align-items: center; justify-content: space-between;
+  }
+  .footer-sig { font-family: 'Source Serif 4', serif; font-style: italic; font-size: 13px; color: var(--muted); }
+  .footer-sig b { color: var(--ink); font-style: normal; font-weight: 500; }
+  .footer-issue { font-size: 10.5px; color: rgba(106,99,88,0.45); letter-spacing: 0.06em; text-transform: uppercase; }
+
+  @media (max-width: 560px) {
+    .body { padding: 28px 20px 24px; }
+    .masthead-top { flex-direction: column; }
+    .masthead-meta { text-align: left; border-left: none; border-top: 1px solid rgba(255,255,255,0.06); padding: 14px 36px; }
+    .rate-row, .stat-row { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- MASTHEAD -->
+  <div class="masthead">
+    <div class="masthead-top">
+      <div class="brand">
+        <div class="brand-name">Measured</div>
+        <div class="brand-sub">A weekly note on mortgage decisions that matter</div>
+      </div>
+      <div class="masthead-meta">
+        <div class="meta-issue">Issue No. 4</div>
+        <div class="meta-date">May 16, 2026</div>
+      </div>
+    </div>
+    <div class="author-bar">
+      <div class="avatar">A</div>
+      <div>
+        <div class="author-name">Anthony</div>
+        <div class="author-role">Mortgage advisor · Loan Pronto · wholesale lending · plain English, always</div>
+      </div>
+    </div>
+    <div class="hero">
+      <div class="hero-kicker">This week in Measured</div>
+      <div class="hero-hed">The market lit up on Friday. Here's what that means — and what it <em>doesn't.</em></div>
+      <div class="hero-deck">The China trade deal sent bond markets sideways, UWM just dropped one of the most aggressive refi incentives in years, and this week I want to talk about something that doesn't get enough credit: the team behind your loan.</div>
+    </div>
+  </div>
+
+  <!-- BODY -->
+  <div class="body">
+
+    <p class="opener">This week I was at UWM LIVE! in Pontiac — the annual event where United Wholesale Mortgage brings together brokers, lenders, and technology partners from across the country. While I was there, they announced something that directly benefits every client in my pipeline right now. I'll get into all of it. But first — rates had a wild week, and you deserve the straight story on why. — Anthony</p>
+
+    <!-- SECTION 1: WHAT HAPPENED TO RATES -->
+    <div class="section">
+      <div class="sec-label"><div class="sec-pip"></div><div class="sec-title">What lit up the market on Monday — and what it actually means for rates</div></div>
+
+      <p>Over the weekend of May 10–11, the U.S. and China announced a <strong>90-day tariff truce</strong>. The deal brought tariffs on Chinese goods down from a staggering 145% — which had been pricing in near-total trade war conditions — to a more manageable 30%. Markets responded immediately, and not in the direction mortgage borrowers were hoping for.</p>
+
+      <div class="rate-row">
+        <div class="rate-card up">
+          <div class="rate-num">6.37%</div>
+          <div class="rate-desc">30-yr fixed<br>Zillow, May 13</div>
+          <div class="rate-delta up">↑ Up from 6.19% Friday</div>
+        </div>
+        <div class="rate-card up">
+          <div class="rate-num">5.75%</div>
+          <div class="rate-desc">15-yr fixed<br>Zillow, May 13</div>
+          <div class="rate-delta up">↑ Moving higher</div>
+        </div>
+        <div class="rate-card flat">
+          <div class="rate-num">6.61%</div>
+          <div class="rate-desc">30-yr refi rate<br>Zillow, May 13</div>
+          <div class="rate-delta flat">Refi still elevated</div>
+        </div>
+      </div>
+
+      <p>Here's why good economic news sent rates <em>higher</em> — and this is important to understand. When investors feel better about the global economy, they move money <em>out</em> of safe-haven bonds and into riskier assets like stocks. Less demand for bonds means lower bond prices, which means higher bond yields. Higher 10-year Treasury yields mean higher mortgage rates. It's counterintuitive, but it's consistent.</p>
+
+      <div class="data-box">
+        <div class="data-label">📊 The Tariff-Rate Paradox · Mortgage News Daily / HousingWire</div>
+        <p>The China trade deal pushed rates to their <strong>highest levels in over two weeks</strong> on Monday morning. The move wasn't dramatic — rates climbed roughly 15–18 basis points intraday before settling — but the direction was clear. Tariffs create a push-pull on rates: lower tariffs reduce recession fears (bad for rates) but also reduce inflation fears (good for rates). Right now the recession-fear relief is winning.</p>
+        <p>Additionally, <strong>U.S. freight bookings out of China surged nearly 300%</strong> the week after the announcement as companies rushed to restock before the 90-day window closes. That surge in economic activity is also putting upward pressure on inflation expectations — and by extension, rates.</p>
+      </div>
+
+      <p>The Trump-Middle East summit also contributed to a more "risk-on" market mood this week, further pushing investors away from bonds. Add the CPI data that came in slightly warmer than expected on Monday morning and you have three forces all pointing the same direction: rates up.</p>
+
+      <div class="callout">
+        <p>The 30-year fixed rate climbed to its highest point in over two weeks immediately following the U.S.-China tariff pause announcement, as investors rotated out of bonds on improved economic confidence.</p>
+        <p class="callout-attr">— Mortgage News Daily / HousingWire Rate Watch · May 12, 2026</p>
+      </div>
+
+      <p>The honest assessment: <strong>rates are not going to free-fall anytime soon.</strong> The 90-day tariff window creates a period of artificial calm that prevents the kind of economic slowdown that would normally push the Fed toward cuts. Fannie Mae's latest forecast has the 30-year finishing Q2 at around <strong>6.30%</strong>. NAHB still expects rates to dip just below 6% by year-end — but only if inflation cooperates. MBA forecasts put rates at 6.20–6.30% through most of 2026 with modest easing into 2027.</p>
+    </div>
+
+    <!-- SECTION 2: WILL MARKET FULLY BOUNCE BACK -->
+    <div class="section">
+      <div class="sec-label"><div class="sec-pip"></div><div class="sec-title">Will the market fully bounce back? The honest answer.</div></div>
+
+      <p>Every week I get some version of this question: "Is the housing market going to recover?" The answer depends entirely on what you mean by "recover."</p>
+
+      <p>If you mean <em>back to 2021</em> — 3% rates, bidding wars on every listing, homes selling in 48 hours — that is not coming. Not this year, probably not ever. Those conditions were the product of historic Fed intervention during a global pandemic. They were an anomaly, not a baseline.</p>
+
+      <p>If you mean <em>a functional, active market where buyers can buy and sellers can sell at fair prices</em> — that market is already here, and it's improving steadily.</p>
+
+      <div class="watch-box">
+        <div class="watch-label">📈 Market Recovery Reality Check · Multiple Sources · May 2026</div>
+        <p>Home values are up <strong>16% since 2022</strong> despite rates tripling in that same period — which tells you how durable underlying housing demand is. New listings are up <strong>9.7% year over year</strong>. Pending sales are rising. Refinance applications are up <strong>62% year over year</strong> as homeowners who bought in 2023–2024 start finding windows to lower their rate. Affordability, measured by the MBA's Purchase Applications Payment Index, is <strong>5.6% better than one year ago</strong> as wage growth catches up.</p>
+        <p>The market isn't broken. It's recalibrating. And <strong>the buyers who move during recalibration consistently outperform the ones who wait for the all-clear</strong> — because by the time the all-clear sounds, the prices have already re-priced upward to reflect improved confidence.</p>
+      </div>
+
+      <p>Zillow projects home values to rise <strong>1.2% nationally in 2026</strong> — modest, stable appreciation rather than the chaos of 2021 or the stagnation of 2023. That's a healthy market. The buyers who enter it this spring are buying into stability, not a peak and not a bottom. That's actually the best place to buy.</p>
+    </div>
+
+    <!-- SECTION 3: UWM LIVE + REFI86 + MIA -->
+    <div class="section">
+      <div class="sec-label"><div class="sec-pip"></div><div class="sec-title">UWM LIVE! — what I saw, and what it means for your loan right now</div></div>
+
+      <p>I spent this week at <strong>UWM LIVE!</strong> in Pontiac, Michigan — United Wholesale Mortgage's annual broker event. If you've never heard of it, think of it as the moment each year where the largest wholesale lender in the country shows brokers what they've built and what's coming. This year it was significant.</p>
+
+      <p>Two announcements stood out. One has an immediate dollar impact on anyone thinking about refinancing. The other changes how brokers can serve clients at scale. Both are worth knowing about.</p>
+
+      <div class="uwm-box">
+        <div class="uwm-label">🏦 Refi '86 — The Most Aggressive Refi Incentive UWM Has Offered This Year</div>
+        <p>At UWM LIVE!, Mat Ishbia announced <strong>Refi '86</strong> — an 86-basis-point pricing incentive on refinances, available through June 30. The name pays homage to UWM's founding in 1986 and what Ishbia called "four decades of unparalleled trust and partnership" with the broker community.</p>
+        <p>Here's what 86 basis points means in plain terms: on a refinance where the wholesale rate is already <strong>0.375–0.50% below retail</strong>, this incentive stacks an additional <strong>0.86%</strong> pricing advantage on top of that. The practical effect is that borrowers who refinanced in 2023 or 2024 at rates in the high 6s or 7s could be looking at meaningful monthly savings right now — not someday, right now.</p>
+        <p>Refi '86 applies to conventional and government refinance loans using PA+ or TRAC+/TRAC Lite with a <strong>680 or higher FICO score</strong> and runs alongside UWM's existing free 1-0 temporary rate buydown offer on purchases. Both programs run through <strong>June 30</strong>. After that, they're gone.</p>
+      </div>
+
+      <div class="uwm-box">
+        <div class="uwm-label">🤖 Mia — UWM's AI Loan Officer Assistant Just Got More Powerful</div>
+        <p>Last year at UWM LIVE!, UWM debuted Mia — an AI voice assistant built specifically for mortgage brokers. The idea: handle the administrative workload so loan officers can focus on the work that actually requires a human. In the year since launch, <strong>Mia has helped close 80,000 loans.</strong></p>
+        <p>This year's upgrades include <strong>Mia On Demand</strong> — giving brokers direct control over when and how Mia contacts clients — plus <strong>Mia Español</strong>, expanding access to Spanish-speaking borrowers. UWM CEO Mat Ishbia has been direct about the philosophy: he wants brokers focused on <strong>"$500 work, not $15 work."</strong> The high-value conversations with clients. The strategy. The relationships. Let Mia handle the scheduling, follow-ups, and routine information.</p>
+        <p>UWM's in-house AI has also helped underwriters increase their processing capacity from <strong>6 loans per day to 16</strong> — a result of the Google Cloud Gemini integration announced earlier this year. Faster underwriting means faster closings. For borrowers, that's real.</p>
+      </div>
+
+      <p>The broader picture from UWM LIVE! was a company firing on all cylinders. UWM posted <strong>$44.9 billion in Q1 2026 originations</strong> — up 39% year over year and their second-best first quarter ever — with $170.4 million in net income reversing a $247 million loss from Q1 2025. The broker channel is winning. The question is whether the broker you're working with is set up to take full advantage of it.</p>
+
+      <div class="stat-row">
+        <div class="stat-card">
+          <div class="stat-num">$44.9B</div>
+          <div class="stat-desc">UWM Q1 2026 originations — 2nd best Q1 ever</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">80K</div>
+          <div class="stat-desc">Loans closed with Mia AI assist since launch</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">86bps</div>
+          <div class="stat-desc">Refi '86 incentive — available through June 30</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 4: LOAN PRONTO / THE TEAM -->
+    <div class="section">
+      <div class="sec-label"><div class="sec-pip"></div><div class="sec-title">The part of your mortgage nobody talks about: your team</div></div>
+
+      <p>I want to use this issue to say something I don't think gets said enough in the mortgage industry.</p>
+
+      <p>The rate matters. The program matters. The timing matters. But none of it works the way it should without the right people behind it. I've seen great rates get squandered by disorganized processing. I've seen strong credit profiles turned into difficult closings because nobody was watching the file. And I've seen loans fall apart at the finish line because a lender's team didn't communicate clearly with the borrower's team.</p>
+
+      <p>This is why I work at <strong>Loan Pronto</strong> — and why I think where you originate your loan is a decision that deserves as much thought as what rate you take.</p>
+
+      <div class="lp-box">
+        <div class="lp-label">Loan Pronto — What a Real Mortgage Team Looks Like</div>
+        <p>Loan Pronto is built around one principle: <strong>the borrower should never feel alone in this process.</strong> From the moment you start a conversation to the day you close, you have a team — not a phone tree, not a ticketing system, not a chatbot — a real team that knows your file and picks up when you call.</p>
+        <p>What I've found over years in this business is that trust isn't built in one conversation. It's built through consistent follow-through. Calling when you say you'll call. Explaining what changed and why. Telling the truth about a timeline even when it's not what the borrower wants to hear. That kind of reliability is rare, and it compounds. Clients who trust their advisor move faster, make better decisions, and close with less stress.</p>
+        <p>The mortgage process is one of the most financially significant things most people go through. <strong>It shouldn't feel like a transaction.</strong> It should feel like you have someone in your corner who actually understands what's at stake and is working with the urgency that reflects it.</p>
+      </div>
+
+      <p>I've been in markets where rates were low and deals were easy. And I've been in this market — where rates are higher, qualifying is tighter, and programs are more complex. The difference between a smooth closing and a stressful one in this environment isn't luck. It's preparation, communication, and access to the right lender relationships. Those things don't happen automatically. They're the result of a team that has done the work to build them.</p>
+
+      <div class="take-box">
+        <div class="take-label">What I Look for in a Lender Partner</div>
+        <p>Being at UWM LIVE! this week reminded me why lender relationships matter beyond just pricing. UWM has invested in technology that makes my job faster — AI underwriting, Mia, the Lead Pipeline tool that alerts me when a past client is being shopped by another lender. But what actually creates long-term value is the relationship. The account executive who knows my pipeline. The underwriter who picks up the phone when a file has a quirk. The team that treats every deal like it matters — because to the borrower, it does.</p>
+        <p><strong>Not every lender is built that way.</strong> Some are chasing volume and your loan is a number. At Loan Pronto, working with partners like UWM, we've built something different — a shop where the person originating your loan is the same person tracking it, advocating for it, and delivering the news good or bad. That's the standard. And it's one I hold myself to every single week.</p>
+      </div>
+
+      <div class="opp-box">
+        <div class="opp-label">⏰ Time-Sensitive: Refi '86 Ends June 30</div>
+        <p>If you — or someone you know — has a mortgage at <strong>6.75% or higher</strong>, the combination of wholesale pricing plus the Refi '86 incentive makes the next six weeks one of the best refinance windows of the year. This isn't a pitch. It's math. The 86-basis-point incentive stacked on top of wholesale pricing is a combination that won't be available indefinitely.</p>
+        <p>If you want me to run the numbers on your specific loan — what rate you'd qualify for today, what the monthly savings look like, and whether the closing costs make the refi pencil out — <strong>reply to this email.</strong> I'll give you the real numbers, not an estimate.</p>
+      </div>
+    </div>
+
+    <!-- SECTION 5: WATCH THIS WEEK -->
+    <div class="section">
+      <div class="sec-label"><div class="sec-pip"></div><div class="sec-title">What to watch next week</div></div>
+
+      <p>The 90-day tariff clock is now ticking. The question markets are going to spend the next three months trying to answer is: does this truce become a real deal, or does it expire and escalate? The answer will do more to shape the second half of 2026 mortgage rates than anything the Fed says.</p>
+
+      <p><strong>Watch oil:</strong> WTI crude is back above $90 on improved economic sentiment. If it climbs toward $100, inflation expectations follow and rates go with them. If the Iran situation stabilizes and oil pulls back, that's the tailwind that could get the 30-year back toward 6.0%.</p>
+
+      <p><strong>Watch the 10-year Treasury:</strong> It's been trading between 4.30–4.45% this week. A sustained break above 4.50% pushes mortgage rates toward 6.60–6.75%. A pullback below 4.25% gets us back toward the low 6s. This is the single number that matters most.</p>
+
+      <p><strong>Watch housing starts:</strong> Single-family starts dropped 12% in April year over year — a direct result of tariff uncertainty on building materials. If that number doesn't recover, supply stays constrained and prices stay elevated even if demand softens. More evidence that waiting for a price crash is a losing strategy in most markets.</p>
+    </div>
+
+    <!-- ORNAMENT -->
+    <div class="ornament"><hr><div class="ornament-mark">· · ·</div><hr></div>
+
+    <p class="closing">Four weeks in and I'm more convinced than ever that the borrowers who win in this market are the ones who stay informed, stay engaged, and have a team they actually trust. If you're not sure you have that — or you want to know what your rate picture looks like through the wholesale channel right now — my inbox is open. <b>— Anthony</b></p>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-sig">Written by <b>Anthony</b> · Loan Pronto · May 16, 2026</div>
+    <div class="footer-issue">Measured · Issue No. 4</div>
+  </div>
+
+</div>
+</body>
+</html>
