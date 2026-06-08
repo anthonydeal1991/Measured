@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Measured — Issue No. 7 · June 6, 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,400;1,500&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;1,8..60,300&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --paper:#F8F4EE;--white:#FDFBF8;--ink:#1A1915;--muted:#6A6358;
+    --rule:rgba(26,25,21,0.09);--rust:#B05A32;--rust-lt:#ECD9CE;
+    --gold:#C2913A;--forest:#2F6B3E;--forest-lt:#D4E8D9;
+    --navy:#1E3A5F;--navy-lt:#D2DFF0;--amber:#C47A10;--amber-lt:#FAE9CB;
+    --warn:#8B2020;--warn-lt:#F5D5D5;--plum:#5A2D6B;--plum-lt:#E8D5F0;
+  }
+  body{font-family:'DM Sans',sans-serif;background:#EDE8DF;color:var(--ink);padding:32px 16px 64px}
+  .wrap{max-width:620px;margin:0 auto;background:var(--white);border-radius:2px;overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,0.04),0 8px 24px rgba(0,0,0,0.07),0 32px 64px rgba(0,0,0,0.07)}
+
+  /* MASTHEAD */
+  .masthead{background:var(--ink)}
+  .masthead-top{display:flex;align-items:stretch;border-bottom:1px solid rgba(255,255,255,0.06)}
+  .brand{flex:1;padding:22px 36px}
+  .brand-name{font-family:'Playfair Display',serif;color:#F8F4EE;font-size:24px;letter-spacing:0.01em;line-height:1}
+  .brand-sub{font-size:10px;color:rgba(248,244,238,0.35);letter-spacing:0.12em;text-transform:uppercase;margin-top:5px}
+  .masthead-meta{padding:22px 36px;text-align:right;border-left:1px solid rgba(255,255,255,0.06);display:flex;flex-direction:column;justify-content:center;gap:4px}
+  .meta-issue{font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold)}
+  .meta-date{font-size:11px;color:rgba(248,244,238,0.3)}
+  .author-bar{background:var(--rust-lt);padding:14px 36px;display:flex;align-items:center;gap:13px}
+  .avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--rust));display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:17px;color:white;flex-shrink:0;box-shadow:0 2px 6px rgba(176,90,50,0.3)}
+  .author-name{font-size:13.5px;font-weight:500;color:var(--ink)}
+  .author-role{font-size:11.5px;color:var(--muted);margin-top:1px}
+
+  /* HERO */
+  .hero{background:var(--ink);padding:36px 36px 32px;border-top:1px solid rgba(255,255,255,0.04);position:relative;overflow:hidden}
+  .hero::after{content:'';position:absolute;top:-80px;right:-60px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(194,145,58,0.07) 0%,transparent 65%);pointer-events:none}
+  .hero-kicker{font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:16px}
+  .hero-hed{font-family:'Playfair Display',serif;font-size:28px;line-height:1.22;color:#F8F4EE;margin-bottom:14px;max-width:500px}
+  .hero-hed em{font-style:italic;color:var(--gold)}
+  .hero-deck{font-size:13.5px;color:rgba(248,244,238,0.48);line-height:1.65;max-width:460px}
+
+  /* BODY */
+  .body{padding:36px 36px 32px}
+  .opener{font-family:'Source Serif 4',serif;font-size:15px;line-height:1.78;color:var(--ink);font-style:italic;padding-bottom:28px;border-bottom:1px solid var(--rule);margin-bottom:32px}
+  p{font-size:14.5px;line-height:1.78;color:#38342E;margin-bottom:15px}
+  p:last-child{margin-bottom:0}
+  strong{color:var(--ink);font-weight:500}
+  .section{margin-bottom:34px;padding-bottom:34px;border-bottom:1px solid var(--rule)}
+  .section:last-of-type{border-bottom:none;margin-bottom:0;padding-bottom:0}
+  .sec-label{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+  .sec-pip{width:6px;height:6px;border-radius:50%;background:var(--rust);flex-shrink:0}
+  .sec-title{font-family:'Playfair Display',serif;font-size:17px;color:var(--ink);font-weight:500}
+
+  /* Rate cards */
+  .rate-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:20px 0}
+  .rate-card{background:var(--paper);border-radius:2px;padding:14px 15px;border-top:2px solid var(--rule)}
+  .rate-card.up{border-top-color:var(--warn)}
+  .rate-card.ok{border-top-color:var(--forest)}
+  .rate-card.flat{border-top-color:var(--navy)}
+  .rate-card.gold{border-top-color:var(--gold)}
+  .rate-num{font-family:'Playfair Display',serif;font-size:22px;color:var(--ink);line-height:1}
+  .rate-desc{font-size:11px;color:var(--muted);margin-top:5px;line-height:1.4}
+  .rate-delta{font-size:11px;margin-top:4px}
+  .rate-delta.up{color:var(--warn)}
+  .rate-delta.ok{color:var(--forest)}
+  .rate-delta.flat{color:var(--muted)}
+
+  /* Callout */
+  .callout{border-left:3px solid var(--rust);background:var(--paper);padding:16px 20px;margin:20px 0;border-radius:0 2px 2px 0}
+  .callout p{font-family:'Source Serif 4',serif;font-style:italic;font-size:14.5px;color:var(--ink);margin-bottom:0;line-height:1.7}
+  .callout-attr{font-size:10.5px !important;color:var(--muted) !important;margin-top:8px !important;font-style:normal !important;font-family:'DM Sans',sans-serif !important;letter-spacing:0.05em}
+
+  /* Navy data */
+  .data-box{border:1px solid rgba(30,58,95,0.18);background:var(--navy-lt);border-radius:2px;padding:18px 20px;margin:20px 0}
+  .data-label{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--navy);font-weight:500;margin-bottom:8px}
+  .data-box p{font-size:14px;color:#1A2D42;margin-bottom:8px;line-height:1.7}
+  .data-box p:last-child{margin-bottom:0}
+  .data-box strong{color:#0F1E2E}
+
+  /* Warn red */
+  .warn-box{border:1px solid rgba(139,32,32,0.2);background:var(--warn-lt);border-radius:2px;padding:20px 22px;margin:20px 0}
+  .warn-label{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--warn);font-weight:500;margin-bottom:8px}
+  .warn-box p{font-size:14px;color:#2E0A0A;margin-bottom:8px;line-height:1.7}
+  .warn-box p:last-child{margin-bottom:0}
+  .warn-box strong{color:#1A0505}
+
+  /* Green opportunity */
+  .opp-box{border:1px solid rgba(47,107,62,0.2);background:var(--forest-lt);border-radius:2px;padding:20px 22px;margin:20px 0}
+  .opp-label{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--forest);font-weight:500;margin-bottom:8px}
+  .opp-box p{font-size:14px;color:#1C3D24;margin-bottom:8px;line-height:1.72}
+  .opp-box p:last-child{margin-bottom:0}
+  .opp-box strong{color:#122618}
+
+  /* Amber watch */
+  .watch-box{border:1px solid rgba(196,122,16,0.2);background:var(--amber-lt);border-radius:2px;padding:18px 20px;margin:20px 0}
+  .watch-label{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--amber);font-weight:500;margin-bottom:8px}
+  .watch-box p{font-size:14px;color:#3D2200;margin-bottom:8px;line-height:1.7}
+  .watch-box p:last-child{margin-bottom:0}
+  .watch-box strong{color:#1F1000}
+
+  /* Plum — partnership section */
+  .partner-box{border:1px solid rgba(90,45,107,0.2);background:var(--plum-lt);border-radius:2px;padding:20px 22px;margin:20px 0}
+  .partner-label{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--plum);font-weight:500;margin-bottom:8px}
+  .partner-box p{font-size:14px;color:#2A1233;margin-bottom:8px;line-height:1.72}
+  .partner-box p:last-child{margin-bottom:0}
+  .partner-box strong{color:#180920}
+
+  /* Anthony's take */
+  .take-box{border:1px solid rgba(176,90,50,0.2);background:var(--rust-lt);border-radius:2px;padding:20px 22px;margin:20px 0}
+  .take-label{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--rust);font-weight:500;margin-bottom:8px}
+  .take-box p{font-size:14px;color:#3D1E0A;margin-bottom:8px;line-height:1.72}
+  .take-box p:last-child{margin-bottom:0}
+  .take-box strong{color:#231005}
+
+  /* Jobs stat row */
+  .stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:20px 0}
+  .stat-card{background:var(--paper);border-radius:2px;padding:14px 15px;border-top:2px solid var(--gold)}
+  .stat-card.warn{border-top-color:var(--warn)}
+  .stat-card.ok{border-top-color:var(--forest)}
+  .stat-num{font-family:'Playfair Display',serif;font-size:22px;color:var(--ink);line-height:1}
+  .stat-label{font-size:11px;color:var(--muted);margin-top:5px;line-height:1.4}
+
+  /* Referral step list */
+  .step-list{display:flex;flex-direction:column;gap:14px;margin:18px 0}
+  .step-item{display:flex;gap:14px;align-items:flex-start}
+  .step-num{width:28px;height:28px;border-radius:50%;background:var(--ink);color:white;font-size:12px;font-weight:500;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+  .step-text{font-size:14px;color:#38342E;line-height:1.65}
+  .step-text strong{color:var(--ink)}
+
+  /* Home sales table */
+  .sales-table{width:100%;border-collapse:collapse;margin:18px 0;font-size:13px}
+  .sales-table thead tr{background:var(--ink);color:var(--white)}
+  .sales-table thead th{padding:9px 14px;text-align:left;font-size:10.5px;letter-spacing:0.06em;text-transform:uppercase;font-weight:500}
+  .sales-table tbody tr{border-bottom:1px solid var(--rule)}
+  .sales-table tbody tr:last-child{border-bottom:none}
+  .sales-table tbody td{padding:9px 14px;color:#38342E}
+  .sales-table .pos{color:var(--forest);font-weight:500}
+  .sales-table .neg{color:var(--warn);font-weight:500}
+  .sales-table .bold{font-weight:500;color:var(--ink)}
+
+  /* Ornament */
+  .ornament{display:flex;align-items:center;gap:12px;margin:30px 0}
+  .ornament hr{flex:1;border:none;border-top:1px solid var(--rule)}
+  .ornament-mark{font-size:10px;color:var(--gold);letter-spacing:0.12em}
+
+  /* Closing */
+  .closing{font-family:'Source Serif 4',serif;font-size:14.5px;font-style:italic;color:var(--muted);line-height:1.75;padding-top:24px;border-top:1px solid var(--rule)}
+  .closing b{color:var(--ink);font-style:normal;font-weight:500}
+
+  /* Footer */
+  .footer{background:var(--paper);border-top:1px solid var(--rule);padding:18px 36px;display:flex;align-items:center;justify-content:space-between}
+  .footer-sig{font-family:'Source Serif 4',serif;font-style:italic;font-size:13px;color:var(--muted)}
+  .footer-sig b{color:var(--ink);font-style:normal;font-weight:500}
+  .footer-issue{font-size:10.5px;color:rgba(106,99,88,0.45);letter-spacing:0.06em;text-transform:uppercase}
+
+  @media(max-width:560px){
+    .body{padding:28px 20px 24px}
+    .masthead-top{flex-direction:column}
+    .masthead-meta{text-align:left;border-left:none;border-top:1px solid rgba(255,255,255,0.06);padding:14px 36px}
+    .rate-row,.stat-row{grid-template-columns:1fr 1fr}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- MASTHEAD -->
+  <div class="masthead">
+    <div class="masthead-top">
+      <div class="brand">
+        <div class="brand-name">Measured</div>
+        <div class="brand-sub">A weekly note on mortgage decisions that matter</div>
+      </div>
+      <div class="masthead-meta">
+        <div class="meta-issue">Issue No. 7</div>
+        <div class="meta-date">Friday, June 6, 2026</div>
+      </div>
+    </div>
+    <div class="author-bar">
+      <div class="avatar">A</div>
+      <div>
+        <div class="author-name">Anthony · Loan Pronto</div>
+        <div class="author-role">Mortgage advisor · wholesale lending · plain English, always</div>
+      </div>
+    </div>
+    <div class="hero">
+      <div class="hero-kicker">This week in Measured</div>
+      <div class="hero-hed">The jobs report just blew past expectations. Here's what that means for your <em>rate.</em></div>
+      <div class="hero-deck">172,000 jobs added in May — double what anyone forecast. Bonds sold off. Yields spiked. Rate hikes are back on the table. Where home sales stand through five months, why loan officers and financial advisors are stronger together, and how to build a referral network that actually works.</div>
+    </div>
+  </div>
+
+  <!-- BODY -->
+  <div class="body">
+
+    <p class="opener">Back at my desk, recharged, and the market didn't waste any time giving me something to write about. This morning's jobs report dropped like a hammer. Markets moved immediately. I want to walk you through what happened, what it means, and then get into something I've been thinking a lot about lately: the relationship between loan officers and financial advisors, and why that partnership — built right — changes everything for clients. — Anthony</p>
+
+    <!-- SECTION 1: JOBS REPORT + RATES -->
+    <div class="section">
+      <div class="sec-label"><div class="sec-pip"></div><div class="sec-title">The jobs report hit this morning — and the bond market felt every word</div></div>
+
+      <p>Economists expected <strong>85,000 jobs</strong> added in May. The actual number: <strong>172,000</strong> — more than double the forecast, and the strongest month of job growth since the spring surge in 2025. The unemployment rate held at 4.3%. March and April were both revised higher, adding another 93,000 jobs that weren't in the original counts. The labor market is not cooling the way the Fed needs it to.</p>
+
+      <div class="stat-row">
+        <div class="stat-card">
+          <div class="stat-num">172K</div>
+          <div class="stat-label">Jobs added in May — vs. 85K expected</div>
+        </div>
+        <div class="stat-card ok">
+          <div class="stat-num">4.3%</div>
+          <div class="stat-label">Unemployment rate — unchanged, resilient</div>
+        </div>
+        <div class="stat-card warn">
+          <div class="stat-num">+93K</div>
+          <div class="stat-label">March + April revised higher than reported</div>
+        </div>
+      </div>
+
+      <p>The bond market responded exactly the way you'd expect. The <strong>10-year Treasury yield jumped more than 6 basis points</strong> to 4.544% — its highest level since May 21 — within minutes of the release. The 2-year Treasury, which is even more sensitive to Fed policy expectations, climbed more than 11 basis points to 4.162%, reaching its highest level since February 2025. Those are not small moves for a Friday morning.</p>
+
+      <div class="warn-box">
+        <div class="warn-label">⚠️ What This Means for Mortgage Rates Right Now</div>
+        <p>A hot jobs report does two things to mortgage rates. First, it pushes Treasury yields higher immediately — which flows into rate pricing within hours. Second, it resets expectations for Fed policy. A labor market adding 172,000 jobs a month does not scream "cut rates." It screams "hold, or potentially hike."</p>
+        <p>Before this morning's report, the 30-year was tracking near <strong>6.48%</strong> on Optimal Blue data — slightly improved from the 6.53% Freddie Mac weekly print. After the report, <strong>that improvement reverses.</strong> Expect rates to open next week in the upper 6.40s to low 6.50s, with further upward pressure if CPI on June 10 comes in above expectations.</p>
+      </div>
+
+      <div class="rate-row">
+        <div class="rate-card up">
+          <div class="rate-num">6.53%</div>
+          <div class="rate-desc">30-yr fixed<br>Freddie Mac, May 28</div>
+          <div class="rate-delta up">↑ Highest since Aug 2025</div>
+        </div>
+        <div class="rate-card up">
+          <div class="rate-num">4.544%</div>
+          <div class="rate-desc">10-yr Treasury<br>Post-jobs report, June 6</div>
+          <div class="rate-delta up">↑ +6 bps this morning</div>
+        </div>
+        <div class="rate-card flat">
+          <div class="rate-num">6.89%</div>
+          <div class="rate-desc">30-yr fixed<br>One year ago today</div>
+          <div class="rate-delta flat">Still 36 bps better YoY</div>
+        </div>
+      </div>
+
+      <p>Here's the conversation nobody wants to have right now: <strong>rate hikes are back on the table.</strong> Not priced in as a base case, but the 2-year Treasury at 4.16% — with bond market participants pricing in a potential hike by year-end — is a signal worth taking seriously. The last time the Fed raised rates after a pause cycle, most people didn't think it was possible either. A rate hike would be a severe blow to housing affordability, and it's the scenario that every buyer sitting on the sideline should be aware of.</p>
+
+      <div class="callout">
+        <p>Treasury yields jumped after the stronger-than-expected May jobs report reinforced the view that the U.S. labor market remains resilient and dampened traders' hopes for rate cuts. The 2-year Treasury yield reached its highest level since February 2025.</p>
+        <p class="callout-attr">— CNBC Markets · June 6, 2026</p>
+      </div>
+
+      <p>The jobs sectors driving the surprise: leisure and hospitality added <strong>70,000</strong> — nearly half the total, led by food services. Local government added 55,000. Health care added 35,000. Manufacturing added 7,000. These are not signs of an economy in distress. They are signs of an economy the Fed cannot justify cutting rates for. The next Fed meeting is June 17–18 — eleven days from now. This jobs report just made Kevin Warsh's first meeting as chair considerably more complicated.</p>
+    </div>
+
+    <!-- SECTION 2: MORTGAGE APPLICATIONS YOY -->
+    <div class="section">
+      <div class="sec-label"><div class="sec-pip"></div><div class="sec-title">Mortgage applications year over year — the number the headline misses</div></div>
+
+      <p>The headlines have been focusing on week-over-week declines in mortgage applications, and they're real. For the week ending May 22, total application volume dropped <strong>8.5%</strong> — the sharpest single-week decline in nearly two months. For the week ending May 29, volume fell another <strong>2.5%</strong> as Memorial Day muted activity and the rate environment kept borrowers cautious.</p>
+
+      <p>But week-over-week noise obscures a more interesting story. Look at the <strong>year-over-year numbers</strong> and the picture changes substantially:</p>
+
+      <div class="data-box">
+        <div class="data-label">📊 MBA Mortgage Applications — Year-Over-Year Comparison</div>
+        <p><strong>Purchase applications, week ending May 8:</strong> up <strong>7% year over year</strong> — buyers are coming back despite higher rates than a year ago.</p>
+        <p><strong>Purchase applications, week ending May 22:</strong> up <strong>5% year over year</strong> — still ahead even during the worst week of the rate spike.</p>
+        <p><strong>Refinance applications:</strong> up <strong>19–28% year over year</strong> across recent weeks — homeowners who bought in 2023–2024 at 7% are finding windows, even modestly, to lower their rate.</p>
+        <p><strong>Refinance dollar volume (Fannie Mae RALI):</strong> up <strong>43.8% year over year</strong> as of mid-May, reflecting both volume and larger loan sizes among refinancing borrowers.</p>
+      </div>
+
+      <p>What this tells you: the year-over-year trend is quietly healthy. The demand is there. The dip in week-over-week numbers reflects rate-sensitive borrowers pausing during volatility spikes — not a structural retreat. When rates ease even modestly, the applications follow immediately. <strong>The buyer pool hasn't shrunk. It's just holding its breath.</strong></p>
+    </div>
+
+    <!-- SECTION 3: HOME SALES 5 MONTHS -->
+    <div class="section">
+      <div class="sec-label"><div class="sec-pip"></div><div class="sec-title">Five months in — where existing home sales actually stand</div></div>
+
+      <p>Through the first five months of 2026, the existing home sales picture is better than the pessimists predicted and more complicated than the optimists hoped. Here's the month-by-month story:</p>
+
+      <table class="sales-table">
+        <thead>
+          <tr>
+            <th>Month</th>
+            <th>SAAR (millions)</th>
+            <th>MoM Change</th>
+            <th>YoY Change</th>
+            <th>Median Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="bold">January</td>
+            <td>4.08</td>
+            <td class="pos">+2.0%</td>
+            <td class="pos">+2.0%</td>
+            <td>$404,400</td>
+          </tr>
+          <tr>
+            <td class="bold">February</td>
+            <td>4.26</td>
+            <td class="pos">+4.2%</td>
+            <td class="pos">+2.0%</td>
+            <td>$398,400</td>
+          </tr>
+          <tr>
+            <td class="bold">March</td>
+            <td>3.98</td>
+            <td class="neg">-3.6%</td>
+            <td class="neg">-2.3%</td>
+            <td>$408,800</td>
+          </tr>
+          <tr>
+            <td class="bold">April</td>
+            <td>4.02</td>
+            <td class="pos">+0.2%</td>
+            <td class="flat">flat</td>
+            <td>$417,700</td>
+          </tr>
+          <tr>
+            <td class="bold">May (est.)</td>
+            <td colspan="3">NAR releases May data Tuesday, June 9</td>
+            <td>—</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p style="font-size:11.5px;color:var(--muted);margin-top:-8px;">Sources: NAR Existing Home Sales reports, Jan–Apr 2026. May 2026 data releases June 9.</p>
+
+      <p>The pattern is telling: <strong>January and February were strong</strong> — rates had dipped close to 6% and buyers who'd been waiting moved. <strong>March pulled back hard</strong> as the Iran war escalated, energy prices spiked, and rates climbed. <strong>April stabilized</strong>. The swing variable throughout has been the 10-year Treasury, not buyer intent. When rates were sub-6.10% in February, transactions followed immediately. When rates pushed to 6.5%+ in April, they didn't disappear — they decelerated.</p>
+
+      <div class="opp-box">
+        <div class="opp-label">📈 The Signal Inside the Numbers · NAR / HousingWire</div>
+        <p>Inventory is improving meaningfully. April's 1.47 million active listings represents a <strong>5.8% increase from March</strong> and a <strong>1.4% increase year over year</strong> — a 4.4-month supply at current sales pace. The median price of <strong>$417,700</strong> is up just 0.9% year over year. That's not a market crashing. That's a market repricing to match reality.</p>
+        <p>NAR Chief Economist Lawrence Yun said it plainly: <strong>"Average income growth is outpacing home price gains."</strong> That's an affordability improvement by a different path than most buyers are watching for — not rates falling, but wages catching up. Both matter. The combination of slightly lower prices, more inventory, and rising wages is quietly making homeownership more achievable even in a 6.5% rate environment.</p>
+      </div>
+
+      <p>The May report drops Tuesday June 9. I'll be watching the pending sales conversion rate and any signal in the days-on-market data. If May continues the April stabilization — or beats it — the narrative of a recovering housing market gets a lot harder to dismiss.</p>
+    </div>
+
+    <!-- SECTION 4: LO + FINANCIAL ADVISOR PARTNERSHIP -->
+    <div class="section">
+      <div class="sec-label"><div class="sec-pip"></div><div class="sec-title">Why loan officers and financial advisors are better together</div></div>
+
+      <p>Here's something I've been thinking about more deliberately this year: the mortgage transaction doesn't happen in isolation. By the time most people reach me, they've already had conversations with a financial advisor about their portfolio, their tax situation, their liquidity — and often those conversations have directly shaped what they think they can afford, how they want to structure the down payment, and whether they should even be buying now.</p>
+
+      <p>The problem is that the advisor and the loan officer almost never talk to each other. And that gap costs clients.</p>
+
+      <div class="partner-box">
+        <div class="partner-label">🤝 The LO + Advisor Partnership — What Changes When It Works</div>
+        <p>A financial advisor knows things about a client that transform the mortgage conversation: their investment accounts, their tax bracket, their liquidity preferences, whether they have concentrated stock positions, whether they're planning a business sale or inheritance in the next 18 months. A loan officer knows things the advisor doesn't: what the current rate environment actually allows, what loan structures change the monthly cash flow picture, whether the client qualifies for a program that changes the down payment math.</p>
+        <p>When those two people coordinate <em>before</em> the client makes a decision — not after — the outcomes are consistently better. <strong>The client doesn't over-leverage. They don't undershoot on down payment when a portfolio-backed SBLOC could preserve liquidity. They don't miss a rate lock window because the advisor didn't know it was expiring.</strong> These are real dollars and real mistakes that coordination prevents.</p>
+        <p>The advisors I work with most effectively have learned that a 30-minute call early in the client's decision process is worth more than three calls trying to unwind a suboptimal structure after closing. That's not theory. That's what the last two years of transactions has shown me.</p>
+      </div>
+
+      <p>The practical mechanics of this partnership are simpler than most people think. It doesn't require a referral agreement or a formal arrangement. It requires <strong>mutual respect, shared vocabulary, and a client-first orientation.</strong> The advisor trusts that the LO isn't going to oversell the client into a loan that doesn't serve their broader financial picture. The LO trusts that the advisor isn't going to recommend a structure that sounds good on paper but creates a qualifying problem at application.</p>
+
+      <p>What I look for in an advisor partner: someone who thinks about the mortgage as a financial instrument, not a commodity. Someone who asks "what's the after-tax cost of this rate?" instead of just watching the headline number. Someone who understands that liquidity, leverage, and tax efficiency are all part of the housing decision — not separate from it.</p>
+
+      <div class="take-box">
+        <div class="take-label">Anthony's Take — On Earning the Right Kind of Referrals</div>
+        <p>The best referral I ever got came from a financial advisor I'd worked with on two transactions. He called me before the client called him — because he knew I'd give him a clean picture of the rate environment before he advised the client on whether to deploy cash or take financing.</p>
+        <p>That's the relationship worth building. Not a transaction referral. A <strong>consultative partnership where both professionals look sharper in front of the client because of how well they communicate with each other.</strong> That advisor has sent me seven clients in eighteen months. Every one of them came in well-informed, pre-positioned, and ready to move efficiently.</p>
+        <p>If you're a financial advisor reading this — I'd genuinely welcome that kind of conversation. If you're a borrower whose advisor and mortgage person have never spoken — ask why. The answer usually reveals something important about how each of them views your transaction.</p>
+      </div>
+    </div>
+
+    <!-- SECTION 5: REFERRAL NETWORK -->
+    <div class="section">
+      <div class="sec-label"><div class="sec-pip"></div><div class="sec-title">Building a referral network that actually produces — not just business cards</div></div>
+
+      <p>The mortgage industry runs on referrals. Everyone knows it. What fewer people talk about is why most referral networks underperform — and what the ones that actually work have in common.</p>
+
+      <p>The weak version of a referral network is a list of people who said "sure, send anyone my way" at a networking event. They don't send you business because they don't actually know what you do, who you're best for, or why a referral to you specifically benefits their client. The strong version is a small number of people who understand your value proposition well enough to articulate it on your behalf — unprompted.</p>
+
+      <div class="step-list">
+        <div class="step-item">
+          <div class="step-num">1</div>
+          <div class="step-text"><strong>Lead with value before you ask for anything.</strong> The advisors, CPAs, and real estate attorneys who send me referrals consistently are people I've educated first. A market update. A specific insight on a client situation they mentioned. A call to walk through a loan structure that had tax implications I thought they'd want to know about. Give before you ask — and keep giving even when the referral flow is already strong.</div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">2</div>
+          <div class="step-text"><strong>Specialize your network by client type.</strong> A Realtor who sells entry-level homes has different clients than one who works in the $800K+ luxury market. A CPA with small business owners has different referrals than one serving W-2 employees. Know which referral sources align with the clients you serve best, and invest deeply there rather than broadly everywhere.</div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">3</div>
+          <div class="step-text"><strong>Make it easy to refer you.</strong> Your referral partners need to know what to say when they introduce you. Give them language. A one-sentence description of who you help and what makes the experience different. "Anthony specializes in wholesale lending — his clients typically get rates 0.40% below what the bank quotes, and he's the person I call when a transaction has complexity." That's referable. "He's a good mortgage guy" is not.</div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">4</div>
+          <div class="step-text"><strong>Close the loop, every time.</strong> When a referral partner sends you someone, call them when that client closes. Not with a thank-you gift — with a brief update on how the transaction went and what you were able to do for them. Referral partners send more referrals when they know their clients were taken care of. Silence after a referral is the single fastest way to stop the flow.</div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">5</div>
+          <div class="step-text"><strong>Think beyond Realtors.</strong> The best referral networks I've seen in this business include divorce attorneys (asset division often involves real estate), estate planning attorneys (inheritance liquidity decisions), CPAs (business owners buying property), employer HR departments (relocation packages), and financial advisors (portfolio clients making housing decisions). Each of these professionals touches your client before or after you do. Position yourself as the natural next step in that conversation.</div>
+        </div>
+      </div>
+
+      <div class="watch-box">
+        <div class="watch-label">📅 What to Watch Next Week</div>
+        <p><strong>Tuesday June 9 — NAR Existing Home Sales (May).</strong> The first look at how the market held up through the rate spike in May. A print above 4.0 million SAAR would signal resilience. Below 3.9 million raises concern about demand destruction at current rates.</p>
+        <p><strong>Wednesday June 10 — CPI for May.</strong> The most important data point of the month. April CPI came in at 3.8% — driven by energy. If May's reading shows any moderation, bond markets will move quickly in the favorable direction. A hot number at or above 3.8% gives the Fed ammunition to hold — or worse, raise — at June 17–18.</p>
+        <p><strong>Wednesday June 17–18 — FOMC Meeting.</strong> Kevin Warsh's first meeting as Fed Chair. Today's jobs report just made this meeting far more complicated. No cut is expected. A hold is likely but no longer certain. The statement language — specifically any shift toward "additional firming may be appropriate" — would send mortgage rates materially higher. Watch for this phrase.</p>
+      </div>
+    </div>
+
+    <!-- ORNAMENT -->
+    <div class="ornament"><hr><div class="ornament-mark">· · ·</div><hr></div>
+
+    <p class="closing">Seven issues in and this market keeps delivering material. Today's jobs report is one of those moments where the data and the narrative diverge — the economy is strong, but strong isn't what mortgage borrowers are hoping for right now. If you want to talk through what this week means for your specific situation — buying, refinancing, or waiting — my door is open. Reply to this email and let's get into the numbers. <b>— Anthony</b></p>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-sig">Written by <b>Anthony</b> · Loan Pronto · June 6, 2026</div>
+    <div class="footer-issue">Measured · Issue No. 7</div>
+  </div>
+
+</div>
+</body>
+</html>
