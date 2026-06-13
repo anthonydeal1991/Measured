@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Measured — Issue No. 8 · June 13, 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,400;1,500&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;1,8..60,300&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --paper:#F8F4EE;--white:#FDFBF8;--ink:#1A1915;--muted:#6A6358;
+    --rule:rgba(26,25,21,0.09);--rust:#B05A32;--rust-lt:#ECD9CE;
+    --gold:#C2913A;--forest:#2F6B3E;--forest-lt:#D4E8D9;
+    --navy:#1E3A5F;--navy-lt:#D2DFF0;--amber:#C47A10;--amber-lt:#FAE9CB;
+    --warn:#8B2020;--warn-lt:#F5D5D5;--plum:#5A2D6B;--plum-lt:#EDE0F5;
+    --teal:#1A5F6A;--teal-lt:#D0EAED;
+  }
+  body{font-family:'DM Sans',sans-serif;background:#EDE8DF;color:var(--ink);padding:32px 16px 64px}
+  .wrap{max-width:620px;margin:0 auto;background:var(--white);border-radius:2px;overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,0.04),0 8px 24px rgba(0,0,0,0.07),0 32px 64px rgba(0,0,0,0.07)}
+
+  /* MASTHEAD */
+  .masthead{background:var(--ink)}
+  .masthead-top{display:flex;align-items:stretch;border-bottom:1px solid rgba(255,255,255,0.06)}
+  .brand{flex:1;padding:22px 36px}
+  .brand-name{font-family:'Playfair Display',serif;color:#F8F4EE;font-size:24px;letter-spacing:0.01em;line-height:1}
+  .brand-sub{font-size:10px;color:rgba(248,244,238,0.35);letter-spacing:0.12em;text-transform:uppercase;margin-top:5px}
+  .masthead-meta{padding:22px 36px;text-align:right;border-left:1px solid rgba(255,255,255,0.06);display:flex;flex-direction:column;justify-content:center;gap:4px}
+  .meta-issue{font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold)}
+  .meta-date{font-size:11px;color:rgba(248,244,238,0.3)}
+  .author-bar{background:var(--rust-lt);padding:14px 36px;display:flex;align-items:center;gap:13px}
+  .avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--rust));display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:17px;color:white;flex-shrink:0;box-shadow:0 2px 6px rgba(176,90,50,0.3)}
+  .author-name{font-size:13.5px;font-weight:500;color:var(--ink)}
+  .author-role{font-size:11.5px;color:var(--muted);margin-top:1px}
+
+  /* HERO */
+  .hero{background:var(--ink);padding:38px 36px 34px;border-top:1px solid rgba(255,255,255,0.04);position:relative;overflow:hidden}
+  .hero::after{content:'';position:absolute;top:-80px;right:-60px;width:320px;height:320px;border-radius:50%;background:radial-gradient(circle,rgba(194,145,58,0.08) 0%,transparent 65%);pointer-events:none}
+  .hero-kicker{font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:16px}
+  .hero-hed{font-family:'Playfair Display',serif;font-size:30px;line-height:1.2;color:#F8F4EE;margin-bottom:14px;max-width:500px}
+  .hero-hed em{font-style:italic;color:var(--gold)}
+  .hero-deck{font-size:13.5px;color:rgba(248,244,238,0.48);line-height:1.68;max-width:460px}
+
+  /* BODY */
+  .body{padding:36px 36px 32px}
+  .opener{font-family:'Source Serif 4',serif;font-size:15px;line-height:1.78;color:var(--ink);font-style:italic;padding-bottom:28px;border-bottom:1px solid var(--rule);margin-bottom:32px}
+  p{font-size:14.5px;line-height:1.78;color:#38342E;margin-bottom:15px}
+  p:last-child{margin-bottom:0}
+  strong{color:var(--ink);font-weight:500}
+  .section{margin-bottom:34px;padding-bottom:34px;border-bottom:1px solid var(--rule)}
+  .section:last-of-type{border-bottom:none;margin-bottom:0;padding-bottom:0}
+  .sec-label{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+  .sec-pip{width:6px;height:6px;border-radius:50%;background:var(--rust);flex-shrink:0}
+  .sec-title{font-family:'Playfair Display',serif;font-size:17px;color:var(--ink);font-weight:500}
+
+  /* Rate cards */
+  .rate-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:20px 0}
+  .rate-card{background:var(--paper);border-radius:2px;padding:14px 15px;border-top:2px solid var(--rule)}
+  .rate-card.up{border-top-color:var(--warn)}
+  .rate-card.ok{border-top-color:var(--forest)}
+  .rate-card.flat{border-top-color:var(--navy)}
+  .rate-card.gold{border-top-color:var(--gold)}
+  .rate-num{font-family:'Playfair Display',serif;font-size:22px;color:var(--ink);line-height:1}
+  .rate-desc{font-size:11px;color:var(--muted);margin-top:5px;line-height:1.4}
+  .rate-delta{font-size:11px;margin-top:4px}
+  .rate-delta.up{color:var(--warn)}
+  .rate-delta.ok{color:var(--forest)}
+  .rate-delta.flat{color:var(--muted)}
+
+  /* Callout */
+  .callout{border-left:3px solid var(--rust);background:var(--paper);padding:16px 20px;margin:20px 0;border-radius:0 2px 2px 0}
+  .callout p{font-family:'Source Serif 4',serif;font-style:italic;font-size:14.5px;color:var(--ink);margin-bottom:0;line-height:1.7}
+  .callout-attr{font-size:10.5px !important;color:var(--muted) !important;margin-top:8px !important;font-style:normal !important;font-family:'DM Sans',sans-serif !important;letter-spacing:0.05em}
+
+  /* Spread table — the centerpiece */
+  .spread-table-wrap{margin:20px 0;border-radius:2px;overflow:hidden;border:1px solid var(--rule)}
+  .spread-table{width:100%;border-collapse:collapse;font-size:13px}
+  .spread-table thead tr{background:var(--ink)}
+  .spread-table thead th{padding:11px 16px;text-align:left;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;font-weight:500;color:rgba(248,244,238,0.7)}
+  .spread-table thead th.gold{color:var(--gold)}
+  .spread-table tbody tr{border-bottom:1px solid var(--rule)}
+  .spread-table tbody tr:last-child{border-bottom:none}
+  .spread-table tbody tr.highlight{background:#FDF8F2}
+  .spread-table tbody td{padding:11px 16px;color:#38342E;vertical-align:middle}
+  .spread-table .era{font-weight:500;color:var(--ink);font-size:13.5px}
+  .spread-table .yield{font-family:'Playfair Display',serif;font-size:15px;color:var(--navy)}
+  .spread-table .rate{font-family:'Playfair Display',serif;font-size:15px;color:var(--ink)}
+  .spread-table .spread{font-family:'Playfair Display',serif;font-size:15px;font-weight:500}
+  .spread-table .spread.norm{color:var(--forest)}
+  .spread-table .spread.wide{color:var(--amber)}
+  .spread-table .spread.crisis{color:var(--warn)}
+  .spread-table .spread.now{color:var(--rust)}
+  .spread-note{font-size:11.5px;color:var(--muted);margin-top:8px;line-height:1.55}
+
+  /* Data boxes */
+  .data-box{border:1px solid rgba(30,58,95,0.18);background:var(--navy-lt);border-radius:2px;padding:18px 20px;margin:20px 0}
+  .data-label{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--navy);font-weight:500;margin-bottom:8px}
+  .data-box p{font-size:14px;color:#1A2D42;margin-bottom:8px;line-height:1.7}
+  .data-box p:last-child{margin-bottom:0}
+  .data-box strong{color:#0F1E2E}
+
+  /* Iran / deal box */
+  .deal-box{border:1px solid rgba(196,122,16,0.22);background:var(--amber-lt);border-radius:2px;padding:20px 22px;margin:20px 0;position:relative;overflow:hidden}
+  .deal-box::before{content:'';position:absolute;top:-30px;right:-30px;width:100px;height:100px;border-radius:50%;background:rgba(196,122,16,0.06);pointer-events:none}
+  .deal-label{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--amber);font-weight:500;margin-bottom:8px}
+  .deal-box p{font-size:14px;color:#3D2200;margin-bottom:8px;line-height:1.72}
+  .deal-box p:last-child{margin-bottom:0}
+  .deal-box strong{color:#1F1000}
+
+  /* Green opportunity */
+  .opp-box{border:1px solid rgba(47,107,62,0.2);background:var(--forest-lt);border-radius:2px;padding:20px 22px;margin:20px 0}
+  .opp-label{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--forest);font-weight:500;margin-bottom:8px}
+  .opp-box p{font-size:14px;color:#1C3D24;margin-bottom:8px;line-height:1.72}
+  .opp-box p:last-child{margin-bottom:0}
+  .opp-box strong{color:#122618}
+
+  /* Warn red */
+  .warn-box{border:1px solid rgba(139,32,32,0.2);background:var(--warn-lt);border-radius:2px;padding:20px 22px;margin:20px 0}
+  .warn-label{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--warn);font-weight:500;margin-bottom:8px}
+  .warn-box p{font-size:14px;color:#2E0A0A;margin-bottom:8px;line-height:1.7}
+  .warn-box p:last-child{margin-bottom:0}
+  .warn-box strong{color:#1A0505}
+
+  /* Referral / dark charcoal box */
+  .referral-box{background:#2D2D2A;border-radius:2px;padding:24px 26px;margin:20px 0;border-left:3px solid var(--gold);position:relative;overflow:hidden}
+  .referral-box::after{content:'"';position:absolute;right:24px;bottom:-10px;font-family:'Playfair Display',serif;font-size:120px;color:rgba(194,145,58,0.07);line-height:1;pointer-events:none}
+  .referral-label{font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:12px}
+  .referral-box p{font-size:14px;color:rgba(248,244,238,0.75);margin-bottom:10px;line-height:1.78}
+  .referral-box p:last-child{margin-bottom:0}
+  .referral-box strong{color:#F8F4EE}
+  .referral-box em{font-style:italic;color:rgba(248,244,238,0.55)}
+
+  /* Anthony's take */
+  .take-box{border:1px solid rgba(176,90,50,0.2);background:var(--rust-lt);border-radius:2px;padding:20px 22px;margin:20px 0}
+  .take-label{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--rust);font-weight:500;margin-bottom:8px}
+  .take-box p{font-size:14px;color:#3D1E0A;margin-bottom:8px;line-height:1.72}
+  .take-box p:last-child{margin-bottom:0}
+  .take-box strong{color:#231005}
+
+  /* Watch box */
+  .watch-box{border:1px solid rgba(30,58,95,0.18);background:var(--navy-lt);border-radius:2px;padding:18px 20px;margin:20px 0}
+  .watch-label{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--navy);font-weight:500;margin-bottom:8px}
+  .watch-box p{font-size:14px;color:#1A2D42;margin-bottom:8px;line-height:1.7}
+  .watch-box p:last-child{margin-bottom:0}
+  .watch-box strong{color:#0F1E2E}
+
+  /* Visual spread bar */
+  .spread-vis{margin:22px 0}
+  .spread-vis-row{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+  .spread-vis-label{font-size:12px;color:var(--muted);width:80px;flex-shrink:0;text-align:right}
+  .spread-vis-bar-wrap{flex:1;background:rgba(26,25,21,0.06);border-radius:2px;height:22px;position:relative;overflow:hidden}
+  .spread-vis-bar{height:100%;border-radius:2px;display:flex;align-items:center;padding-left:8px;font-size:10.5px;font-weight:500;color:white;letter-spacing:0.04em;transition:width 0.6s ease}
+  .spread-vis-bar.pre{background:var(--forest);width:35%}
+  .spread-vis-bar.y2024{background:var(--amber);width:52%}
+  .spread-vis-bar.y2025{background:var(--rust);width:60%}
+  .spread-vis-bar.now{background:var(--warn);width:67%}
+
+  /* Home sales mini */
+  .sales-stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:20px 0}
+  .sales-stat{background:var(--paper);border-radius:2px;padding:13px 14px;border-top:2px solid var(--gold)}
+  .sales-stat.ok{border-top-color:var(--forest)}
+  .sales-stat-num{font-family:'Playfair Display',serif;font-size:21px;color:var(--ink);line-height:1}
+  .sales-stat-label{font-size:11px;color:var(--muted);margin-top:4px;line-height:1.4}
+
+  /* Ornament */
+  .ornament{display:flex;align-items:center;gap:12px;margin:30px 0}
+  .ornament hr{flex:1;border:none;border-top:1px solid var(--rule)}
+  .ornament-mark{font-size:10px;color:var(--gold);letter-spacing:0.12em}
+
+  /* Closing */
+  .closing{font-family:'Source Serif 4',serif;font-size:14.5px;font-style:italic;color:var(--muted);line-height:1.75;padding-top:24px;border-top:1px solid var(--rule)}
+  .closing b{color:var(--ink);font-style:normal;font-weight:500}
+
+  /* Footer */
+  .footer{background:var(--paper);border-top:1px solid var(--rule);padding:18px 36px;display:flex;align-items:center;justify-content:space-between}
+  .footer-sig{font-family:'Source Serif 4',serif;font-style:italic;font-size:13px;color:var(--muted)}
+  .footer-sig b{color:var(--ink);font-style:normal;font-weight:500}
+  .footer-issue{font-size:10.5px;color:rgba(106,99,88,0.45);letter-spacing:0.06em;text-transform:uppercase}
+
+  @media(max-width:560px){
+    .body{padding:28px 20px 24px}
+    .masthead-top{flex-direction:column}
+    .masthead-meta{text-align:left;border-left:none;border-top:1px solid rgba(255,255,255,0.06);padding:14px 36px}
+    .rate-row,.sales-stat-row{grid-template-columns:1fr 1fr}
+    .spread-vis-label{width:56px;font-size:11px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- MASTHEAD -->
+  <div class="masthead">
+    <div class="masthead-top">
+      <div class="brand">
+        <div class="brand-name">Measured</div>
+        <div class="brand-sub">A weekly note on mortgage decisions that matter</div>
+      </div>
+      <div class="masthead-meta">
+        <div class="meta-issue">Issue No. 8</div>
+        <div class="meta-date">Friday, June 13, 2026</div>
+      </div>
+    </div>
+    <div class="author-bar">
+      <div class="avatar">A</div>
+      <div>
+        <div class="author-name">Anthony · Loan Pronto</div>
+        <div class="author-role">Mortgage advisor · wholesale lending · plain English, always</div>
+      </div>
+    </div>
+    <div class="hero">
+      <div class="hero-kicker">This week in Measured</div>
+      <div class="hero-hed">An Iran deal is closer than it's ever been. Here's exactly what that means for <em>your rate.</em></div>
+      <div class="hero-deck">The spread between the 10-year Treasury and the 30-year mortgage is running 250 basis points — we break down what that means, where it's been, and how much it matters. Plus: the home sales report that nobody expected, and the most important thing you can do for a referral.</div>
+    </div>
+  </div>
+
+  <!-- BODY -->
+  <div class="body">
+
+    <p class="opener">Eight issues in. This week I want to write something that earns its place in your inbox — something you didn't know before you opened it and won't forget after you close it. Rates. Iran. The spread nobody explains. A home sales number that broke in a good direction. And something I feel strongly about: what it actually means to go the extra mile for someone who trusted you with a referral. Let's get into it. — Anthony</p>
+
+    <!-- SECTION 1: IRAN — THE MOST IMPORTANT STORY IN MORTGAGE RIGHT NOW -->
+    <div class="section">
+      <div class="sec-label"><div class="sec-pip"></div><div class="sec-title">Iran deal: closer than it's ever been — and the mortgage implications are enormous</div></div>
+
+      <p>This is the story that matters most to mortgage rates right now, and it is developing in real time as I write this on Friday morning.</p>
+
+      <p>On Thursday June 12, Pakistan's Prime Minister Shehbaz Sharif announced that <strong>the U.S. and Iran had reached a final, agreed-upon text of a peace deal</strong>, with Pakistan working to finalize next steps. Iran's foreign minister, Abbas Araghchi, stated that a permanent accord to end the conflict has <strong>"never been closer."</strong> President Trump pulled back planned strikes against Iran on June 11, signaling openness to the deal. The framework reportedly includes Iran committing to never develop nuclear weapons — a more permanent commitment than prior negotiations sought — along with the unfreezing of $24 billion in Iranian assets.</p>
+
+      <div class="deal-box">
+        <div class="deal-label">🕊️ Where the Deal Stands — June 13, 2026</div>
+        <p><strong>What's done:</strong> Pakistan says a final text has been agreed upon. Iran's foreign minister confirmed the broad framework publicly. Trump pulled back strikes June 11 and signaled imminent signing, possibly in Europe within days.</p>
+        <p><strong>What's not done:</strong> The U.S. military shot down multiple Iranian drones near the Strait of Hormuz early Friday morning — even as deal momentum built. Trump publicly said Iran has misrepresented the deal's contents. Israeli officials are pressing to prevent unfreezing of Iranian assets. Verification mechanisms and factional approvals within Tehran remain unresolved.</p>
+        <p><strong>The honest read:</strong> This is the closest any deal has come to materializing since the conflict began in February. But "closest ever" and "signed" are not the same thing. The conflict has seen ceasefire extensions, naval blockades, and broken-down Islamabad talks. There are still real ways this falls apart. But if it holds — <strong>the rate impact could be felt within 48 hours of a confirmed signing.</strong></p>
+      </div>
+
+      <p>Why does a peace deal in the Middle East move your mortgage rate? The direct chain: Iran war → oil above $90/barrel → energy inflation → bond investors demand higher yields → 10-year Treasury stays elevated → mortgage rates follow. The war began February 28 with the 10-year Treasury at 3.97%. It closed Thursday June 12 at approximately <strong>4.47%</strong> — a 50-basis-point surge driven almost entirely by energy-related inflation fears.</p>
+
+      <div class="opp-box">
+        <div class="opp-label">📉 What a Confirmed Deal Could Do to Rates — Fast</div>
+        <p>Oil is currently trading around <strong>$90–92 per barrel</strong>. Analysts at Goldman Sachs estimate a confirmed, durable peace deal would drop WTI crude to <strong>$70–75 within 30 days</strong> as the Strait of Hormuz reopens and Iranian supply returns to market. Every $10 sustained drop in oil price historically translates to <strong>8–12 basis points of mortgage rate relief</strong> over 2–4 weeks.</p>
+        <p>A full peace deal with oil returning to $72 could reduce the inflation premium in bond yields by 30–40 basis points. At a 250-basis-point spread (more on that in a moment), that could bring the 30-year mortgage to <strong>6.00–6.15% within 60 days</strong> of a confirmed signing. <strong>That's not a forecast. That's the math if the peace deal holds and oil falls.</strong> It's the biggest potential rate catalyst of the year.</p>
+      </div>
+
+      <p>Watch this closely this weekend. A signing in Europe — which Trump hinted at — would trigger immediate bond market movement Monday morning. If you are within 90 days of a purchase or refinance decision, this is the week to be in close contact with your advisor.</p>
+    </div>
+
+    <!-- SECTION 2: THE SPREAD — CENTERPIECE -->
+    <div class="section">
+      <div class="sec-label"><div class="sec-pip"></div><div class="sec-title">The spread between the 10-year and the 30-year — the number inside the number</div></div>
+
+      <p>Every week I cite the 30-year mortgage rate and the 10-year Treasury yield. What I haven't done until this issue is pull them apart and show you what the relationship between them actually tells us — and why it matters more than either number alone.</p>
+
+      <p>The <strong>spread</strong> is simply the difference: 30-year mortgage rate minus 10-year Treasury yield. It's what lenders add on top of the risk-free government rate to cover their costs, profits, and the uncertainty of holding mortgage-backed securities. In calm, healthy markets the spread runs around <strong>150–175 basis points</strong>. When markets get scared — recession fears, volatility spikes, geopolitical uncertainty — it widens. Sometimes dramatically.</p>
+
+      <p>Here's how the spread has behaved over the past several years, compared to where it sits right now:</p>
+
+      <div class="spread-table-wrap">
+        <table class="spread-table">
+          <thead>
+            <tr>
+              <th>Period</th>
+              <th>10-yr Treasury</th>
+              <th>30-yr Mortgage</th>
+              <th class="gold">Spread</th>
+              <th>Context</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="era">2012–2019 avg</td>
+              <td class="yield">~2.40%</td>
+              <td class="rate">~4.10%</td>
+              <td class="spread norm">~170 bps</td>
+              <td style="font-size:12px;color:var(--muted)">Post-GFC normal</td>
+            </tr>
+            <tr>
+              <td class="era">2023 peak</td>
+              <td class="yield">~4.60%</td>
+              <td class="rate">~7.60%</td>
+              <td class="spread crisis">~300 bps</td>
+              <td style="font-size:12px;color:var(--muted)">Crisis-level fear</td>
+            </tr>
+            <tr>
+              <td class="era">2024 avg</td>
+              <td class="yield">~4.20%</td>
+              <td class="rate">~6.70%</td>
+              <td class="spread wide">~250 bps</td>
+              <td style="font-size:12px;color:var(--muted)">Still elevated</td>
+            </tr>
+            <tr>
+              <td class="era">2025 avg</td>
+              <td class="yield">~4.10%</td>
+              <td class="rate">~6.65%</td>
+              <td class="spread wide">~255 bps</td>
+              <td style="font-size:12px;color:var(--muted)">Persistently wide</td>
+            </tr>
+            <tr class="highlight">
+              <td class="era">Now (June 2026)</td>
+              <td class="yield">4.47%</td>
+              <td class="rate">6.52%</td>
+              <td class="spread now">~205 bps</td>
+              <td style="font-size:12px;color:var(--rust);font-weight:500">Improving but still above norm</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="spread-vis">
+        <div style="font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:12px">Spread vs. historical normal (170 bps = 100%)</div>
+        <div class="spread-vis-row">
+          <div class="spread-vis-label">2012–19</div>
+          <div class="spread-vis-bar-wrap"><div class="spread-vis-bar pre">170 bps · normal</div></div>
+        </div>
+        <div class="spread-vis-row">
+          <div class="spread-vis-label">2024</div>
+          <div class="spread-vis-bar-wrap"><div class="spread-vis-bar y2024">~250 bps</div></div>
+        </div>
+        <div class="spread-vis-row">
+          <div class="spread-vis-label">2025</div>
+          <div class="spread-vis-bar-wrap"><div class="spread-vis-bar y2025">~255 bps</div></div>
+        </div>
+        <div class="spread-vis-row">
+          <div class="spread-vis-label">Jun 2026</div>
+          <div class="spread-vis-bar-wrap"><div class="spread-vis-bar now">~205 bps · improving</div></div>
+        </div>
+      </div>
+
+      <p class="spread-note">Sources: Fannie Mae Housing Insights, MBA Chart of the Week, HousingWire 30-yr vs. 10-yr tracker, FRED. Spread = 30-yr Freddie Mac PMMS minus 10-yr constant maturity Treasury.</p>
+
+      <p>Here's what this visual shows you that the headline rate doesn't: <strong>the spread is actually contracting.</strong> It was running 250–300 basis points through most of 2023–2025. Today it's approximately 205 basis points — the tightest it's been since before the inflation spike. That's genuinely encouraging. It means that even as the 10-year Treasury has climbed due to geopolitical risk, lenders are not piling on the same level of margin fear they were two years ago.</p>
+
+      <div class="data-box">
+        <div class="data-label">📊 What Happens If the Spread Normalizes · Fannie Mae / MBA Research</div>
+        <p>The historical normal spread between the 30-year mortgage and the 10-year Treasury is approximately <strong>170 basis points</strong>. From 2012 to 2019 — a long, calm period — it averaged that level. The current 205-basis-point spread means lenders are still pricing in approximately <strong>35 basis points of excess caution</strong> above the historical norm.</p>
+        <p>If the spread normalizes to 170 bps <em>and</em> the 10-year Treasury stays at 4.47%, the 30-year mortgage would be <strong>6.17%</strong> — roughly 35 basis points below where it is today. On a $400,000 loan, that's approximately <strong>$83/month less</strong>. The spread normalization alone — without the Fed cutting once — could deliver that improvement. Now add an Iran peace deal that drops the 10-year to 4.10% and normalizes the spread: you're looking at <strong>5.80%</strong>. That is the math behind the optimistic scenario for late 2026.</p>
+      </div>
+
+      <div class="callout">
+        <p>The spread between the 30-year fixed mortgage rate and the 10-year Treasury yield reflects how much additional interest lenders charge to cover risk, costs, and profit beyond the risk-free rate. A wider spread often signals increased market uncertainty or lender caution, leading to higher borrowing costs for homebuyers.</p>
+        <p class="callout-attr">— HousingWire 30-Year Mortgage vs. 10-Year Treasury Spread Tracker · June 2026</p>
+      </div>
+
+      <p>The spread story is the hidden reason why mortgage rates haven't fallen even in weeks when the 10-year Treasury has dipped. Lenders are still cautious. Still pricing in risk. The Iran war, the Moody's downgrade, the fiscal uncertainty — all of it flows into that spread. When those risks begin to genuinely resolve, the spread contracts, and borrowers feel it in their rate quote before the Fed ever moves. <strong>This is why watching oil and the deal is more important than watching the Fed right now.</strong></p>
+    </div>
+
+    <!-- SECTION 3: RATES + HOME SALES THIS WEEK -->
+    <div class="section">
+      <div class="sec-label"><div class="sec-pip"></div><div class="sec-title">Rates and home sales this week — one number surprised everyone</div></div>
+
+      <p><strong>Freddie Mac's weekly survey</strong> has the 30-year fixed at <strong>6.52%</strong> as of June 11 — up from 6.48% the prior week but meaningfully down from 6.84% a year ago. The 15-year sits at 5.84%. On the real-time end, NerdWallet's Zillow-sourced data shows the 30-year at <strong>6.26% APR</strong> as of this Saturday morning — 15 basis points lower than a week ago and already reflecting some Iran deal optimism in the bond market.</p>
+
+      <div class="rate-row">
+        <div class="rate-card up">
+          <div class="rate-num">6.52%</div>
+          <div class="rate-desc">30-yr fixed<br>Freddie Mac, June 11</div>
+          <div class="rate-delta up">↑ from 6.48% last week</div>
+        </div>
+        <div class="rate-card ok">
+          <div class="rate-num">6.26%</div>
+          <div class="rate-desc">30-yr fixed APR<br>NerdWallet/Zillow, June 13</div>
+          <div class="rate-delta ok">↓ 15 bps vs. last week</div>
+        </div>
+        <div class="rate-card ok">
+          <div class="rate-num">6.84%</div>
+          <div class="rate-desc">30-yr fixed<br>One year ago today</div>
+          <div class="rate-delta ok">↓ 32 bps year over year</div>
+        </div>
+      </div>
+
+      <p>Now the home sales number nobody expected. NAR released existing home sales for May on Tuesday June 9 — and it was a five-month high. The market had been bracing for continued softness after March and April's mixed numbers. Instead, the combination of slightly improved rates in late April and early May, rising inventory, and wage growth flowing through to buyer confidence produced a stronger-than-expected print.</p>
+
+      <div class="sales-stat-row">
+        <div class="sales-stat ok">
+          <div class="sales-stat-num">5-mo</div>
+          <div class="sales-stat-label">Existing home sales at five-month high, May 2026 (NAR)</div>
+        </div>
+        <div class="sales-stat">
+          <div class="sales-stat-num">$417K</div>
+          <div class="sales-stat-label">Median existing home price — up 0.9% year over year</div>
+        </div>
+        <div class="sales-stat ok">
+          <div class="sales-stat-num">4.4mo</div>
+          <div class="sales-stat-label">Months of supply — improving from 4.1 in March</div>
+        </div>
+      </div>
+
+      <div class="callout">
+        <p>Stronger employment momentum has helped existing home sales reach a five-month high. Homebuyers are looking past the short-term rate fluctuations and actively entering the market, signaling renewed confidence in homeownership opportunities.</p>
+        <p class="callout-attr">— Sam Khater, Chief Economist, Freddie Mac · June 11, 2026</p>
+      </div>
+
+      <p>This is significant. Through five months of 2026, the housing market has absorbed a Moody's downgrade, a 50-basis-point surge in the 10-year Treasury, gas at $4.54/gallon, and sustained uncertainty about the Iran conflict — and still managed to post a five-month high in sales in May. That is not a fragile market. That is a market with structural demand that has been building for three years and is not going away. When rates improve — from the peace deal, from spread compression, from inflation cooling — that demand will express itself quickly.</p>
+    </div>
+
+    <!-- SECTION 4: GOING THE EXTRA MILE ON REFERRALS -->
+    <div class="section">
+      <div class="sec-label"><div class="sec-pip"></div><div class="sec-title">The referral someone trusts you with is the most important deal you'll ever work on</div></div>
+
+      <p>I want to talk about something that doesn't get discussed enough in this business: what you actually owe someone when they send you a referral.</p>
+
+      <p>Not a thank-you text. Not a gift card. Not a "I'll take great care of them." What you owe them is the full weight of everything you know and everything you can do — applied with more urgency and care than you'd give almost any other file.</p>
+
+      <p>Here's why. When a past client refers someone to you, they are not just sending business. They are <strong>putting their name on you.</strong> They told someone they trust — a friend, a family member, a colleague — "call this person, they'll take care of you." They have staked their own credibility on how you perform. That is not a transaction. That is a vote of confidence that deserves something in return.</p>
+
+      <div class="referral-box">
+        <div class="referral-label">On Going the Extra Mile</div>
+        <p>The extra mile in mortgage isn't dramatic. It's not staying until midnight or pulling off some miracle approval. Most of the time, the extra mile is simply <strong>the thing you could have skipped but didn't.</strong></p>
+        <p>It's calling the referral on a Saturday morning because you saw their rate could lock better that day. It's noticing a credit card balance that's dragging their score into a worse pricing tier and telling them before they apply — not after. It's staying on the phone with an underwriter an extra twenty minutes because the file has a quirk that a written note won't fully explain. It's sending the referring client a quick update at closing: <em>"Hey — your friend just closed. Rate came in better than quoted. They were thrilled."</em></p>
+        <p>None of those things are required. All of them are remembered. <strong>The client who referred you is watching — not intrusively, but they will hear how it went. And what they hear will determine whether they refer you again. Or ever.</strong></p>
+      </div>
+
+      <p>I've received referrals from past clients I closed once, two years ago, on a straightforward purchase. One phone call. One smooth closing. They remembered. And when their coworker mentioned they were thinking about buying, my name came up. That moment — the referral of a referral — is built entirely in the quiet moments where you did the extra thing when no one was watching.</p>
+
+      <p>The practical version of this is simple:</p>
+
+      <p><strong>Treat every referral file like it's the most important deal in your pipeline that week.</strong> Because to the person who sent it, it is. They spent social capital on you. The only way to pay that back is to earn it.</p>
+
+      <div class="take-box">
+        <div class="take-label">Anthony's Take — What I've Learned About Referrals</div>
+        <p>The deals I've worked hardest on are not the biggest loans or the cleanest files. They're the ones where someone I respect said "I'm sending my brother-in-law to you, take care of him." Those deals get my best work — not because I'm obligated, but because the relationship behind them is worth more than the commission in front of me.</p>
+        <p>If you've sent me a referral at any point — whether they closed or not — I want you to know I take that seriously. Your name was on it. I didn't forget that. And if there's ever someone in your life who needs a mortgage conversation, the call you'd get from me would reflect exactly what I just wrote here. <strong>That's the standard. Every time. No exceptions.</strong></p>
+      </div>
+    </div>
+
+    <!-- SECTION 5: WATCH THIS WEEK -->
+    <div class="section">
+      <div class="sec-label"><div class="sec-pip"></div><div class="sec-title">What I'm watching heading into next week</div></div>
+
+      <div class="watch-box">
+        <div class="watch-label">📅 The Week Ahead · June 14–20, 2026</div>
+        <p><strong>This weekend — Iran deal signing?</strong> Trump hinted at a signing ceremony in Europe "within days." If that happens, Monday morning bond market opens will be the most important moment for mortgage rates in months. Watch WTI crude and the 10-year Treasury yield Monday at 9:30 AM ET as your real-time signal.</p>
+        <p><strong>Tuesday June 17 — PPI (Producer Prices, May).</strong> Wholesale inflation — the leading indicator for where consumer prices go next. A soft reading combined with an Iran deal would be a powerful double signal for rate improvement in June.</p>
+        <p><strong>Tuesday–Wednesday June 17–18 — FOMC Meeting.</strong> Warsh's first meeting as Fed Chair. No rate change expected. But the language matters enormously. Any shift toward acknowledging that a rate hike is possible — even as a tail risk — would widen spreads and push rates toward 6.75%+. Watch for the phrase "additional firming may be appropriate." It has not appeared yet. If it does, the rate environment changes quickly.</p>
+        <p><strong>June 30 — UWM Refi '86 expires.</strong> The 86-basis-point wholesale refinance incentive closes at month-end. If you're at 7% or above and haven't modeled a refinance, the time is genuinely now. Two weeks left.</p>
+      </div>
+    </div>
+
+    <!-- ORNAMENT -->
+    <div class="ornament"><hr><div class="ornament-mark">· · ·</div><hr></div>
+
+    <p class="closing">Eight issues. Each one I've tried to write something that earns the minutes you give it. The Iran deal, the spread analysis, the home sales print, the referral section — all of it connects to a single theme: the people who understand what's actually happening right now, and who work the hardest on behalf of the people who trust them, will come out of this rate environment in a fundamentally better position than the ones who waited. I want that to be you. Reply to this email if anything here raised a question. My desk is open. <b>— Anthony</b></p>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-sig">Written by <b>Anthony</b> · Loan Pronto · June 13, 2026</div>
+    <div class="footer-issue">Measured · Issue No. 8</div>
+  </div>
+
+</div>
+</body>
+</html>
