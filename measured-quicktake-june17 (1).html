@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Measured · Quick Take — June 17, 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,400;1,500&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;1,8..60,300&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --paper:#F8F4EE;--white:#FDFBF8;--ink:#1A1915;--muted:#6A6358;
+    --rule:rgba(26,25,21,0.09);--rust:#B05A32;--rust-lt:#ECD9CE;
+    --gold:#C2913A;--forest:#2F6B3E;--forest-lt:#D4E8D9;
+    --navy:#1E3A5F;--navy-lt:#D2DFF0;--warn:#8B2020;--warn-lt:#F5D5D5;
+    --amber:#C47A10;--amber-lt:#FAE9CB;
+  }
+  body{font-family:'DM Sans',sans-serif;background:#EDE8DF;color:var(--ink);padding:32px 16px 64px}
+  .wrap{max-width:620px;margin:0 auto;background:var(--white);border-radius:2px;overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,0.04),0 8px 24px rgba(0,0,0,0.07),0 32px 64px rgba(0,0,0,0.07)}
+
+  /* MASTHEAD */
+  .masthead{background:var(--ink)}
+  .masthead-top{display:flex;align-items:stretch;border-bottom:1px solid rgba(255,255,255,0.06)}
+  .brand{flex:1;padding:20px 36px}
+  .brand-name{font-family:'Playfair Display',serif;color:#F8F4EE;font-size:22px;letter-spacing:0.01em;line-height:1}
+  .brand-sub{font-size:10px;color:rgba(248,244,238,0.35);letter-spacing:0.12em;text-transform:uppercase;margin-top:5px}
+  .masthead-right{padding:20px 36px;border-left:1px solid rgba(255,255,255,0.06);display:flex;flex-direction:column;justify-content:center;align-items:flex-end;gap:5px}
+  .qt-badge{background:var(--rust);color:white;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;padding:3px 9px;border-radius:1px;font-weight:600}
+  .qt-date{font-size:11px;color:rgba(248,244,238,0.3)}
+
+  /* AUTHOR */
+  .author-bar{background:var(--rust-lt);padding:12px 36px;display:flex;align-items:center;gap:12px}
+  .avatar{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--rust));display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:14px;color:white;flex-shrink:0}
+  .author-name{font-size:13px;font-weight:500;color:var(--ink)}
+  .author-role{font-size:11px;color:var(--muted);margin-top:1px}
+
+  /* HERO */
+  .hero-strip{background:var(--ink);padding:28px 36px 24px;position:relative;overflow:hidden;border-top:1px solid rgba(255,255,255,0.04)}
+  .hero-strip::after{content:'';position:absolute;top:-40px;right:-40px;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(194,145,58,0.08) 0%,transparent 70%);pointer-events:none}
+  .qt-kicker{font-size:9.5px;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+  .qt-kicker::before{content:'';display:block;width:20px;height:1px;background:var(--gold);opacity:0.5}
+  .hero-hed{font-family:'Playfair Display',serif;font-size:25px;line-height:1.24;color:#F8F4EE;max-width:460px}
+  .hero-hed em{font-style:italic;color:var(--gold)}
+
+  /* BODY */
+  .body{padding:30px 36px 26px}
+  p{font-size:14.5px;line-height:1.78;color:#38342E;margin-bottom:14px}
+  p:last-child{margin-bottom:0}
+  strong{color:var(--ink);font-weight:500}
+
+  /* 3 numbers */
+  .three-nums{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:18px 0}
+  .num-card{background:var(--paper);border-radius:2px;padding:13px 14px;border-top:2px solid var(--rule)}
+  .num-card.warn{border-top-color:var(--warn)}
+  .num-card.amber{border-top-color:var(--amber)}
+  .num-card.ok{border-top-color:var(--forest)}
+  .num-big{font-family:'Playfair Display',serif;font-size:22px;color:var(--ink);line-height:1}
+  .num-label{font-size:11px;color:var(--muted);margin-top:5px;line-height:1.4}
+
+  /* dot split */
+  .dot-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:16px 0}
+  .dot-card{background:var(--paper);border-radius:2px;padding:12px 13px;text-align:center}
+  .dot-card.hot{background:var(--warn-lt);border:1px solid rgba(139,32,32,0.15)}
+  .dot-num{font-family:'Playfair Display',serif;font-size:19px;color:var(--ink);line-height:1}
+  .dot-num.red{color:var(--warn)}
+  .dot-label{font-size:10.5px;color:var(--muted);margin-top:4px;line-height:1.4}
+
+  /* Callout */
+  .insight{border-left:3px solid var(--rust);background:var(--paper);padding:14px 18px;margin:18px 0;border-radius:0 2px 2px 0}
+  .insight p{font-family:'Source Serif 4',serif;font-style:italic;font-size:14px;color:var(--ink);margin-bottom:0;line-height:1.7}
+  .insight-attr{font-size:10.5px !important;color:var(--muted) !important;margin-top:7px !important;font-style:normal !important;font-family:'DM Sans',sans-serif !important;letter-spacing:0.05em}
+
+  /* Warn */
+  .warn-box{border:1px solid rgba(139,32,32,0.2);background:var(--warn-lt);border-radius:2px;padding:16px 18px;margin:18px 0}
+  .warn-label{font-size:9.5px;letter-spacing:0.12em;text-transform:uppercase;color:var(--warn);font-weight:500;margin-bottom:7px}
+  .warn-box p{font-size:13.5px;color:#2E0A0A;margin-bottom:6px;line-height:1.68}
+  .warn-box p:last-child{margin-bottom:0}
+  .warn-box strong{color:#1A0505}
+
+  /* Good / Iran */
+  .good-box{border:1px solid rgba(47,107,62,0.2);background:var(--forest-lt);border-radius:2px;padding:16px 18px;margin:18px 0}
+  .good-label{font-size:9.5px;letter-spacing:0.12em;text-transform:uppercase;color:var(--forest);font-weight:500;margin-bottom:7px}
+  .good-box p{font-size:13.5px;color:#1C3D24;margin-bottom:6px;line-height:1.68}
+  .good-box p:last-child{margin-bottom:0}
+  .good-box strong{color:#122618}
+
+  /* Bottom line */
+  .bottom-line{background:var(--ink);padding:22px 36px}
+  .bl-label{font-size:9.5px;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:10px}
+  .bottom-line p{font-size:14px;color:rgba(248,244,238,0.75);line-height:1.72;margin-bottom:8px}
+  .bottom-line p:last-child{margin-bottom:0}
+  .bottom-line strong{color:#F8F4EE}
+
+  /* Footer */
+  .footer{background:var(--paper);border-top:1px solid var(--rule);padding:14px 36px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px}
+  .footer-sig{font-family:'Source Serif 4',serif;font-style:italic;font-size:12.5px;color:var(--muted)}
+  .footer-sig b{color:var(--ink);font-style:normal;font-weight:500}
+  .footer-nmls{font-size:10px;color:rgba(106,99,88,0.45);letter-spacing:0.04em}
+
+  @media(max-width:520px){
+    .body{padding:22px 20px 18px}
+    .three-nums,.dot-row{grid-template-columns:1fr 1fr}
+    .masthead-top{flex-direction:column}
+    .masthead-right{align-items:flex-start;border-left:none;border-top:1px solid rgba(255,255,255,0.06)}
+    .bottom-line,.footer{padding-left:20px;padding-right:20px}
+    .hero-strip{padding:22px 20px 20px}
+    .author-bar{padding:12px 20px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- MASTHEAD -->
+  <div class="masthead">
+    <div class="masthead-top">
+      <div class="brand">
+        <div class="brand-name">Measured</div>
+        <div class="brand-sub">A weekly note on mortgage decisions that matter</div>
+      </div>
+      <div class="masthead-right">
+        <div class="qt-badge">⚡ Quick Take</div>
+        <div class="qt-date">Wednesday, June 17, 2026</div>
+      </div>
+    </div>
+    <div class="author-bar">
+      <div class="avatar">A</div>
+      <div>
+        <div class="author-name">Anthony · Loan Pronto</div>
+        <div class="author-role">NMLS #2096979 · Wholesale lending · 14 states</div>
+      </div>
+    </div>
+    <div class="hero-strip">
+      <div class="qt-kicker">What you need to know · right now</div>
+      <div class="hero-hed">The Fed just held rates.<br>But the message it sent<br>was anything but <em>neutral.</em></div>
+    </div>
+  </div>
+
+  <!-- BODY -->
+  <div class="body">
+
+    <p>At 2:00 PM ET today, Kevin Warsh chaired his first Federal Reserve meeting. The committee voted <strong>12-0</strong> to hold the federal funds rate at <strong>3.50–3.75%</strong>. No surprise there. But everything around that decision — the dot plot, the statement, the inflation projections — told a different story than markets were hoping for.</p>
+
+    <div class="three-nums">
+      <div class="num-card warn">
+        <div class="num-big">3.8%</div>
+        <div class="num-label">New median dot plot for year-end 2026 — up from 3.4% in March</div>
+      </div>
+      <div class="num-card warn">
+        <div class="num-big">3.6%</div>
+        <div class="num-label">Fed's new PCE inflation forecast for 2026 year-end — up from 2.7%</div>
+      </div>
+      <div class="num-card amber">
+        <div class="num-big">130</div>
+        <div class="num-label">Words in Warsh's statement — vs. 341 at the April meeting</div>
+      </div>
+    </div>
+
+    <p>Warsh came in and immediately made his presence known. The post-meeting statement was cut to <strong>130 words</strong> — Warsh has long criticized the Fed for over-communicating, and he acted on it immediately. Gone was all language suggesting future rate cuts. Gone was any easing bias. What remains is a statement so stripped-down it tells you almost nothing — which is itself a message.</p>
+
+    <p>The dot plot was the real headline. <strong>Nine of eighteen FOMC members now project at least one rate hike before the end of 2026.</strong> Six of those nine want two hikes. The committee that entered 2026 projecting cuts is now majority-leaning toward tightening. The reason: <strong>inflation is at a three-year high</strong>, driven almost entirely by energy prices from the Iran war.</p>
+
+    <div class="dot-row">
+      <div class="dot-card">
+        <div class="dot-num">8</div>
+        <div class="dot-label">Members expecting no change in 2026</div>
+      </div>
+      <div class="dot-card">
+        <div class="dot-num">1</div>
+        <div class="dot-label">Member expecting a cut</div>
+      </div>
+      <div class="dot-card hot">
+        <div class="dot-num red">9</div>
+        <div class="dot-label">Members expecting at least one <strong>hike</strong></div>
+      </div>
+    </div>
+
+    <div class="warn-box">
+      <div class="warn-label">⚠️ What This Means for Your Mortgage Rate</div>
+      <p>The Fed doesn't set mortgage rates — the 10-year Treasury does. But a committee that's leaning toward hikes sends inflation expectations higher, which pushes Treasury yields up, which pushes your rate up. The current 30-year sits at approximately <strong>6.52%</strong>. A 25-basis-point hike — if it materializes — would likely push that toward <strong>6.70–6.77%</strong> within days of the announcement. On a $400,000 loan that's an additional <strong>$45–60 per month</strong>.</p>
+      <p>The Fed projects PCE inflation at 3.6% by year-end — nearly double their 2% target. Until that number comes down, every meeting carries hike risk. <strong>The days of waiting for the Fed to rescue your rate are over for 2026.</strong></p>
+    </div>
+
+    <div class="insight">
+      <p>Warsh has criticized the Fed for overcommunicating. Today's 130-word communiqué — compared to 341 words in April — was his opening statement. Less guidance. More uncertainty. And uncertainty in bond markets almost always widens spreads and lifts rates.</p>
+      <p class="insight-attr">— CNBC / NPR · Fed decision coverage · June 17, 2026</p>
+    </div>
+
+    <div class="good-box">
+      <div class="good-label">🕊️ The One Thing Working In Your Favor Right Now</div>
+      <p>On <strong>Monday June 16</strong> — the day before today's Fed meeting — President Trump announced the U.S. and Iran had reached a peace agreement restoring access through the Strait of Hormuz. The 10-year Treasury yield dropped to <strong>4.46%</strong> on the news. Oil pulled back. Inflation expectations softened.</p>
+      <p>That move is the counterweight to today's hawkish Fed signal. If the Iran deal holds and oil falls toward $75–80 per barrel, the inflation picture improves quickly — and the case for a Fed hike weakens with it. <strong>The hike dots in today's plot assume oil stays elevated. If it doesn't, those dots get revised down in September.</strong></p>
+      <p>Watch WTI crude daily. It is the most important variable for your mortgage rate right now — more than anything the Fed says.</p>
+    </div>
+
+  </div>
+
+  <!-- BOTTOM LINE -->
+  <div class="bottom-line">
+    <div class="bl-label">The Bottom Line</div>
+    <p>Today the Fed held rates and told you the next move might be <strong>up</strong>. Warsh stripped the statement bare. Nine members want to hike. Inflation is running hot. This is not an environment where you sit back and wait for rates to fall on their own.</p>
+    <p>The Iran peace deal is real and its impact on oil — and therefore inflation and rates — could be significant. The two forces are pulling in opposite directions right now. <strong>The borrowers who win in this environment are the ones already positioned, not the ones scrambling after the signal becomes obvious.</strong></p>
+    <p>If you want to know what today's decision means for your specific loan — buying, refinancing, or planning ahead — reply to this email. I'll give you the straight answer. <strong>— Anthony</strong></p>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-sig">Quick Take by <b>Anthony</b> · Loan Pronto · June 17, 2026</div>
+    <div class="footer-nmls">NMLS #2096979 · Equal Housing Lender</div>
+  </div>
+
+</div>
+</body>
+</html>
