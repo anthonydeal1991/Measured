@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Measured — Issue No. 9 · June 19, 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,400;1,500&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;1,8..60,300&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --paper:#F8F4EE;--white:#FDFBF8;--ink:#1A1915;--muted:#6A6358;
+    --rule:rgba(26,25,21,0.09);--rust:#B05A32;--rust-lt:#ECD9CE;
+    --gold:#C2913A;--forest:#2F6B3E;--forest-lt:#D4E8D9;
+    --navy:#1E3A5F;--navy-lt:#D2DFF0;--amber:#C47A10;--amber-lt:#FAE9CB;
+    --warn:#8B2020;--warn-lt:#F5D5D5;
+  }
+  body{font-family:'DM Sans',sans-serif;background:#EDE8DF;color:var(--ink);padding:32px 16px 64px}
+  .wrap{max-width:620px;margin:0 auto;background:var(--white);border-radius:2px;overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,0.04),0 8px 24px rgba(0,0,0,0.07),0 32px 64px rgba(0,0,0,0.07)}
+
+  /* MASTHEAD */
+  .masthead{background:var(--ink)}
+  .masthead-top{display:flex;align-items:stretch;border-bottom:1px solid rgba(255,255,255,0.06)}
+  .brand{flex:1;padding:22px 36px}
+  .brand-name{font-family:'Playfair Display',serif;color:#F8F4EE;font-size:24px;letter-spacing:0.01em;line-height:1}
+  .brand-sub{font-size:10px;color:rgba(248,244,238,0.35);letter-spacing:0.12em;text-transform:uppercase;margin-top:5px}
+  .masthead-meta{padding:22px 36px;text-align:right;border-left:1px solid rgba(255,255,255,0.06);display:flex;flex-direction:column;justify-content:center;gap:4px}
+  .meta-issue{font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold)}
+  .meta-date{font-size:11px;color:rgba(248,244,238,0.3)}
+  .author-bar{background:var(--rust-lt);padding:14px 36px;display:flex;align-items:center;gap:13px}
+  .avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--rust));display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:17px;color:white;flex-shrink:0;box-shadow:0 2px 6px rgba(176,90,50,0.3)}
+  .author-name{font-size:13.5px;font-weight:500;color:var(--ink)}
+  .author-role{font-size:11.5px;color:var(--muted);margin-top:1px}
+
+  /* HERO */
+  .hero{background:var(--ink);padding:36px 36px 32px;border-top:1px solid rgba(255,255,255,0.04);position:relative;overflow:hidden}
+  .hero::after{content:'';position:absolute;top:-80px;right:-60px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(194,145,58,0.07) 0%,transparent 65%);pointer-events:none}
+  .hero-kicker{font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:16px}
+  .hero-hed{font-family:'Playfair Display',serif;font-size:28px;line-height:1.22;color:#F8F4EE;margin-bottom:14px;max-width:500px}
+  .hero-hed em{font-style:italic;color:var(--gold)}
+  .hero-deck{font-size:13.5px;color:rgba(248,244,238,0.48);line-height:1.65;max-width:460px}
+
+  /* BODY */
+  .body{padding:36px 36px 32px}
+  .opener{font-family:'Source Serif 4',serif;font-size:15px;line-height:1.78;color:var(--ink);font-style:italic;padding-bottom:28px;border-bottom:1px solid var(--rule);margin-bottom:32px}
+  p{font-size:14.5px;line-height:1.78;color:#38342E;margin-bottom:15px}
+  p:last-child{margin-bottom:0}
+  strong{color:var(--ink);font-weight:500}
+  .section{margin-bottom:34px;padding-bottom:34px;border-bottom:1px solid var(--rule)}
+  .section:last-of-type{border-bottom:none;margin-bottom:0;padding-bottom:0}
+  .sec-label{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+  .sec-pip{width:6px;height:6px;border-radius:50%;background:var(--rust);flex-shrink:0}
+  .sec-title{font-family:'Playfair Display',serif;font-size:17px;color:var(--ink);font-weight:500}
+
+  /* Rate cards */
+  .rate-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:20px 0}
+  .rate-card{background:var(--paper);border-radius:2px;padding:14px 15px;border-top:2px solid var(--rule)}
+  .rate-card.ok{border-top-color:var(--forest)}
+  .rate-card.flat{border-top-color:var(--navy)}
+  .rate-card.warn{border-top-color:var(--warn)}
+  .rate-num{font-family:'Playfair Display',serif;font-size:22px;color:var(--ink);line-height:1}
+  .rate-desc{font-size:11px;color:var(--muted);margin-top:5px;line-height:1.4}
+  .rate-delta{font-size:11px;margin-top:4px}
+  .rate-delta.ok{color:var(--forest)}
+  .rate-delta.flat{color:var(--muted)}
+  .rate-delta.warn{color:var(--warn)}
+
+  /* Callout */
+  .callout{border-left:3px solid var(--rust);background:var(--paper);padding:16px 20px;margin:20px 0;border-radius:0 2px 2px 0}
+  .callout p{font-family:'Source Serif 4',serif;font-style:italic;font-size:14.5px;color:var(--ink);margin-bottom:0;line-height:1.7}
+  .callout-attr{font-size:10.5px !important;color:var(--muted) !important;margin-top:8px !important;font-style:normal !important;font-family:'DM Sans',sans-serif !important;letter-spacing:0.05em}
+
+  /* Strait / dark urgent box */
+  .strait-box{background:#1A1915;border-radius:2px;padding:24px 26px;margin:20px 0;position:relative;overflow:hidden;border-left:4px solid var(--warn)}
+  .strait-box::after{content:'';position:absolute;top:-40px;right:-40px;width:140px;height:140px;border-radius:50%;background:radial-gradient(circle,rgba(139,32,32,0.1) 0%,transparent 70%);pointer-events:none}
+  .strait-label{font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--warn);font-weight:500;margin-bottom:12px}
+  .strait-box p{font-size:14px;color:rgba(248,244,238,0.75);margin-bottom:10px;line-height:1.78}
+  .strait-box p:last-child{margin-bottom:0}
+  .strait-box strong{color:#F8F4EE}
+
+  /* Navy data */
+  .data-box{border:1px solid rgba(30,58,95,0.18);background:var(--navy-lt);border-radius:2px;padding:18px 20px;margin:20px 0}
+  .data-label{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--navy);font-weight:500;margin-bottom:8px}
+  .data-box p{font-size:14px;color:#1A2D42;margin-bottom:8px;line-height:1.7}
+  .data-box p:last-child{margin-bottom:0}
+  .data-box strong{color:#0F1E2E}
+
+  /* Green */
+  .opp-box{border:1px solid rgba(47,107,62,0.2);background:var(--forest-lt);border-radius:2px;padding:20px 22px;margin:20px 0}
+  .opp-label{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--forest);font-weight:500;margin-bottom:8px}
+  .opp-box p{font-size:14px;color:#1C3D24;margin-bottom:8px;line-height:1.72}
+  .opp-box p:last-child{margin-bottom:0}
+  .opp-box strong{color:#122618}
+
+  /* Amber watch */
+  .watch-box{border:1px solid rgba(196,122,16,0.2);background:var(--amber-lt);border-radius:2px;padding:18px 20px;margin:20px 0}
+  .watch-label{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--amber);font-weight:500;margin-bottom:8px}
+  .watch-box p{font-size:14px;color:#3D2200;margin-bottom:8px;line-height:1.7}
+  .watch-box p:last-child{margin-bottom:0}
+  .watch-box strong{color:#1F1000}
+
+  /* Warn red */
+  .warn-box{border:1px solid rgba(139,32,32,0.2);background:var(--warn-lt);border-radius:2px;padding:20px 22px;margin:20px 0}
+  .warn-label{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--warn);font-weight:500;margin-bottom:8px}
+  .warn-box p{font-size:14px;color:#2E0A0A;margin-bottom:8px;line-height:1.7}
+  .warn-box p:last-child{margin-bottom:0}
+  .warn-box strong{color:#1A0505}
+
+  /* Anthony's take */
+  .take-box{border:1px solid rgba(176,90,50,0.2);background:var(--rust-lt);border-radius:2px;padding:20px 22px;margin:20px 0}
+  .take-label{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--rust);font-weight:500;margin-bottom:8px}
+  .take-box p{font-size:14px;color:#3D1E0A;margin-bottom:8px;line-height:1.72}
+  .take-box p:last-child{margin-bottom:0}
+  .take-box strong{color:#231005}
+
+  /* Timeline */
+  .timeline{margin:18px 0;display:flex;flex-direction:column;gap:0}
+  .tl-item{display:flex;gap:16px;align-items:flex-start;padding:11px 0;border-bottom:1px solid var(--rule)}
+  .tl-item:last-child{border-bottom:none}
+  .tl-date{font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--gold);width:70px;flex-shrink:0;padding-top:2px;font-weight:500}
+  .tl-text{font-size:13.5px;color:#38342E;line-height:1.62}
+  .tl-text strong{color:var(--ink)}
+
+  /* Stat row */
+  .stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:20px 0}
+  .stat-card{background:var(--paper);border-radius:2px;padding:13px 14px;border-top:2px solid var(--gold)}
+  .stat-card.ok{border-top-color:var(--forest)}
+  .stat-num{font-family:'Playfair Display',serif;font-size:21px;color:var(--ink);line-height:1}
+  .stat-label{font-size:11px;color:var(--muted);margin-top:5px;line-height:1.4}
+
+  /* Ornament */
+  .ornament{display:flex;align-items:center;gap:12px;margin:30px 0}
+  .ornament hr{flex:1;border:none;border-top:1px solid var(--rule)}
+  .ornament-mark{font-size:10px;color:var(--gold);letter-spacing:0.12em}
+
+  /* Closing */
+  .closing{font-family:'Source Serif 4',serif;font-size:14.5px;font-style:italic;color:var(--muted);line-height:1.75;padding-top:24px;border-top:1px solid var(--rule)}
+  .closing b{color:var(--ink);font-style:normal;font-weight:500}
+
+  /* Footer */
+  .footer{background:var(--paper);border-top:1px solid var(--rule);padding:18px 36px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px}
+  .footer-sig{font-family:'Source Serif 4',serif;font-style:italic;font-size:13px;color:var(--muted)}
+  .footer-sig b{color:var(--ink);font-style:normal;font-weight:500}
+  .footer-nmls{font-size:10px;color:rgba(106,99,88,0.4);letter-spacing:0.04em}
+
+  @media(max-width:560px){
+    .body{padding:28px 20px 24px}
+    .masthead-top{flex-direction:column}
+    .masthead-meta{text-align:left;border-left:none;border-top:1px solid rgba(255,255,255,0.06);padding:14px 36px}
+    .rate-row,.stat-row{grid-template-columns:1fr 1fr}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- MASTHEAD -->
+  <div class="masthead">
+    <div class="masthead-top">
+      <div class="brand">
+        <div class="brand-name">Measured</div>
+        <div class="brand-sub">A weekly note on mortgage decisions that matter</div>
+      </div>
+      <div class="masthead-meta">
+        <div class="meta-issue">Issue No. 9</div>
+        <div class="meta-date">Friday, June 19, 2026</div>
+      </div>
+    </div>
+    <div class="author-bar">
+      <div class="avatar">A</div>
+      <div>
+        <div class="author-name">Anthony · Loan Pronto</div>
+        <div class="author-role">Mortgage advisor · wholesale lending · plain English, always</div>
+      </div>
+    </div>
+    <div class="hero">
+      <div class="hero-kicker">This week in Measured</div>
+      <div class="hero-hed">A deal was signed at Versailles. Rates dropped. But the Strait of Hormuz is <em>still not open.</em></div>
+      <div class="hero-deck">Trump and Iran signed a memorandum of understanding Tuesday night in Paris. Rates fell to 6.47% on the news. But 500 ships remain stranded in the Persian Gulf, mines are in the water, and the world is watching whether the deal actually sticks — and what it means for every mortgage borrower in America.</div>
+    </div>
+  </div>
+
+  <!-- BODY -->
+  <div class="body">
+
+    <p class="opener">This week had the energy of a history textbook being written in real time. A peace deal signed at Versailles. The largest oil supply disruption since the 1970s potentially ending. Rates dropping to their lowest in over a month. And yet — as of this morning — oil tankers are still anchored outside the Strait of Hormuz, waiting for mine clearance that experts say could take six months. The story isn't over. Here's what you need to know. — Anthony</p>
+
+    <!-- SECTION 1: RATES THIS WEEK -->
+    <div class="section">
+      <div class="sec-label"><div class="sec-pip"></div><div class="sec-title">Rates this week — the numbers, straight</div></div>
+
+      <p>The most accurate rate data we have right now, all from primary sources published this week:</p>
+
+      <div class="rate-row">
+        <div class="rate-card ok">
+          <div class="rate-num">6.47%</div>
+          <div class="rate-desc">30-yr fixed<br>Freddie Mac PMMS, June 18</div>
+          <div class="rate-delta ok">↓ from 6.52% last week</div>
+        </div>
+        <div class="rate-card ok">
+          <div class="rate-num">5.81%</div>
+          <div class="rate-desc">15-yr fixed<br>Freddie Mac PMMS, June 18</div>
+          <div class="rate-delta ok">↓ from 5.84% last week</div>
+        </div>
+        <div class="rate-card flat">
+          <div class="rate-num">6.81%</div>
+          <div class="rate-desc">30-yr fixed<br>One year ago today</div>
+          <div class="rate-delta flat">↓ 34 bps better YoY</div>
+        </div>
+      </div>
+
+      <p>The Freddie Mac number — released Thursday at noon — is the most widely referenced benchmark and reflects loan applications submitted Monday through Wednesday. It doesn't capture what happened after the Versailles signing Tuesday night. Mortgage News Daily's real-time index, which is more current, shows top-tier 30-year fixed rates sitting in the <strong>lower-middle of the range seen since mid-May</strong> — roughly consistent with 6.35–6.45% today for well-qualified borrowers at the best lenders.</p>
+
+      <div class="callout">
+        <p>Incoming data continues to reflect a resilient consumer, with retail sales improving and pending home sales strengthening, suggesting purchase demand is continuing to modestly improve.</p>
+        <p class="callout-attr">— Sam Khater, Chief Economist, Freddie Mac · June 18, 2026</p>
+      </div>
+
+      <p>What drove the improvement: the Iran deal framework — announced Monday, signed Tuesday at Versailles — caused the 10-year Treasury to pull back sharply as oil prices dropped and inflation expectations softened. Shorter-term debt is still digesting the Fed's hawkish dot plot from Wednesday. But longer-term Treasuries, which mortgage rates track, have recovered meaningfully. The environment is better than the Freddie Mac headline suggests, and it could improve further in the coming days if oil continues to fall and the deal holds.</p>
+    </div>
+
+    <!-- SECTION 2: THE STRAIT — DEEP DIVE -->
+    <div class="section">
+      <div class="sec-label"><div class="sec-pip"></div><div class="sec-title">The Strait of Hormuz — why a signed deal doesn't mean the crisis is over</div></div>
+
+      <p>This is the most important section of this issue. Most people read the headline — "peace deal signed at Versailles" — and assume the oil shock is over. It isn't. And understanding why matters enormously for where rates go from here.</p>
+
+      <p>The Strait of Hormuz is a 21-mile-wide waterway between Iran and Oman. Before February 28, 2026, <strong>20% of the world's crude oil and 20% of global liquefied natural gas</strong> passed through it every day. It is the most consequential energy chokepoint in the world. When it was closed, the International Energy Agency called it the <strong>"largest supply disruption in the history of the global oil market"</strong> — larger than the 1970s oil shock, larger than the Gulf War.</p>
+
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-date">Feb 28</div>
+          <div class="tl-text">U.S. and Israel launch <strong>Operation Epic Fury</strong> — airstrikes on Iranian military and nuclear sites. Iranian Supreme Leader Khamenei killed. Iran retaliates with missile barrages on Gulf bases.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">Mar 4</div>
+          <div class="tl-text">Iran declares the Strait "closed." IRGC announces any ship transiting will be <strong>"set on fire."</strong> Tanker traffic drops 70% within days. Over 150 ships anchor outside the strait. Shipping insurance premiums increase 4–5x overnight.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">Mar 9</div>
+          <div class="tl-text">Iran lays mines in the Strait. Trump threatens "military consequences at a level never seen before." Russia and China block UN resolution to protect shipping.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">Apr 8</div>
+          <div class="tl-text">Temporary ceasefire announced. Strait partially reopens. <strong>Later that same day: closed again</strong> after continued Israeli strikes on Lebanon.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">Apr 13</div>
+          <div class="tl-text">U.S. begins naval blockade of Iranian ports.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">Jun 17</div>
+          <div class="tl-text">Trump and Iranian President Pezeshkian <strong>sign memorandum of understanding</strong> at dinner with Macron at the Palace of Versailles following G7 summit. Deal framework calls for Strait reopening and U.S. lifting blockade.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">Jun 18</div>
+          <div class="tl-text">Pakistan announces deal implies Tehran will "promptly" reopen the Strait. JMIC <strong>downgrades Hormuz threat level</strong> from "severe" to "substantial." Six tankers among 13 ships transit Tuesday. Mortgage rates drop to 6.47%.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">Jun 19</div>
+          <div class="tl-text">Today. <strong>500 commercial vessels remain stranded in the Persian Gulf.</strong> Mines remain in the water. IRGC behavior "less volatile" but shipping industry says credible assurances still needed before full traffic resumes.</div>
+        </div>
+      </div>
+
+      <div class="strait-box">
+        <div class="strait-label">⚠️ Why the Strait Could Close Again — And What It Would Mean</div>
+        <p>The deal signed Tuesday is a <strong>memorandum of understanding</strong> — not a final treaty. The history of this conflict includes a ceasefire on April 8 that collapsed the same day. Three negotiation attempts failed before Tuesday's signing. The IRGC has been "less volatile" since the deal, not absent. Mines remain in the water and experts say clearing them could take <strong>six months</strong>.</p>
+        <p>Iran also laid down a condition that shipping industry group BIMCO called deeply problematic: the <strong>IRGC is charging a toll of approximately $1 per barrel</strong> — roughly $2 million per very large crude carrier transit. This gives the Revolutionary Guard a revenue stream from the Strait even under a "peace" framework, and BIMCO warned it could set a global precedent for other chokepoints.</p>
+        <p>The bigger risk: Kpler estimates that even with the deal in place, clearing mines takes 6 months, ships leaving and reloading takes 2–3 months, and restarting shut-in oil production in some countries — particularly Iraq — could take <strong>up to a year</strong>. Saudi Arabia and UAE can move faster through alternate pipelines. But the full flow of pre-war oil supply returning to the market is not a 2026 event under most scenarios.</p>
+        <p><strong>If the deal collapses</strong> — for any reason, including resumed Israeli strikes, Iranian hardliner resistance, or a failed ratification process — the Strait closes again, oil prices re-spike toward $100+, inflation expectations surge, bond yields climb, and mortgage rates follow within days. Wall Street analysts had been modeling a potential $200/barrel scenario if the closure continued indefinitely. That tail risk has not gone to zero.</p>
+      </div>
+
+      <div class="opp-box">
+        <div class="opp-label">📉 The Mortgage Rate Math If the Deal Holds</div>
+        <p>Before the war, oil was trading around <strong>$68–72 per barrel</strong>. The Strait closure sent it surging. Goldman Sachs estimates a durable reopening brings WTI crude back toward <strong>$70–75</strong> within 30 days as supply returns to market. At that level, U.S. inflation expectations fall meaningfully — potentially pulling the 10-year Treasury back toward <strong>4.10–4.20%</strong>.</p>
+        <p>Apply the current 205-basis-point spread between the 10-year and the 30-year mortgage — which we covered in depth in Issue 8 — and a 4.15% 10-year implies a 30-year mortgage at approximately <strong>6.20%</strong>. If spreads also continue to normalize toward the historical 170-basis-point average, you're looking at a 30-year closer to <strong>5.85–6.00%</strong> by late summer. <strong>That's the optimistic scenario. It requires the deal to hold, oil to fall, and inflation to cooperate. None of those are guaranteed — but all of them are possible.</strong></p>
+      </div>
+
+      <p>The shipping industry's own language this week captures the uncertainty precisely. BIMCO, the global shipping trade group: <strong>"Due to lack of details and a history of overly optimistic reassurances, we believe the security situation for the shipping industry remains volatile."</strong> The threat of attack remains "a strong possibility" even as the IRGC has become less active. Mine-free routes still need to be established. And Iran has demanded the right to collect tolls — a condition that undermines the principle of free navigation that the U.S. Navy has protected for decades.</p>
+
+      <p>The bottom line: the deal is real. The relief is real. The risk that it unravels is also real. This is not the end of the story — it is the beginning of what may be a long, uncertain reopening process.</p>
+    </div>
+
+    <!-- SECTION 3: HOUSING DATA -->
+    <div class="section">
+      <div class="sec-label"><div class="sec-pip"></div><div class="sec-title">What the housing data is telling us right now</div></div>
+
+      <p>Despite everything — the Moody's downgrade, oil at $4.54 a gallon, rates near yearly highs, a war in the Middle East — the housing market has held up. That's the honest story of the first half of 2026 in one sentence.</p>
+
+      <div class="stat-row">
+        <div class="stat-card ok">
+          <div class="stat-num">75,935</div>
+          <div class="stat-label">Weekly pending sales — vs. 69,636 same week last year</div>
+        </div>
+        <div class="stat-card ok">
+          <div class="stat-num">+7%</div>
+          <div class="stat-label">Purchase applications YoY — positive most weeks in 2026</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">806K</div>
+          <div class="stat-label">Active listings nationally — highest since pre-pandemic</div>
+        </div>
+      </div>
+
+      <p>HousingWire's Logan Mohtashami — whose Housing Market Tracker I reference weekly — has a rule of thumb I want to make sure every Measured reader knows: <strong>housing data tends to soften noticeably when the 30-year mortgage rate is above 6.64%, and especially when it breaks above 7%.</strong> We've stayed below 6.64% for most of 2026. That threshold is the line between a market that grinds and a market that moves. Right now at 6.47% we're comfortably below it.</p>
+
+      <p>Mohtashami's assessment of the first half, published this week, is worth quoting directly: <strong>"Housing has weathered the 2026 storm of crazy headlines and inflation as well as it possibly can."</strong> That's the data talking. Not optimism — actual weekly pending sales running ahead of last year despite the most disruptive geopolitical and inflationary shock since the 1970s.</p>
+
+      <div class="data-box">
+        <div class="data-label">📊 First Half Snapshot · HousingWire Data</div>
+        <p><strong>New listings this week:</strong> 81,754 — improving from recent years but still below the ~94,000 typical for a pre-pandemic June. Supply is coming back, not fully.</p>
+        <p><strong>Price cuts:</strong> Down 2% year over year. Sellers are gaining confidence. The frantic cutting of 2025 is fading.</p>
+        <p><strong>The most important data point:</strong> Mohtashami estimates that <strong>237,000 more existing home sales</strong> would have occurred in 2026 if rates had stayed at 6.25% or below — which was happening in January and February before the Iran shock. That's the demand that's sitting on the sideline right now. When rates return to that level — and the Strait reopening scenario gets us there — that demand doesn't trickle back. It floods back.</p>
+      </div>
+
+      <div class="take-box">
+        <div class="take-label">Anthony's Take — The Second Half Setup</div>
+        <p>Here's the scenario I'm watching for: the Iran deal holds, mines get cleared over the next 60–90 days, oil falls toward $75, the 10-year Treasury drops to 4.10–4.20%, and mortgage rates drift toward 6.00–6.20%. At that level, <strong>237,000 sidelined buyers come back to a market that doesn't have enough inventory to absorb them cleanly.</strong> Prices firm. Multiple offers return in competitive markets. The buyers who moved when it was quiet — before that moment — will be glad they didn't wait for the all-clear.</p>
+        <p>I'm not calling the bottom. I don't know exactly when the Strait fully clears or whether the deal survives its first stress test. What I do know is that the setup for the second half of 2026 is the most constructive it's been all year. And the borrowers who understand the difference between a 6.47% retail rate and what they'd actually qualify for through the wholesale channel are already ahead of the ones reading the CNN headline and waiting.</p>
+      </div>
+    </div>
+
+    <!-- SECTION 4: WHAT TO WATCH -->
+    <div class="section">
+      <div class="sec-label"><div class="sec-pip"></div><div class="sec-title">What to watch next week</div></div>
+
+      <div class="watch-box">
+        <div class="watch-label">📅 The Week Ahead · June 22–27, 2026</div>
+        <p><strong>Daily: Strait of Hormuz ship traffic.</strong> Kpler's tanker data is your real-time oil market signal. Six ships transited Tuesday. Pre-war levels were hundreds per day. Watch the daily transit count — when it crosses 50 sustained tankers per day, oil markets will price in meaningful supply recovery and rates will follow lower.</p>
+        <p><strong>Wednesday June 25 — PCE Inflation (April).</strong> The Fed's preferred inflation gauge. April data comes out this week. It's already known to be elevated — the question is by how much, and whether there's any early sign of energy-driven inflation peaking. A reading below 3.6% surprises to the downside and is bond-market friendly.</p>
+        <p><strong>Thursday June 26 — GDP Final Estimate (Q1 2026).</strong> The first quarter's final reading on economic growth. If Q1 GDP is revised lower than expected, recession risk re-enters the conversation and the Fed's hike calculus gets more complicated — which is actually good for mortgage rates.</p>
+        <p><strong>June 30 — UWM Refi '86 expires.</strong> The 86-basis-point wholesale refinance incentive closes at the end of this month. If you're at 7.0% or above, you have 11 days. Reply to this email today and I'll run the numbers for your specific loan before this window closes.</p>
+      </div>
+    </div>
+
+    <!-- ORNAMENT -->
+    <div class="ornament"><hr><div class="ornament-mark">· · ·</div><hr></div>
+
+    <p class="closing">The Strait of Hormuz has been at the center of every major rate move in 2026. A signed deal at Versailles is meaningful — but the history of this conflict is full of moments that looked like resolution and weren't. The borrowers who act on real data — and who understand the difference between a headline and a mortgage rate quote — will come out of this in a better position than the ones watching from the sideline. My inbox is open. <b>— Anthony</b></p>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-sig">Written by <b>Anthony</b> · Loan Pronto · June 19, 2026</div>
+    <div class="footer-nmls">NMLS #2096979 · Equal Housing Lender</div>
+  </div>
+
+</div>
+</body>
+</html>
