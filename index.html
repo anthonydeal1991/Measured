@@ -7,15 +7,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;1,8..60,300&display=swap" rel="stylesheet">
 <style>
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-  :root{
-    --paper:#F8F4EE;--white:#FDFBF8;--ink:#1A1915;--muted:#6A6358;
-    --rule:rgba(26,25,21,0.10);--rust:#B05A32;--rust-lt:#ECD9CE;
-    --gold:#C2913A;--forest:#2F6B3E;--navy:#1E3A5F;
-  }
+  :root{--paper:#F8F4EE;--white:#FDFBF8;--ink:#1A1915;--muted:#6A6358;--rule:rgba(26,25,21,0.10);--rust:#B05A32;--rust-lt:#ECD9CE;--gold:#C2913A;--forest:#2F6B3E;--navy:#1E3A5F}
   html{scroll-behavior:smooth}
   body{font-family:'DM Sans',sans-serif;background:#1A1915;color:var(--ink);min-height:100vh}
-
-  /* NAV */
   nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(26,25,21,0.96);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,0.06);padding:0 40px;height:58px;display:flex;align-items:center;justify-content:space-between}
   .nav-brand{font-family:'Playfair Display',serif;color:#F8F4EE;font-size:20px;letter-spacing:0.01em;text-decoration:none}
   .nav-right{display:flex;align-items:center;gap:28px}
@@ -23,8 +17,6 @@
   .nav-link:hover{color:rgba(248,244,238,0.8)}
   .nav-cta{font-size:12px;letter-spacing:0.06em;color:var(--gold);text-decoration:none;border:1px solid rgba(194,145,58,0.35);padding:7px 16px;border-radius:2px;transition:all 0.2s}
   .nav-cta:hover{background:rgba(194,145,58,0.1);border-color:var(--gold)}
-
-  /* HERO */
   .hero{min-height:100vh;background:var(--ink);display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:120px 80px 80px;position:relative;overflow:hidden}
   .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 70% 50%,rgba(194,145,58,0.06) 0%,transparent 60%),radial-gradient(ellipse 40% 40% at 20% 80%,rgba(176,90,50,0.05) 0%,transparent 50%);pointer-events:none}
   .hero-deco{position:absolute;right:-40px;top:50%;transform:translateY(-50%);font-family:'Playfair Display',serif;font-size:420px;color:rgba(255,255,255,0.02);line-height:1;pointer-events:none;user-select:none}
@@ -41,8 +33,6 @@
   .scroll-hint{position:absolute;bottom:36px;left:80px;display:flex;align-items:center;gap:10px;font-size:10.5px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(248,244,238,0.25);animation:bob 2.5s ease-in-out infinite}
   .scroll-hint svg{width:14px;height:14px}
   @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
-
-  /* ABOUT */
   .about-band{background:var(--paper);padding:72px 80px}
   .about-inner{max-width:900px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
   .section-kicker{font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--rust);font-weight:500;margin-bottom:16px}
@@ -57,15 +47,12 @@
   .pillar-icon svg{width:16px;height:16px}
   .pillar-title{font-size:13.5px;font-weight:500;color:var(--ink);margin-bottom:4px}
   .pillar-desc{font-size:13px;color:var(--muted);line-height:1.6}
-
-  /* ── ISSUES SECTION ── */
+  /* ISSUES */
   .issues-section{background:#1A1915;padding:80px}
   .issues-inner{max-width:900px;margin:0 auto}
   .issues-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:48px;padding-bottom:24px;border-bottom:1px solid rgba(255,255,255,0.07)}
   .issues-heading{font-family:'Playfair Display',serif;font-size:32px;color:#F8F4EE;font-weight:500}
   .issues-count{font-size:11px;letter-spacing:0.09em;text-transform:uppercase;color:rgba(248,244,238,0.25)}
-
-  /* Friday issue cards */
   .issue-card{display:grid;grid-template-columns:80px 1fr auto;gap:28px;align-items:start;padding:28px 0;border-bottom:1px solid rgba(255,255,255,0.06);text-decoration:none;transition:all 0.2s ease;position:relative}
   .issue-card::before{content:'';position:absolute;left:-80px;right:-80px;top:0;bottom:0;background:rgba(255,255,255,0.015);opacity:0;transition:opacity 0.2s;pointer-events:none}
   .issue-card:hover::before{opacity:1}
@@ -81,18 +68,14 @@
   .issue-tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
   .tag{font-size:10px;letter-spacing:0.07em;text-transform:uppercase;color:rgba(248,244,238,0.3);border:1px solid rgba(255,255,255,0.1);padding:3px 8px;border-radius:1px}
   .issue-read{font-size:11.5px;letter-spacing:0.06em;color:var(--gold);white-space:nowrap;display:flex;align-items:center;gap:6px;opacity:0;transform:translateX(-6px);transition:all 0.2s;padding-top:8px}
-
-  /* ── QUICK TAKES SECTION ── */
+  /* QUICK TAKES */
   .qt-section{background:#131310;padding:64px 80px}
   .qt-inner{max-width:900px;margin:0 auto}
   .qt-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:36px;padding-bottom:22px;border-bottom:1px solid rgba(255,255,255,0.06)}
-  .qt-heading-wrap{}
   .qt-eyebrow{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--rust);font-weight:500;margin-bottom:6px}
   .qt-heading{font-family:'Playfair Display',serif;font-size:26px;color:#F8F4EE;font-weight:500}
   .qt-sub{font-size:12px;color:rgba(248,244,238,0.28);margin-top:4px}
   .qt-count{font-size:11px;letter-spacing:0.09em;text-transform:uppercase;color:rgba(248,244,238,0.2)}
-
-  /* Quick take card — different style from issue cards */
   .qt-card{display:flex;align-items:flex-start;gap:20px;padding:22px 0;border-bottom:1px solid rgba(255,255,255,0.05);text-decoration:none;transition:all 0.2s ease;position:relative}
   .qt-card::before{content:'';position:absolute;left:-80px;right:-80px;top:0;bottom:0;background:rgba(255,255,255,0.012);opacity:0;transition:opacity 0.2s;pointer-events:none}
   .qt-card:hover::before{opacity:1}
@@ -105,7 +88,6 @@
   .qt-title{font-family:'Playfair Display',serif;font-size:18px;color:#F8F4EE;font-weight:500;line-height:1.3;margin-bottom:8px}
   .qt-desc{font-size:13px;color:rgba(248,244,238,0.35);line-height:1.6}
   .qt-read{font-size:11px;letter-spacing:0.06em;color:var(--rust);white-space:nowrap;opacity:0;transform:translateX(-6px);transition:all 0.2s;padding-top:3px;flex-shrink:0}
-
   /* CONTACT */
   .contact-band{background:var(--rust);padding:60px 80px}
   .contact-inner{max-width:900px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:40px}
@@ -113,36 +95,19 @@
   .contact-sub{font-size:14px;color:rgba(255,255,255,0.65);line-height:1.6;max-width:360px}
   .contact-btn{display:inline-block;background:white;color:var(--rust);font-size:13px;font-weight:500;letter-spacing:0.06em;padding:14px 28px;border-radius:2px;text-decoration:none;white-space:nowrap;transition:all 0.2s;flex-shrink:0}
   .contact-btn:hover{background:var(--ink);color:white}
-
-  /* FOOTER */
   footer{background:#111109;padding:24px 80px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;border-top:1px solid rgba(255,255,255,0.04)}
   .footer-brand{font-family:'Playfair Display',serif;color:rgba(248,244,238,0.3);font-size:16px}
   .footer-right{display:flex;flex-direction:column;align-items:flex-end;gap:3px}
   .footer-note{font-size:11px;color:rgba(248,244,238,0.15);letter-spacing:0.04em}
   .footer-nmls{font-size:10px;color:rgba(248,244,238,0.1);letter-spacing:0.04em}
-
-  /* ANIMATIONS */
   .fade-in{opacity:0;transform:translateY(20px);animation:fadeUp 0.7s ease forwards}
   .fade-in:nth-child(1){animation-delay:0.10s}.fade-in:nth-child(2){animation-delay:0.22s}.fade-in:nth-child(3){animation-delay:0.34s}.fade-in:nth-child(4){animation-delay:0.46s}
   @keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
-
-  /* RESPONSIVE */
-  @media(max-width:768px){
-    nav{padding:0 20px}.nav-link{display:none}
-    .hero{padding:100px 24px 60px}.hero-deco{display:none}.scroll-hint{left:24px}
-    .about-band{padding:52px 24px}.about-inner{grid-template-columns:1fr;gap:40px}
-    .issues-section{padding:52px 24px}
-    .issue-card{grid-template-columns:52px 1fr}.issue-read{display:none}
-    .qt-section{padding:48px 24px}
-    .qt-card{gap:14px}.qt-read{display:none}
-    .contact-band{padding:48px 24px}.contact-inner{flex-direction:column;align-items:flex-start}
-    footer{padding:20px 24px}.footer-right{align-items:flex-start}
-  }
+  @media(max-width:768px){nav{padding:0 20px}.nav-link{display:none}.hero{padding:100px 24px 60px}.hero-deco{display:none}.scroll-hint{left:24px}.about-band{padding:52px 24px}.about-inner{grid-template-columns:1fr;gap:40px}.issues-section{padding:52px 24px}.issue-card{grid-template-columns:52px 1fr}.issue-read{display:none}.qt-section{padding:48px 24px}.qt-card{gap:14px}.qt-read{display:none}.contact-band{padding:48px 24px}.contact-inner{flex-direction:column;align-items:flex-start}footer{padding:20px 24px}.footer-right{align-items:flex-start}}
 </style>
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
   <a href="#" class="nav-brand">Measured</a>
   <div class="nav-right">
@@ -153,7 +118,6 @@
   </div>
 </nav>
 
-<!-- HERO -->
 <section class="hero">
   <div class="hero-deco">M</div>
   <div class="hero-content">
@@ -174,7 +138,6 @@
   </div>
 </section>
 
-<!-- ABOUT -->
 <section class="about-band" id="about">
   <div class="about-inner">
     <div>
@@ -209,15 +172,25 @@
   </div>
 </section>
 
-<!-- ALL ISSUES -->
 <section class="issues-section" id="issues">
   <div class="issues-inner">
     <div class="issues-header">
       <h2 class="issues-heading">All Issues</h2>
-      <span class="issues-count">8 issues published</span>
+      <span class="issues-count">9 issues published</span>
     </div>
 
-    <a href="measured-issue-8.html" class="issue-card latest">
+    <a href="measured-issue-9.html" class="issue-card latest">
+      <div class="issue-num-wrap"><div class="issue-num">09</div></div>
+      <div class="issue-body">
+        <div class="issue-date">June 19, 2026</div>
+        <div class="issue-title">A deal was signed at Versailles. Rates dropped. But the Strait of Hormuz is still not open.</div>
+        <div class="issue-desc">The full Strait of Hormuz timeline, why 500 ships remain stranded and mines are still in the water, the rate math if the deal holds, housing data through the first half of 2026, and what to watch next week.</div>
+        <div class="issue-tags"><span class="tag">Strait of Hormuz</span><span class="tag">Iran Deal</span><span class="tag">Rates 6.47%</span><span class="tag">Housing Data</span></div>
+      </div>
+      <div class="issue-read">Read →</div>
+    </a>
+
+    <a href="measured-issue-8.html" class="issue-card">
       <div class="issue-num-wrap"><div class="issue-num">08</div></div>
       <div class="issue-body">
         <div class="issue-date">June 13, 2026</div>
@@ -308,12 +281,11 @@
   </div>
 </section>
 
-<!-- ── QUICK TAKES ── -->
+<!-- QUICK TAKES -->
 <section class="qt-section" id="quick-takes">
   <div class="qt-inner">
-
     <div class="qt-header">
-      <div class="qt-heading-wrap">
+      <div>
         <div class="qt-eyebrow">⚡ Midweek</div>
         <div class="qt-heading">Quick Takes</div>
         <div class="qt-sub">Breaking market news between Friday issues — short, direct, actionable.</div>
@@ -321,11 +293,8 @@
       <span class="qt-count">1 published</span>
     </div>
 
-    <!-- QT 1 -->
     <a href="measured-quicktake-june17.html" class="qt-card">
-      <div class="qt-badge-wrap">
-        <div class="qt-badge">⚡ New</div>
-      </div>
+      <div class="qt-badge-wrap"><div class="qt-badge">⚡ Quick Take</div></div>
       <div class="qt-body">
         <div class="qt-date">Wednesday, June 17, 2026</div>
         <div class="qt-title">The Fed just held rates. But the message it sent was anything but neutral.</div>
@@ -348,7 +317,6 @@
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <div class="footer-brand">Measured</div>
   <div class="footer-right">
