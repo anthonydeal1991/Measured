@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Measured — Issue No. 10 · June 27, 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,400;1,500&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;1,8..60,300&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --paper:#F8F4EE;--white:#FDFBF8;--ink:#1A1915;--muted:#6A6358;
+    --rule:rgba(26,25,21,0.09);--rust:#B05A32;--rust-lt:#ECD9CE;
+    --gold:#C2913A;--forest:#2F6B3E;--forest-lt:#D4E8D9;
+    --navy:#1E3A5F;--navy-lt:#D2DFF0;--amber:#C47A10;--amber-lt:#FAE9CB;
+    --warn:#8B2020;--warn-lt:#F5D5D5;
+  }
+  body{font-family:'DM Sans',sans-serif;background:#EDE8DF;color:var(--ink);padding:32px 16px 64px}
+  .wrap{max-width:620px;margin:0 auto;background:var(--white);border-radius:2px;overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,0.04),0 8px 24px rgba(0,0,0,0.07),0 32px 64px rgba(0,0,0,0.07)}
+
+  /* MASTHEAD */
+  .masthead{background:var(--ink)}
+  .masthead-top{display:flex;align-items:stretch;border-bottom:1px solid rgba(255,255,255,0.06)}
+  .brand{flex:1;padding:22px 36px}
+  .brand-name{font-family:'Playfair Display',serif;color:#F8F4EE;font-size:24px;letter-spacing:0.01em;line-height:1}
+  .brand-sub{font-size:10px;color:rgba(248,244,238,0.35);letter-spacing:0.12em;text-transform:uppercase;margin-top:5px}
+  .masthead-meta{padding:22px 36px;text-align:right;border-left:1px solid rgba(255,255,255,0.06);display:flex;flex-direction:column;justify-content:center;gap:4px}
+  .meta-issue{font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold)}
+  .meta-date{font-size:11px;color:rgba(248,244,238,0.3)}
+
+  /* Milestone band */
+  .milestone-bar{background:linear-gradient(135deg,#C2913A 0%,#B05A32 100%);padding:14px 36px;display:flex;align-items:center;gap:14px}
+  .milestone-icon{font-size:22px;line-height:1;flex-shrink:0}
+  .milestone-text{font-size:13px;color:rgba(255,255,255,0.9);line-height:1.5}
+  .milestone-text strong{color:white;font-weight:500}
+
+  .author-bar{background:var(--rust-lt);padding:14px 36px;display:flex;align-items:center;gap:13px}
+  .avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--rust));display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:17px;color:white;flex-shrink:0;box-shadow:0 2px 6px rgba(176,90,50,0.3)}
+  .author-name{font-size:13.5px;font-weight:500;color:var(--ink)}
+  .author-role{font-size:11.5px;color:var(--muted);margin-top:1px}
+
+  /* HERO */
+  .hero{background:var(--ink);padding:36px 36px 32px;border-top:1px solid rgba(255,255,255,0.04);position:relative;overflow:hidden}
+  .hero::after{content:'';position:absolute;top:-80px;right:-60px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(194,145,58,0.08) 0%,transparent 65%);pointer-events:none}
+  .hero-kicker{font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:16px}
+  .hero-hed{font-family:'Playfair Display',serif;font-size:28px;line-height:1.22;color:#F8F4EE;margin-bottom:14px;max-width:500px}
+  .hero-hed em{font-style:italic;color:var(--gold)}
+  .hero-deck{font-size:13.5px;color:rgba(248,244,238,0.48);line-height:1.65;max-width:460px}
+
+  /* BODY */
+  .body{padding:36px 36px 32px}
+  .opener{font-family:'Source Serif 4',serif;font-size:15px;line-height:1.78;color:var(--ink);font-style:italic;padding-bottom:28px;border-bottom:1px solid var(--rule);margin-bottom:32px}
+  p{font-size:14.5px;line-height:1.78;color:#38342E;margin-bottom:15px}
+  p:last-child{margin-bottom:0}
+  strong{color:var(--ink);font-weight:500}
+  .section{margin-bottom:34px;padding-bottom:34px;border-bottom:1px solid var(--rule)}
+  .section:last-of-type{border-bottom:none;margin-bottom:0;padding-bottom:0}
+  .sec-label{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+  .sec-pip{width:6px;height:6px;border-radius:50%;background:var(--rust);flex-shrink:0}
+  .sec-title{font-family:'Playfair Display',serif;font-size:17px;color:var(--ink);font-weight:500}
+
+  /* Rate row */
+  .rate-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:20px 0}
+  .rate-card{background:var(--paper);border-radius:2px;padding:14px 15px;border-top:2px solid var(--rule)}
+  .rate-card.up{border-top-color:var(--warn)}
+  .rate-card.ok{border-top-color:var(--forest)}
+  .rate-card.flat{border-top-color:var(--navy)}
+  .rate-num{font-family:'Playfair Display',serif;font-size:22px;color:var(--ink);line-height:1}
+  .rate-desc{font-size:11px;color:var(--muted);margin-top:5px;line-height:1.4}
+  .rate-delta{font-size:11px;margin-top:4px}
+  .rate-delta.up{color:var(--warn)}
+  .rate-delta.ok{color:var(--forest)}
+  .rate-delta.flat{color:var(--muted)}
+
+  /* Callout */
+  .callout{border-left:3px solid var(--rust);background:var(--paper);padding:16px 20px;margin:20px 0;border-radius:0 2px 2px 0}
+  .callout p{font-family:'Source Serif 4',serif;font-style:italic;font-size:14.5px;color:var(--ink);margin-bottom:0;line-height:1.7}
+  .callout-attr{font-size:10.5px !important;color:var(--muted) !important;margin-top:8px !important;font-style:normal !important;font-family:'DM Sans',sans-serif !important;letter-spacing:0.05em}
+
+  /* Data boxes */
+  .data-box{border:1px solid rgba(30,58,95,0.18);background:var(--navy-lt);border-radius:2px;padding:18px 20px;margin:20px 0}
+  .data-label{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--navy);font-weight:500;margin-bottom:8px}
+  .data-box p{font-size:14px;color:#1A2D42;margin-bottom:8px;line-height:1.7}
+  .data-box p:last-child{margin-bottom:0}
+  .data-box strong{color:#0F1E2E}
+
+  /* Warn */
+  .warn-box{border:1px solid rgba(139,32,32,0.2);background:var(--warn-lt);border-radius:2px;padding:20px 22px;margin:20px 0}
+  .warn-label{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--warn);font-weight:500;margin-bottom:8px}
+  .warn-box p{font-size:14px;color:#2E0A0A;margin-bottom:8px;line-height:1.7}
+  .warn-box p:last-child{margin-bottom:0}
+  .warn-box strong{color:#1A0505}
+
+  /* Green */
+  .opp-box{border:1px solid rgba(47,107,62,0.2);background:var(--forest-lt);border-radius:2px;padding:20px 22px;margin:20px 0}
+  .opp-label{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--forest);font-weight:500;margin-bottom:8px}
+  .opp-box p{font-size:14px;color:#1C3D24;margin-bottom:8px;line-height:1.72}
+  .opp-box p:last-child{margin-bottom:0}
+  .opp-box strong{color:#122618}
+
+  /* Amber */
+  .watch-box{border:1px solid rgba(196,122,16,0.2);background:var(--amber-lt);border-radius:2px;padding:18px 20px;margin:20px 0}
+  .watch-label{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--amber);font-weight:500;margin-bottom:8px}
+  .watch-box p{font-size:14px;color:#3D2200;margin-bottom:8px;line-height:1.7}
+  .watch-box p:last-child{margin-bottom:0}
+  .watch-box strong{color:#1F1000}
+
+  /* Anthony's take */
+  .take-box{border:1px solid rgba(176,90,50,0.2);background:var(--rust-lt);border-radius:2px;padding:20px 22px;margin:20px 0}
+  .take-label{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--rust);font-weight:500;margin-bottom:8px}
+  .take-box p{font-size:14px;color:#3D1E0A;margin-bottom:8px;line-height:1.72}
+  .take-box p:last-child{margin-bottom:0}
+  .take-box strong{color:#231005}
+
+  /* Personal / dark */
+  .personal-box{background:var(--ink);border-radius:2px;padding:24px 26px;margin:20px 0;position:relative;overflow:hidden}
+  .personal-box::before{content:'';position:absolute;top:-40px;right:-40px;width:160px;height:160px;border-radius:50%;background:radial-gradient(circle,rgba(194,145,58,0.1) 0%,transparent 70%);pointer-events:none}
+  .personal-label{font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:12px}
+  .personal-box p{font-size:14px;color:rgba(248,244,238,0.75);margin-bottom:10px;line-height:1.78}
+  .personal-box p:last-child{margin-bottom:0}
+  .personal-box strong{color:#F8F4EE}
+  .personal-box em{font-style:italic;color:rgba(248,244,238,0.55)}
+
+  /* PCE inflation stat row */
+  .stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:20px 0}
+  .stat-card{background:var(--paper);border-radius:2px;padding:13px 14px;border-top:2px solid var(--warn)}
+  .stat-card.ok{border-top-color:var(--forest)}
+  .stat-card.flat{border-top-color:var(--navy)}
+  .stat-card.gold{border-top-color:var(--gold)}
+  .stat-num{font-family:'Playfair Display',serif;font-size:21px;color:var(--ink);line-height:1}
+  .stat-label{font-size:11px;color:var(--muted);margin-top:5px;line-height:1.4}
+
+  /* Ornament */
+  .ornament{display:flex;align-items:center;gap:12px;margin:30px 0}
+  .ornament hr{flex:1;border:none;border-top:1px solid var(--rule)}
+  .ornament-mark{font-size:10px;color:var(--gold);letter-spacing:0.12em}
+
+  /* Closing */
+  .closing{font-family:'Source Serif 4',serif;font-size:14.5px;font-style:italic;color:var(--muted);line-height:1.75;padding-top:24px;border-top:1px solid var(--rule)}
+  .closing b{color:var(--ink);font-style:normal;font-weight:500}
+
+  /* Footer */
+  .footer{background:var(--paper);border-top:1px solid var(--rule);padding:18px 36px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px}
+  .footer-sig{font-family:'Source Serif 4',serif;font-style:italic;font-size:13px;color:var(--muted)}
+  .footer-sig b{color:var(--ink);font-style:normal;font-weight:500}
+  .footer-nmls{font-size:10px;color:rgba(106,99,88,0.4);letter-spacing:0.04em}
+
+  @media(max-width:560px){
+    .body{padding:28px 20px 24px}
+    .masthead-top{flex-direction:column}
+    .masthead-meta{text-align:left;border-left:none;border-top:1px solid rgba(255,255,255,0.06);padding:14px 36px}
+    .rate-row,.stat-row{grid-template-columns:1fr 1fr}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- MASTHEAD -->
+  <div class="masthead">
+    <div class="masthead-top">
+      <div class="brand">
+        <div class="brand-name">Measured</div>
+        <div class="brand-sub">A weekly note on mortgage decisions that matter</div>
+      </div>
+      <div class="masthead-meta">
+        <div class="meta-issue">Issue No. 10</div>
+        <div class="meta-date">Saturday, June 27, 2026</div>
+      </div>
+    </div>
+    <div class="milestone-bar">
+      <div class="milestone-icon">🏆</div>
+      <div class="milestone-text"><strong>Issue 10 · A milestone week in more ways than one.</strong> Ten straight Fridays. 1,100 loans closed. A lot to reflect on.</div>
+    </div>
+    <div class="author-bar">
+      <div class="avatar">A</div>
+      <div>
+        <div class="author-name">Anthony · Loan Pronto</div>
+        <div class="author-role">Mortgage advisor · wholesale lending · plain English, always</div>
+      </div>
+    </div>
+    <div class="hero">
+      <div class="hero-kicker">This week in Measured</div>
+      <div class="hero-hed">PCE hit a three-year high. Bonds rallied anyway. And the market <em>still doesn't know</em> what to make of it.</div>
+      <div class="hero-deck">Inflation hit 4.1% — and the 10-year Treasury fell. Stocks split. Bonds bought. Here's what this week's contradictory data really means, what it does to your rate, and why a heavy purchase month demands a different kind of discipline than most advisors practice.</div>
+    </div>
+  </div>
+
+  <!-- BODY -->
+  <div class="body">
+
+    <p class="opener">Ten issues. Ten Fridays of pulling live data, making sense of headlines, and trying to write something worth the minutes you give it. This week gave me a lot to work with — a PCE report that was simultaneously alarming and encouraging, a bond market that did the opposite of what inflation usually demands, and personally, a milestone I've been quietly working toward for a long time. Let me walk you through all of it. — Anthony</p>
+
+    <!-- SECTION 1: PCE + INFLATION -->
+    <div class="section">
+      <div class="sec-label"><div class="sec-pip"></div><div class="sec-title">PCE inflation hit a three-year high — and the market's reaction surprised everyone</div></div>
+
+      <p>Thursday's Personal Consumption Expenditures report was the most anticipated data release of the week — and the most important inflation reading for mortgage borrowers this year. Here's exactly what it showed:</p>
+
+      <div class="stat-row">
+        <div class="stat-card">
+          <div class="stat-num">4.1%</div>
+          <div class="stat-label">Headline PCE YoY — highest since April 2023</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">3.4%</div>
+          <div class="stat-label">Core PCE YoY — highest since October 2023</div>
+        </div>
+        <div class="stat-card flat">
+          <div class="stat-num">+0.4%</div>
+          <div class="stat-label">Monthly PCE change — matching April's pace</div>
+        </div>
+      </div>
+
+      <p>Headline PCE at <strong>4.1% year-over-year</strong> is the fourth consecutive month of acceleration. It's the highest reading since April 2023. And it's more than double the Fed's 2% target. On paper, this is the kind of number that sends bond markets into panic, pushes yields higher, and takes mortgage rates with them.</p>
+
+      <p>That's not what happened.</p>
+
+      <div class="data-box">
+        <div class="data-label">📊 What Actually Moved Markets Thursday · PCE Report + Bond Market · June 25</div>
+        <p>The 10-year Treasury yield fell to below <strong>4.40% on Thursday</strong> — its lowest level in seven weeks — on the PCE data. Why? Two reasons. First, core PCE came in at <strong>3.4% vs. 3.3% expected</strong> — a slight beat, but not the alarming acceleration many feared. Second, and more importantly: <strong>oil has fallen to $69.81 per barrel</strong>, its lowest level since before the Iran war began. The Strait of Hormuz reopening is pulling energy prices down fast, and the market is looking past the lagged May inflation data toward what June and July will look like as energy costs reverse.</p>
+        <p>Jobless claims also came in strong at <strong>215,000</strong> — down 12,000 from the prior week and below estimates. Durable goods, GDP, personal income and spending all landed on Thursday as well. The bond market absorbed all of it and still rallied. That tells you where investor focus is: forward-looking, not backward.</p>
+      </div>
+
+      <div class="callout">
+        <p>It's our expectation that inflation will start going lower now that the Strait of Hormuz has reopened and oil prices are coming down — but next month's data needs to be lower than what we are seeing today if that is going to be the case.</p>
+        <p class="callout-attr">— Chris Zaccarelli, Chief Investment Officer, Northlight Asset Management · June 25, 2026</p>
+      </div>
+
+      <p><strong>The most important sentence from this week's inflation data</strong> came from Nationwide chief economist Kathy Bostjancic: <em>"We estimate headline inflation has peaked and will trend lower in the second half of the year, assuming the Strait of Hormuz remains open."</em> That's the bet the bond market is making. Oil at $69.81 — below pre-war levels — is the data supporting it. If that holds, the May PCE of 4.1% is the peak, and every subsequent reading will show improvement.</p>
+
+      <p>The risk: one more attack near Hormuz — there was an incident involving a cargo ship near Oman's coast this week — and oil reverses, inflation expectations spike, and the bond rally unwinds overnight. The deal is real. The fragility is also real.</p>
+    </div>
+
+    <!-- SECTION 2: WHERE RATES AND THE 10-YEAR CLOSED -->
+    <div class="section">
+      <div class="sec-label"><div class="sec-pip"></div><div class="sec-title">Where the 10-year and mortgage rates actually closed this week</div></div>
+
+      <p>Here's the precise picture heading into this weekend — sourced directly from Freddie Mac's Thursday survey, Bankrate's Saturday data, and Friday's Treasury close:</p>
+
+      <div class="rate-row">
+        <div class="rate-card ok">
+          <div class="rate-num">6.49%</div>
+          <div class="rate-desc">30-yr fixed<br>Freddie Mac, June 25</div>
+          <div class="rate-delta up">↑ from 6.47% last week</div>
+        </div>
+        <div class="rate-card up">
+          <div class="rate-num">6.54%</div>
+          <div class="rate-desc">30-yr fixed<br>Bankrate, June 27</div>
+          <div class="rate-delta flat">Retail average today</div>
+        </div>
+        <div class="rate-card flat">
+          <div class="rate-num">4.39%</div>
+          <div class="rate-desc">10-yr Treasury<br>Friday close, June 26</div>
+          <div class="rate-delta ok">↓ 7 bps on the week</div>
+        </div>
+      </div>
+
+      <p>The divergence between the Freddie Mac number and Friday's real-time rates tells a story. The Freddie Mac survey captures Monday–Wednesday applications and was released Thursday. By Friday, the 10-year Treasury had fallen to <strong>4.39%</strong> — down 7 basis points on the week — as the PCE data came in broadly in line and oil prices continued to slide. That improvement in bond yields should show up in next Thursday's Freddie Mac survey.</p>
+
+      <div class="data-box">
+        <div class="data-label">📊 The Week in Stocks and Bonds · June 22–27, 2026</div>
+        <p>This week had a clear story: <strong>bonds won, stocks split.</strong> The Dow eked out a <strong>+0.14%</strong> gain on the week. The S&P 500 slipped <strong>-0.01%</strong>. The Nasdaq dropped <strong>-0.46%</strong> — Micron extended losses and a chip sell-off mid-week sent technology funds to a record $9.3 billion in outflows for the week ending June 24. Gold climbed to <strong>$4,058 per ounce</strong>. Oil fell to <strong>$69.81</strong> — below pre-war levels. The CNN Fear & Greed Index sat at <strong>25.6</strong>, firmly in "fear" territory.</p>
+        <p>What drove the bond rally: large institutional investors were <strong>rebalancing stock/bond portfolios ahead of quarter-end</strong> — a mechanical, calendar-driven shift that pushed money into bonds regardless of economic data. Mortgage News Daily noted this explicitly: end-of-quarter rebalancing was the primary driver of the week's bond buying, and as that flow ends with Q2 closing Monday, <strong>new volatility could emerge next week</strong>. The jobs report on Thursday (moved from Friday due to the July 4 holiday) will be the next major catalyst.</p>
+      </div>
+
+      <p>The spread between the 10-year at 4.39% and the 30-year retail rate at 6.49–6.54% is running approximately <strong>210–215 basis points</strong> — slightly above where it was last week and still elevated above the historical 170-basis-point norm we covered in Issue 8. The quarter-end rebalancing gave bonds a tailwind this week that won't repeat. The jobs report Thursday will either reinforce or reverse the improvement. Watch it closely.</p>
+
+      <div class="opp-box">
+        <div class="opp-label">📉 What Comes Next · Looking Into Q3</div>
+        <p>Nuveen's fixed income team — one of the most respected voices in the bond market — published their mid-year outlook this week. Their view: the 10-year Treasury yield stays in the <strong>4.25–4.50% range</strong> through year-end. Three factors keep it there: oil futures still pricing <strong>$85/barrel</strong> through year-end (not fully pricing in the deal holding), tech-related measurement distortions inflating core CPI, and payrolls averaging roughly <strong>190,000 jobs per month</strong> over the past three months. Their next expected Fed move: a <strong>cut — not a hike — but not until H1 2027.</strong></p>
+        <p>Charles Schwab's fixed income team agrees on the range: <strong>4.0–4.5%</strong> for the 10-year, with risks tilted to the upside. At 4.39% today we're squarely in the middle of that band. At a 210-basis-point spread, that implies 30-year retail rates in the <strong>6.39–6.65% range</strong> through year-end — and through the wholesale channel, consistently <strong>0.375–0.50% lower</strong> than that.</p>
+      </div>
+    </div>
+
+    <!-- SECTION 3: BIG PURCHASES + COMMUNICATION -->
+    <div class="section">
+      <div class="sec-label"><div class="sec-pip"></div><div class="sec-title">When the deal is big — what extra communication actually looks like</div></div>
+
+      <p>I want to spend some time on something operational this week, because it directly affects the quality of experience your referrals have — and by extension, whether they send you more.</p>
+
+      <p>Not all purchase loans are the same level of complexity. A standard W-2 borrower, 20% down, no complicating factors, conventional loan — that's a well-worn path. But a jumbo purchase, a self-employed borrower, a complex asset structure, a non-warrantable condo, a situation where the buyer is using proceeds from a business sale — those files require something the standard process doesn't build in automatically: <strong>extra communication at every turn.</strong></p>
+
+      <p>Here's what I mean. On a complex purchase, the borrower almost always has more anxiety than they're showing. They've put an offer in on something significant. They're managing a moving timeline. They don't fully understand underwriting. And when silence happens — even a normal silence because the file is just moving through the queue — they interpret it as something being wrong.</p>
+
+      <div class="take-box">
+        <div class="take-label">What Extra Communication Actually Looks Like on a Big Purchase</div>
+        <p>It's not longer emails. It's <strong>more frequent, shorter touchpoints.</strong> A text that says "file moved to underwriting this morning, you're in the queue, no action needed from you" takes 30 seconds to send and eliminates two days of borrower anxiety. A phone call when something changes — before they find out on their own — is the difference between a client who feels in control and one who feels lost in a system.</p>
+        <p>The referral source is also watching. When your past client referred their friend to you for a $900,000 purchase, they are going to hear about every moment of that experience. The communication you give that borrower is simultaneously the communication you're giving your referral source. <strong>One silent week on a complex purchase is a reputation event, not just a customer service moment.</strong></p>
+        <p>The rule I follow: on any purchase above a complexity threshold — jumbo, self-employed, multiple assets involved, tight timeline — I communicate at every stage change even if nothing needs to happen. Stage changed? Text. Appraisal ordered? Text. Appraisal in? Call. Conditions from underwriting? Call with a plan, not just a list. Clear to close? Call first, email second, celebration always.</p>
+      </div>
+    </div>
+
+    <!-- SECTION 4: PURCHASE HEAVY MONTH + FOCUS -->
+    <div class="section">
+      <div class="sec-label"><div class="sec-pip"></div><div class="sec-title">When you're purchase-heavy — why discipline means saying no to new leads</div></div>
+
+      <p>This is one of the most counterintuitive things in this business, and I think about it a lot this time of year when purchase volume is at its seasonal peak.</p>
+
+      <p>When you have a full pipeline of purchases — contracts under deadline, appraisals being ordered, underwriting conditions stacking up — the instinct is to keep taking leads. Every inquiry feels like an opportunity. Every referral feels like something you can't turn down. The fear of losing business is louder than the reality of your bandwidth.</p>
+
+      <p>But here's what actually happens when you overload a purchase-heavy month with new lead intake: <strong>the clients you've already committed to suffer.</strong> Response times slow. Conditions take longer to address. Communication gaps appear. And the borrowers who were counting on you — people who are in contract, who have a moving date, who have something real at stake — feel it.</p>
+
+      <div class="opp-box">
+        <div class="opp-label">The Discipline of a Full Pipeline</div>
+        <p>A purchase under contract is a <strong>contractual obligation with real consequences</strong>. A missed closing date doesn't just inconvenience a borrower — it can cost them their earnest money, their moving costs, their rate lock, and the deal itself. A new lead, by contrast, is a future opportunity with no current obligation. When the choice is between serving an existing commitment fully and taking on a new intake that dilutes that service, the existing commitment wins. Every time.</p>
+        <p>The best loan officers I know — the ones with the most durable businesses — have learned to say: <em>"I want to work with you, and I want to give you the attention you deserve. I'm in a heavy purchase window right now and I'd rather set you up correctly in two weeks than rush you through today."</em> That kind of honesty builds more trust than taking the lead and delivering a half-present experience. <strong>Your referral partners will respect the boundary. Your existing clients will remember the focus.</strong></p>
+      </div>
+
+      <p>This isn't about turning away business. It's about protecting the quality of the business you've already committed to. A well-served purchase client who closes smoothly is worth five new leads from the referral they send you afterward. A poorly managed closing in a rushed pipeline costs you two: the client who won't return, and the referral source who won't send the next one.</p>
+    </div>
+
+    <!-- SECTION 5: PERSONAL — 1100 LOANS / MEASURED / BALANCE -->
+    <div class="section">
+      <div class="sec-label"><div class="sec-pip"></div><div class="sec-title">Issue 10. 1,100 loans. And the thing nobody talks about in this business.</div></div>
+
+      <p>I want to be honest with you this week in a way that doesn't come naturally to most people in my position.</p>
+
+      <p>This week I crossed <strong>1,100 loans closed</strong> in my career. That's a number I've been quietly building toward and one I'm genuinely proud of. But I'm writing Issue 10 on a Saturday morning, which means Measured has now moved — ten consecutive weeks — through one of the most volatile rate environments in years, a war in the Middle East, a Fed chair transition, a Moody's downgrade, two near-deals on Iran, and a personally chaotic month that included more transitions than I'll list here.</p>
+
+      <p>What I've learned from showing up for this newsletter every week — even during the chaos — is something I already believed but now know in a different, more personal way: <strong>consistency is the differentiator.</strong> Not talent. Not timing. Consistency. The week you most want to skip is usually the week your audience most needs to hear from you. The Friday you're least prepared is the one that builds the most trust when you show up anyway.</p>
+
+      <div class="personal-box">
+        <div class="personal-label">On Guilt, Balance, and Being Present</div>
+        <p>There's a feeling that comes with being in a service business that nobody really prepares you for — the low-grade, persistent guilt that you're not doing enough. When I'm with Cameron, there's a part of my brain checking the pipeline. When I'm working the pipeline, there's a part of my brain aware I should be more present at home. It's a kind of split attention that the industry actually rewards, which makes it harder to address.</p>
+        <p>The honest truth I've been sitting with this month: <strong>I am doing enough.</strong> Not because I've stopped caring about the work — but because I've started measuring myself against the right standard. The clients I'm serving this month are being served well. The people who referred them are being taken care of. Cameron is my partner in everything that matters, and protecting that relationship isn't a compromise of my professional ethic — it's part of what makes me good at this job long-term.</p>
+        <p>The guilt doesn't go away completely. But I've learned to recognize it for what it usually is: not evidence that I'm failing, but evidence that I care. There's a difference. <em>Caring deeply about work and family simultaneously is not a problem to solve. It's the shape of a life well-lived.</em> The goal isn't to stop feeling the pull in both directions. It's to make sure that when you're at the desk, you're fully at the desk — and when you step away, you step away without apology.</p>
+        <p>Ten issues. 1,100 loans. A newsletter that moved through the hardest market in a decade and didn't miss a Friday. I'm proud of all of it. And I'm choosing, this Saturday, to set the laptop down and be present where I am. <strong>That's also part of doing this right.</strong></p>
+      </div>
+    </div>
+
+    <!-- SECTION 6: WATCH NEXT WEEK -->
+    <div class="section">
+      <div class="sec-label"><div class="sec-pip"></div><div class="sec-title">What to watch this week</div></div>
+
+      <div class="watch-box">
+        <div class="watch-label">📅 Week Ahead · June 30 – July 3, 2026</div>
+        <p><strong>Monday June 30 — Quarter-end.</strong> Q2 officially closes. The mechanical bond-buying that helped rates this week ends. New volatility likely as institutional portfolios reset. Watch the 10-year Monday morning — if it spikes above 4.50%, mortgage rates will follow heading into the holiday week.</p>
+        <p><strong>Thursday July 3 — Jobs Report (June).</strong> Moved from Friday due to the July 4 holiday. This is the single most market-moving data point of the month. May printed 172,000 jobs — double expectations. If June comes in similarly hot, rate hike probability climbs and the bond rally of the past week reverses. If it softens toward 100,000 or below, the market exhales and rates could improve. This number will set the tone for the entire month of July.</p>
+        <p><strong>July 4 — Markets closed.</strong> Bond markets dark Friday. No rate movement. Good day to be somewhere without Wi-Fi.</p>
+        <p><strong>Ongoing — Strait of Hormuz traffic.</strong> Oil at $69.81 is the single best indicator of where inflation — and mortgage rates — go next. A sustained close below $70 would be the most meaningful development for borrowers in months. Watch it daily.</p>
+      </div>
+    </div>
+
+    <!-- ORNAMENT -->
+    <div class="ornament"><hr><div class="ornament-mark">· · ·</div><hr></div>
+
+    <p class="closing">Ten issues in. The market has been relentless and so has this newsletter. Thank you for reading — and for the replies, the forwards, and the questions that have shaped what I write each week. The goal has always been to give you something worth the minutes you spend on it. I'll be back next Friday. <b>— Anthony</b></p>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-sig">Written by <b>Anthony</b> · Loan Pronto · June 27, 2026</div>
+    <div class="footer-nmls">NMLS #2096979 · Equal Housing Lender</div>
+  </div>
+
+</div>
+</body>
+</html>
