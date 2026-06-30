@@ -47,7 +47,6 @@
   .pillar-icon svg{width:16px;height:16px}
   .pillar-title{font-size:13.5px;font-weight:500;color:var(--ink);margin-bottom:4px}
   .pillar-desc{font-size:13px;color:var(--muted);line-height:1.6}
-  /* ISSUES */
   .issues-section{background:#1A1915;padding:80px}
   .issues-inner{max-width:900px;margin:0 auto}
   .issues-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:48px;padding-bottom:24px;border-bottom:1px solid rgba(255,255,255,0.07)}
@@ -68,7 +67,6 @@
   .issue-tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
   .tag{font-size:10px;letter-spacing:0.07em;text-transform:uppercase;color:rgba(248,244,238,0.3);border:1px solid rgba(255,255,255,0.1);padding:3px 8px;border-radius:1px}
   .issue-read{font-size:11.5px;letter-spacing:0.06em;color:var(--gold);white-space:nowrap;display:flex;align-items:center;gap:6px;opacity:0;transform:translateX(-6px);transition:all 0.2s;padding-top:8px}
-  /* QUICK TAKES */
   .qt-section{background:#131310;padding:64px 80px}
   .qt-inner{max-width:900px;margin:0 auto}
   .qt-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:36px;padding-bottom:22px;border-bottom:1px solid rgba(255,255,255,0.06)}
@@ -88,7 +86,6 @@
   .qt-title{font-family:'Playfair Display',serif;font-size:18px;color:#F8F4EE;font-weight:500;line-height:1.3;margin-bottom:8px}
   .qt-desc{font-size:13px;color:rgba(248,244,238,0.35);line-height:1.6}
   .qt-read{font-size:11px;letter-spacing:0.06em;color:var(--rust);white-space:nowrap;opacity:0;transform:translateX(-6px);transition:all 0.2s;padding-top:3px;flex-shrink:0}
-  /* CONTACT */
   .contact-band{background:var(--rust);padding:60px 80px}
   .contact-inner{max-width:900px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:40px}
   .contact-heading{font-family:'Playfair Display',serif;font-size:26px;color:white;font-weight:500;margin-bottom:10px;line-height:1.3}
@@ -176,16 +173,27 @@
   <div class="issues-inner">
     <div class="issues-header">
       <h2 class="issues-heading">All Issues</h2>
-      <span class="issues-count">9 issues published</span>
+      <span class="issues-count">10 issues published</span>
     </div>
 
-    <a href="measured-issue-9.html" class="issue-card latest">
+    <a href="measured-issue-10.html" class="issue-card latest">
+      <div class="issue-num-wrap"><div class="issue-num">10</div></div>
+      <div class="issue-body">
+        <div class="issue-date">June 27, 2026</div>
+        <div class="issue-title">PCE hit a three-year high. Bonds rallied anyway. And the market still doesn't know what to make of it.</div>
+        <div class="issue-desc">PCE at 4.1%, oil at $69.81, the 10-year closed at 4.39%, stocks split and bonds rallied on quarter-end flows. Plus: 1,100 loans closed, what big purchases demand in communication, the discipline of a full pipeline, and on guilt, balance, and being present.</div>
+        <div class="issue-tags"><span class="tag">PCE 4.1%</span><span class="tag">10-yr Treasury</span><span class="tag">Bonds vs Stocks</span><span class="tag">1100 Loans</span><span class="tag">Milestone</span></div>
+      </div>
+      <div class="issue-read">Read →</div>
+    </a>
+
+    <a href="measured-issue-9.html" class="issue-card">
       <div class="issue-num-wrap"><div class="issue-num">09</div></div>
       <div class="issue-body">
         <div class="issue-date">June 19, 2026</div>
         <div class="issue-title">A deal was signed at Versailles. Rates dropped. But the Strait of Hormuz is still not open.</div>
-        <div class="issue-desc">The full Strait of Hormuz timeline, why 500 ships remain stranded and mines are still in the water, the rate math if the deal holds, housing data through the first half of 2026, and what to watch next week.</div>
-        <div class="issue-tags"><span class="tag">Strait of Hormuz</span><span class="tag">Iran Deal</span><span class="tag">Rates 6.47%</span><span class="tag">Housing Data</span></div>
+        <div class="issue-desc">The full Strait of Hormuz timeline, why 500 ships remain stranded, the rate math if the deal holds, and housing data through the first half of 2026.</div>
+        <div class="issue-tags"><span class="tag">Strait of Hormuz</span><span class="tag">Iran Deal</span><span class="tag">Rates 6.47%</span></div>
       </div>
       <div class="issue-read">Read →</div>
     </a>
@@ -195,8 +203,8 @@
       <div class="issue-body">
         <div class="issue-date">June 13, 2026</div>
         <div class="issue-title">An Iran deal is closer than it's ever been. Here's exactly what that means for your rate.</div>
-        <div class="issue-desc">The spread between the 10-year Treasury and the 30-year mortgage explained and visualized across 2024–2026. Home sales hit a five-month high. And the most important thing you can do when someone trusts you with a referral.</div>
-        <div class="issue-tags"><span class="tag">Iran Deal</span><span class="tag">Rate Spread</span><span class="tag">Home Sales</span><span class="tag">Referrals</span></div>
+        <div class="issue-desc">The spread between the 10-year Treasury and the 30-year mortgage explained and visualized across 2024–2026. Home sales hit a five-month high.</div>
+        <div class="issue-tags"><span class="tag">Iran Deal</span><span class="tag">Rate Spread</span><span class="tag">Home Sales</span></div>
       </div>
       <div class="issue-read">Read →</div>
     </a>
@@ -206,8 +214,8 @@
       <div class="issue-body">
         <div class="issue-date">June 6, 2026</div>
         <div class="issue-title">The jobs report just blew past expectations. Here's what that means for your rate.</div>
-        <div class="issue-desc">172,000 jobs added vs. 85,000 expected. Yields spiked. Rate hikes back on the table. Five months of home sales, applications YoY, LO + advisor partnerships.</div>
-        <div class="issue-tags"><span class="tag">Jobs Report</span><span class="tag">Rate Hike Risk</span><span class="tag">Home Sales</span></div>
+        <div class="issue-desc">172,000 jobs added vs. 85,000 expected. Yields spiked. Rate hikes back on the table. LO + advisor partnerships, referral network strategy.</div>
+        <div class="issue-tags"><span class="tag">Jobs Report</span><span class="tag">Rate Hike Risk</span><span class="tag">Referral Network</span></div>
       </div>
       <div class="issue-read">Read →</div>
     </a>
@@ -281,7 +289,6 @@
   </div>
 </section>
 
-<!-- QUICK TAKES -->
 <section class="qt-section" id="quick-takes">
   <div class="qt-inner">
     <div class="qt-header">
@@ -292,7 +299,6 @@
       </div>
       <span class="qt-count">1 published</span>
     </div>
-
     <a href="measured-quicktake-june17.html" class="qt-card">
       <div class="qt-badge-wrap"><div class="qt-badge">⚡ Quick Take</div></div>
       <div class="qt-body">
@@ -302,11 +308,9 @@
       </div>
       <div class="qt-read">Read →</div>
     </a>
-
   </div>
 </section>
 
-<!-- CONTACT -->
 <section class="contact-band">
   <div class="contact-inner">
     <div>
