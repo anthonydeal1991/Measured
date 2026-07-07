@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Measured — Issue No. 11 · July 5, 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,400;1,500&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;1,8..60,300&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --paper:#F8F4EE;--white:#FDFBF8;--ink:#1A1915;--muted:#6A6358;
+    --rule:rgba(26,25,21,0.09);--rust:#B05A32;--rust-lt:#ECD9CE;
+    --gold:#C2913A;--forest:#2F6B3E;--forest-lt:#D4E8D9;
+    --navy:#1E3A5F;--navy-lt:#D2DFF0;--amber:#C47A10;--amber-lt:#FAE9CB;
+    --warn:#8B2020;--warn-lt:#F5D5D5;
+  }
+  body{font-family:'DM Sans',sans-serif;background:#EDE8DF;color:var(--ink);padding:32px 16px 64px}
+  .wrap{max-width:620px;margin:0 auto;background:var(--white);border-radius:2px;overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,0.04),0 8px 24px rgba(0,0,0,0.07),0 32px 64px rgba(0,0,0,0.07)}
+
+  /* MASTHEAD */
+  .masthead{background:var(--ink)}
+  .masthead-top{display:flex;align-items:stretch;border-bottom:1px solid rgba(255,255,255,0.06)}
+  .brand{flex:1;padding:22px 36px}
+  .brand-name{font-family:'Playfair Display',serif;color:#F8F4EE;font-size:24px;letter-spacing:0.01em;line-height:1}
+  .brand-sub{font-size:10px;color:rgba(248,244,238,0.35);letter-spacing:0.12em;text-transform:uppercase;margin-top:5px}
+  .masthead-meta{padding:22px 36px;text-align:right;border-left:1px solid rgba(255,255,255,0.06);display:flex;flex-direction:column;justify-content:center;gap:4px}
+  .meta-issue{font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold)}
+  .meta-date{font-size:11px;color:rgba(248,244,238,0.3)}
+  .author-bar{background:var(--rust-lt);padding:14px 36px;display:flex;align-items:center;gap:13px}
+  .avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--rust));display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:17px;color:white;flex-shrink:0;box-shadow:0 2px 6px rgba(176,90,50,0.3)}
+  .author-name{font-size:13.5px;font-weight:500;color:var(--ink)}
+  .author-role{font-size:11.5px;color:var(--muted);margin-top:1px}
+
+  /* HERO */
+  .hero{background:var(--ink);padding:36px 36px 32px;border-top:1px solid rgba(255,255,255,0.04);position:relative;overflow:hidden}
+  .hero::after{content:'';position:absolute;top:-80px;right:-60px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(194,145,58,0.07) 0%,transparent 65%);pointer-events:none}
+  .hero-kicker{font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:16px}
+  .hero-hed{font-family:'Playfair Display',serif;font-size:28px;line-height:1.22;color:#F8F4EE;margin-bottom:14px;max-width:500px}
+  .hero-hed em{font-style:italic;color:var(--gold)}
+  .hero-deck{font-size:13.5px;color:rgba(248,244,238,0.48);line-height:1.65;max-width:460px}
+
+  /* BODY */
+  .body{padding:36px 36px 32px}
+  .opener{font-family:'Source Serif 4',serif;font-size:15px;line-height:1.78;color:var(--ink);font-style:italic;padding-bottom:28px;border-bottom:1px solid var(--rule);margin-bottom:32px}
+  p{font-size:14.5px;line-height:1.78;color:#38342E;margin-bottom:15px}
+  p:last-child{margin-bottom:0}
+  strong{color:var(--ink);font-weight:500}
+  .section{margin-bottom:34px;padding-bottom:34px;border-bottom:1px solid var(--rule)}
+  .section:last-of-type{border-bottom:none;margin-bottom:0;padding-bottom:0}
+  .sec-label{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+  .sec-pip{width:6px;height:6px;border-radius:50%;background:var(--rust);flex-shrink:0}
+  .sec-title{font-family:'Playfair Display',serif;font-size:17px;color:var(--ink);font-weight:500}
+
+  /* Rate cards */
+  .rate-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:20px 0}
+  .rate-card{background:var(--paper);border-radius:2px;padding:14px 15px;border-top:2px solid var(--rule)}
+  .rate-card.ok{border-top-color:var(--forest)}
+  .rate-card.flat{border-top-color:var(--navy)}
+  .rate-card.warn{border-top-color:var(--warn)}
+  .rate-card.gold{border-top-color:var(--gold)}
+  .rate-num{font-family:'Playfair Display',serif;font-size:22px;color:var(--ink);line-height:1}
+  .rate-desc{font-size:11px;color:var(--muted);margin-top:5px;line-height:1.4}
+  .rate-delta{font-size:11px;margin-top:4px}
+  .rate-delta.ok{color:var(--forest)}
+  .rate-delta.flat{color:var(--muted)}
+  .rate-delta.warn{color:var(--warn)}
+
+  /* Callout */
+  .callout{border-left:3px solid var(--rust);background:var(--paper);padding:16px 20px;margin:20px 0;border-radius:0 2px 2px 0}
+  .callout p{font-family:'Source Serif 4',serif;font-style:italic;font-size:14.5px;color:var(--ink);margin-bottom:0;line-height:1.7}
+  .callout-attr{font-size:10.5px !important;color:var(--muted) !important;margin-top:8px !important;font-style:normal !important;font-family:'DM Sans',sans-serif !important;letter-spacing:0.05em}
+
+  /* Jobs stat row */
+  .stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:20px 0}
+  .stat-card{background:var(--paper);border-radius:2px;padding:13px 14px;border-top:2px solid var(--forest)}
+  .stat-card.warn{border-top-color:var(--warn)}
+  .stat-card.flat{border-top-color:var(--navy)}
+  .stat-num{font-family:'Playfair Display',serif;font-size:21px;color:var(--ink);line-height:1}
+  .stat-label{font-size:11px;color:var(--muted);margin-top:5px;line-height:1.4}
+
+  /* Navy data */
+  .data-box{border:1px solid rgba(30,58,95,0.18);background:var(--navy-lt);border-radius:2px;padding:18px 20px;margin:20px 0}
+  .data-label{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--navy);font-weight:500;margin-bottom:8px}
+  .data-box p{font-size:14px;color:#1A2D42;margin-bottom:8px;line-height:1.7}
+  .data-box p:last-child{margin-bottom:0}
+  .data-box strong{color:#0F1E2E}
+
+  /* Green */
+  .opp-box{border:1px solid rgba(47,107,62,0.2);background:var(--forest-lt);border-radius:2px;padding:20px 22px;margin:20px 0}
+  .opp-label{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--forest);font-weight:500;margin-bottom:8px}
+  .opp-box p{font-size:14px;color:#1C3D24;margin-bottom:8px;line-height:1.72}
+  .opp-box p:last-child{margin-bottom:0}
+  .opp-box strong{color:#122618}
+
+  /* Warn */
+  .warn-box{border:1px solid rgba(139,32,32,0.2);background:var(--warn-lt);border-radius:2px;padding:20px 22px;margin:20px 0}
+  .warn-label{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--warn);font-weight:500;margin-bottom:8px}
+  .warn-box p{font-size:14px;color:#2E0A0A;margin-bottom:8px;line-height:1.7}
+  .warn-box p:last-child{margin-bottom:0}
+  .warn-box strong{color:#1A0505}
+
+  /* Amber */
+  .watch-box{border:1px solid rgba(196,122,16,0.2);background:var(--amber-lt);border-radius:2px;padding:18px 20px;margin:20px 0}
+  .watch-label{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--amber);font-weight:500;margin-bottom:8px}
+  .watch-box p{font-size:14px;color:#3D2200;margin-bottom:8px;line-height:1.7}
+  .watch-box p:last-child{margin-bottom:0}
+  .watch-box strong{color:#1F1000}
+
+  /* Take — rust */
+  .take-box{border:1px solid rgba(176,90,50,0.2);background:var(--rust-lt);border-radius:2px;padding:20px 22px;margin:20px 0}
+  .take-label{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--rust);font-weight:500;margin-bottom:8px}
+  .take-box p{font-size:14px;color:#3D1E0A;margin-bottom:8px;line-height:1.72}
+  .take-box p:last-child{margin-bottom:0}
+  .take-box strong{color:#231005}
+
+  /* Personal — dark */
+  .personal-box{background:var(--ink);border-radius:2px;padding:24px 26px;margin:20px 0;position:relative;overflow:hidden}
+  .personal-box::before{content:'';position:absolute;top:-40px;right:-40px;width:160px;height:160px;border-radius:50%;background:radial-gradient(circle,rgba(194,145,58,0.1) 0%,transparent 70%);pointer-events:none}
+  .personal-label{font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:12px}
+  .personal-box p{font-size:14px;color:rgba(248,244,238,0.75);margin-bottom:10px;line-height:1.78}
+  .personal-box p:last-child{margin-bottom:0}
+  .personal-box strong{color:#F8F4EE}
+  .personal-box em{font-style:italic;color:rgba(248,244,238,0.55)}
+
+  /* Ornament */
+  .ornament{display:flex;align-items:center;gap:12px;margin:30px 0}
+  .ornament hr{flex:1;border:none;border-top:1px solid var(--rule)}
+  .ornament-mark{font-size:10px;color:var(--gold);letter-spacing:0.12em}
+
+  /* Closing */
+  .closing{font-family:'Source Serif 4',serif;font-size:14.5px;font-style:italic;color:var(--muted);line-height:1.75;padding-top:24px;border-top:1px solid var(--rule)}
+  .closing b{color:var(--ink);font-style:normal;font-weight:500}
+
+  /* Footer */
+  .footer{background:var(--paper);border-top:1px solid var(--rule);padding:18px 36px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px}
+  .footer-sig{font-family:'Source Serif 4',serif;font-style:italic;font-size:13px;color:var(--muted)}
+  .footer-sig b{color:var(--ink);font-style:normal;font-weight:500}
+  .footer-nmls{font-size:10px;color:rgba(106,99,88,0.4);letter-spacing:0.04em}
+
+  @media(max-width:560px){
+    .body{padding:28px 20px 24px}
+    .masthead-top{flex-direction:column}
+    .masthead-meta{text-align:left;border-left:none;border-top:1px solid rgba(255,255,255,0.06);padding:14px 36px}
+    .rate-row,.stat-row{grid-template-columns:1fr 1fr}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- MASTHEAD -->
+  <div class="masthead">
+    <div class="masthead-top">
+      <div class="brand">
+        <div class="brand-name">Measured</div>
+        <div class="brand-sub">A weekly note on mortgage decisions that matter</div>
+      </div>
+      <div class="masthead-meta">
+        <div class="meta-issue">Issue No. 11</div>
+        <div class="meta-date">Sunday, July 5, 2026</div>
+      </div>
+    </div>
+    <div class="author-bar">
+      <div class="avatar">A</div>
+      <div>
+        <div class="author-name">Anthony · Loan Pronto</div>
+        <div class="author-role">Mortgage advisor · wholesale lending · plain English, always</div>
+      </div>
+    </div>
+    <div class="hero">
+      <div class="hero-kicker">This week in Measured</div>
+      <div class="hero-hed">The jobs report just changed the rate conversation. And why "we can always refi later" is <em>not always the right advice.</em></div>
+      <div class="hero-deck">57,000 jobs added versus 110,000 expected. The rate hike narrative just took a hit. The 10-year pulled back. And a conversation I had with myself this weekend about what it actually means to serve a buyer who's running close to the edge.</div>
+    </div>
+  </div>
+
+  <!-- BODY -->
+  <div class="body">
+
+    <p class="opener">Writing this one from Waxhaw on a Sunday afternoon with a holiday weekend winding down, a lawn that apparently mows itself now (it doesn't), and a week behind me that had more moving parts than most. A complex file closed, a 12-day deal accepted, a rate hike narrative that partially unraveled on Thursday, and a moment over the weekend where I nearly gave a buyer advice I would have regretted. All of it worth talking about. — Anthony</p>
+
+    <!-- SECTION 1: JOBS REPORT + RATES -->
+    <div class="section">
+      <div class="sec-label"><div class="sec-pip"></div><div class="sec-title">The jobs report just shifted the rate conversation — here's what actually happened</div></div>
+
+      <p>The June jobs report dropped Thursday morning and it was a genuine surprise — in the other direction from what the market had been bracing for. The economy added just <strong>57,000 jobs</strong> in June, against expectations of 110,000 to 115,000 depending on the polling source. It's the softest print in four months and snapped a streak that had everyone talking about rate hikes.</p>
+
+      <div class="stat-row">
+        <div class="stat-card warn">
+          <div class="stat-num">57K</div>
+          <div class="stat-label">Jobs added in June — vs. 110K–115K expected</div>
+        </div>
+        <div class="stat-card flat">
+          <div class="stat-num">4.2%</div>
+          <div class="stat-label">Unemployment rate — dipped slightly from 4.3%</div>
+        </div>
+        <div class="stat-card warn">
+          <div class="stat-num">−74K</div>
+          <div class="stat-label">April + May combined revised lower than first reported</div>
+        </div>
+      </div>
+
+      <p>The leisure and hospitality sector lost <strong>61,000 jobs</strong> — the biggest single drag on the number, which the BLS attributed to weaker-than-usual seasonal hiring. The World Cup had been expected to boost that category; Goldman Sachs had forecast a 40,000 gain from that alone. Instead it came in negative. Professional and business services added 36,000, social assistance 25,000, and healthcare 22,000. Everything else was essentially flat.</p>
+
+      <p>The revisions darkened the picture further. April was revised down 31,000. May was revised down 43,000. Combined: <strong>74,000 fewer jobs</strong> than originally reported across those two months. The labor market has been cooling more quietly than the headline numbers had been suggesting.</p>
+
+      <div class="opp-box">
+        <div class="opp-label">📉 What This Does to Rate Hike Expectations — and to Your Mortgage Rate</div>
+        <p>Before Thursday, markets were pricing roughly a <strong>62–63% chance of a Fed rate hike in September</strong>. After the jobs print, stock futures rose and Treasury yields fell immediately. The 2-year yield — most sensitive to Fed policy — dropped 3.5 basis points. The rate hike debate didn't disappear, but it lost momentum.</p>
+        <p>The Freddie Mac survey released Thursday — which captures Monday through Wednesday applications and therefore doesn't reflect Thursday's jobs data — showed the 30-year fixed at <strong>6.43%</strong>, down from 6.49% the prior week and the lowest reading in seven weeks. Mortgage News Daily's real-time index erased most of Wednesday's spike after the jobs data landed. <strong>Heading into this weekend, rates are trending in the right direction for the first time in a month.</strong></p>
+      </div>
+
+      <div class="rate-row">
+        <div class="rate-card ok">
+          <div class="rate-num">6.43%</div>
+          <div class="rate-desc">30-yr fixed<br>Freddie Mac, July 2</div>
+          <div class="rate-delta ok">↓ 7-week low</div>
+        </div>
+        <div class="rate-card ok">
+          <div class="rate-num">5.79%</div>
+          <div class="rate-desc">15-yr fixed<br>Freddie Mac, July 2</div>
+          <div class="rate-delta ok">↓ from 5.84% last week</div>
+        </div>
+        <div class="rate-card flat">
+          <div class="rate-num">4.49%</div>
+          <div class="rate-desc">10-yr Treasury<br>Close, July 2</div>
+          <div class="rate-delta flat">↓ after jobs data</div>
+        </div>
+      </div>
+
+      <div class="callout">
+        <p>The June payroll miss stands in stark contrast to the run of upside surprises earlier this year, but the labor market is still adding jobs. With participation weakening and hiring cooling, the Fed's decision to hold last month looks less like a policy mistake and more like prudent patience. Markets are already repricing a lower likelihood of Fed tightening.</p>
+        <p class="callout-attr">— Eric Merlis, Managing Director, Citizens · June 2026</p>
+      </div>
+
+      <p>The broader context: year-over-year the 30-year is down from <strong>6.67%</strong> a year ago to <strong>6.43%</strong> today. That's a 24-basis-point improvement. Not dramatic — but real. And with oil holding near pre-war levels, inflation expectations continuing to moderate, and the jobs market showing genuine softening, the path to the low-to-mid 6% range by late summer is more credible today than it was a week ago. The next FOMC meeting is July 28–29. Thursday's data just made that meeting considerably more interesting.</p>
+    </div>
+
+    <!-- SECTION 2: THE CLOSING COST TRAP -->
+    <div class="section">
+      <div class="sec-label"><div class="sec-pip"></div><div class="sec-title">The "we can always refi later" trap — why I almost gave a buyer bad advice this weekend</div></div>
+
+      <p>I want to talk about something that happened over the weekend — a moment of honest self-reflection that I think is worth sharing, because I suspect I'm not the only one who's been close to this line.</p>
+
+      <p>I was working with a buyer who is running close to the edge on down payment and closing costs. Good credit, solid income, qualified — but not a lot of cushion. In that situation there's a well-worn option that exists in the mortgage industry: take a higher rate, use the lender credit generated by that higher rate to cover closing costs, and tell the borrower "we can always refinance later when rates improve."</p>
+
+      <p>I almost said it. And I caught myself before I did.</p>
+
+      <div class="warn-box">
+        <div class="warn-label">⚠️ Why "We Can Always Refi Later" Is Not Always the Right Answer</div>
+        <p>Here's the math nobody explains clearly. A significantly higher rate — say 6.75% versus 6.43% — generates lender credit that covers closing costs in the short term. On a $350,000 loan, that spread might cover $3,500–$5,000 in fees. Sounds helpful. But what it actually does is lock the borrower into <strong>a permanently higher payment until they refinance</strong> — and refinancing is never guaranteed, never free, and never certain.</p>
+        <p>At 6.43%, the principal and interest payment on a $350,000 loan is approximately <strong>$2,194/month</strong>. At 6.75%, it's approximately <strong>$2,270/month</strong>. That's <strong>$76/month more</strong>. If the borrower stays in the loan for two years before refinancing — which is optimistic given market conditions and the cost of a new refi — they've paid an extra <strong>$1,824</strong> in monthly payments to avoid $4,000 in upfront closing costs. At three years: <strong>$2,736</strong> extra. The break-even math rarely favors the higher rate as much as it seems to in the moment.</p>
+        <p><strong>And here's the part nobody says out loud: we don't know what rates will do.</strong> "We can always refi later" implies rates will improve. Maybe they will. Maybe they won't. Maybe the borrower's income changes. Maybe their credit changes. Maybe they can't qualify for a refinance when the time comes. Rates right now are at a 7-week low and the market was pricing rate hikes six weeks ago. Certainty about the future direction of rates is not something any of us actually have.</p>
+      </div>
+
+      <p>The cleaner solution for a buyer close to the edge isn't always the one that seems easier. It might be negotiating a seller concession to cover closing costs. It might be a slightly smaller purchase. It might be a gift fund conversation. It might be a different loan structure entirely. What it should never be is a significantly higher rate sold on a promise about the future that nobody can guarantee.</p>
+
+      <div class="take-box">
+        <div class="take-label">Anthony's Take — On Catching Yourself</div>
+        <p>The standard I try to hold myself to is simple: would I give this advice to my parents? If someone I love came to me with this exact financial situation, would I feel good about recommending a higher rate and telling them not to worry because rates will improve?</p>
+        <p>The answer for this borrower was no. So we worked the problem differently — looked at every legitimate option, ran the actual numbers on each one, and let the math lead the conversation instead of the path of least resistance. <strong>That's what the borrower deserved. That's what the referral who sent them to me deserved.</strong> And catching yourself before the easier answer slips out is part of doing this job at the level it should be done.</p>
+      </div>
+    </div>
+
+    <!-- SECTION 3: COMPLEX FILE + 12-DAY DEAL + PERSONAL -->
+    <div class="section">
+      <div class="sec-label"><div class="sec-pip"></div><div class="sec-title">From Waxhaw — on complex files, 12-day closes, and slowing down to speed up</div></div>
+
+      <p>This week had two deals worth mentioning, for very different reasons.</p>
+
+      <p>The first was a loan I closed this week for the parents of a close friend. It wasn't a clean file. It was the kind of loan where the complexity was real — the type of transaction where, at another lender with less attention or less experience, something gets missed, a condition comes in sideways, and the deal either doesn't close or closes wrong. It required extra care at every stage. The kind of care that doesn't show up in a closing disclosure but that the borrower feels in whether they had peace of mind or anxiety throughout the process. That file closed well. My friend's parents are homeowners. That's the whole point.</p>
+
+      <p>The second was a call I got over the weekend from one of the agents I trust most. She had a deal and a tight window — <strong>12 days to close.</strong> That's not a standard timeline. That's a challenge. I said yes without hesitation, because when an agent who sends you real business trusts you with something that matters to them, that's exactly when you show up. We have a plan. We're executing it. I'll report back.</p>
+
+      <div class="personal-box">
+        <div class="personal-label">📍 From Waxhaw — On Slowing Down</div>
+        <p>We moved. Waxhaw is a different pace from Charlotte and I didn't fully appreciate how different until this past week. The city has a hum to it — a constant low-grade urgency that you stop noticing until it's gone. Out here it's quieter. Mornings feel longer. The commute to the desk is approximately twelve feet.</p>
+        <p>I'm also setting up the office, which is its own kind of project — and yes, mowing the lawn. Something I did not miss about suburban life and am being reacquainted with. The pastoral life has its trade-offs.</p>
+        <p>But here's what I've noticed in just a week: the quality of thinking is different when the environment is quieter. The complex file this week — the one that needed extra care — got it. Partly because I had the space to actually give it. There's something to be said for an environment that lets you slow down enough to do the work right rather than just fast.</p>
+        <p>Measured moved with me. <strong>Eleven straight issues.</strong> The newsletter has been consistent through the Iran war, a Fed chair transition, a Moody's downgrade, a peace deal signed at Versailles, a jobs report that shocked everyone, and a move to Waxhaw. Consistency is the word I keep coming back to. It's the differentiator in this business — the thing that builds trust before you ever get the call, and keeps it long after the closing.</p>
+      </div>
+    </div>
+
+    <!-- SECTION 4: WHAT TO WATCH -->
+    <div class="section">
+      <div class="sec-label"><div class="sec-pip"></div><div class="sec-title">What to watch this week</div></div>
+
+      <div class="watch-box">
+        <div class="watch-label">📅 Week of July 6, 2026</div>
+        <p><strong>Markets reopen Monday after the July 4 holiday.</strong> The first full trading day post-jobs report. Thin holiday week trading will amplify any move in either direction. If Treasury yields continue to ease Monday on the soft jobs print, mortgage rates will follow and next Thursday's Freddie Mac survey could show the 30-year below 6.40% for the first time since early May.</p>
+        <p><strong>Fed speakers throughout the week.</strong> After Thursday's miss, every Fed speaker gets re-read for any hint of a September hike walk-back. Warsh said in his June press conference that jobs data had been "moving in a good direction." One weak month doesn't change the inflation picture, but it changes the confidence level around hiking. Watch language carefully.</p>
+        <p><strong>CPI for June — July 15.</strong> The next major inflation data point. If energy is continuing to moderate — Brent crude closed at $73.74 last week, well off its peak above $114 — June CPI could come in meaningfully below May's 3.8%. A print at or below 3.3% would be a significant signal that inflation has peaked and the Fed is on hold indefinitely. That's the number that moves rates most in July.</p>
+        <p><strong>FOMC Meeting — July 28–29.</strong> Thursday's jobs data just made this meeting significantly more complicated for the Fed. A hike in July, which was already unlikely, is now even less likely. But the dot plot still has nine members wanting to hike at some point. The market will spend the next three weeks repricing that probability based on every data release between now and then.</p>
+      </div>
+    </div>
+
+    <!-- ORNAMENT -->
+    <div class="ornament"><hr><div class="ornament-mark">· · ·</div><hr></div>
+
+    <p class="closing">Eleven issues. A move to Waxhaw. A complex file done right. A 12-day close accepted. A moment of honest self-correction on a buyer who deserved the real conversation, not the easy one. This is the work. It's messier than the rate cards suggest and more meaningful than the transaction volume implies. Back at it Monday. <b>— Anthony</b></p>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-sig">Written by <b>Anthony</b> · Loan Pronto · July 5, 2026</div>
+    <div class="footer-nmls">NMLS #2096979 · Equal Housing Lender</div>
+  </div>
+
+</div>
+</body>
+</html>
