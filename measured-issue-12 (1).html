@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Measured — Issue No. 12 · July 13, 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,400;1,500&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;1,8..60,300&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --paper:#F8F4EE;--white:#FDFBF8;--ink:#1A1915;--muted:#6A6358;
+    --rule:rgba(26,25,21,0.09);--rust:#B05A32;--rust-lt:#ECD9CE;
+    --gold:#C2913A;--forest:#2F6B3E;--forest-lt:#D4E8D9;
+    --navy:#1E3A5F;--navy-lt:#D2DFF0;--amber:#C47A10;--amber-lt:#FAE9CB;
+    --warn:#8B2020;--warn-lt:#F5D5D5;
+  }
+  body{font-family:'DM Sans',sans-serif;background:#EDE8DF;color:var(--ink);padding:32px 16px 64px}
+  .wrap{max-width:620px;margin:0 auto;background:var(--white);border-radius:2px;overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,0.04),0 8px 24px rgba(0,0,0,0.07),0 32px 64px rgba(0,0,0,0.07)}
+
+  /* MASTHEAD */
+  .masthead{background:var(--ink)}
+  .masthead-top{display:flex;align-items:stretch;border-bottom:1px solid rgba(255,255,255,0.06)}
+  .brand{flex:1;padding:22px 36px}
+  .brand-name{font-family:'Playfair Display',serif;color:#F8F4EE;font-size:24px;letter-spacing:0.01em;line-height:1}
+  .brand-sub{font-size:10px;color:rgba(248,244,238,0.35);letter-spacing:0.12em;text-transform:uppercase;margin-top:5px}
+  .masthead-meta{padding:22px 36px;text-align:right;border-left:1px solid rgba(255,255,255,0.06);display:flex;flex-direction:column;justify-content:center;gap:4px}
+  .meta-issue{font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold)}
+  .meta-date{font-size:11px;color:rgba(248,244,238,0.3)}
+  .author-bar{background:var(--rust-lt);padding:14px 36px;display:flex;align-items:center;gap:13px}
+  .avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--rust));display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:17px;color:white;flex-shrink:0;box-shadow:0 2px 6px rgba(176,90,50,0.3)}
+  .author-name{font-size:13.5px;font-weight:500;color:var(--ink)}
+  .author-role{font-size:11.5px;color:var(--muted);margin-top:1px}
+
+  /* HERO */
+  .hero{background:var(--ink);padding:36px 36px 32px;border-top:1px solid rgba(255,255,255,0.04);position:relative;overflow:hidden}
+  .hero::after{content:'';position:absolute;top:-80px;right:-60px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(194,145,58,0.07) 0%,transparent 65%);pointer-events:none}
+  .hero-kicker{font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:16px}
+  .hero-hed{font-family:'Playfair Display',serif;font-size:28px;line-height:1.22;color:#F8F4EE;margin-bottom:14px;max-width:500px}
+  .hero-hed em{font-style:italic;color:var(--gold)}
+  .hero-deck{font-size:13.5px;color:rgba(248,244,238,0.48);line-height:1.65;max-width:460px}
+
+  /* BODY */
+  .body{padding:36px 36px 32px}
+  .opener{font-family:'Source Serif 4',serif;font-size:15px;line-height:1.78;color:var(--ink);font-style:italic;padding-bottom:28px;border-bottom:1px solid var(--rule);margin-bottom:32px}
+  p{font-size:14.5px;line-height:1.78;color:#38342E;margin-bottom:15px}
+  p:last-child{margin-bottom:0}
+  strong{color:var(--ink);font-weight:500}
+  .section{margin-bottom:34px;padding-bottom:34px;border-bottom:1px solid var(--rule)}
+  .section:last-of-type{border-bottom:none;margin-bottom:0;padding-bottom:0}
+  .sec-label{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+  .sec-pip{width:6px;height:6px;border-radius:50%;background:var(--rust);flex-shrink:0}
+  .sec-title{font-family:'Playfair Display',serif;font-size:17px;color:var(--ink);font-weight:500}
+
+  /* Rate cards */
+  .rate-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:20px 0}
+  .rate-card{background:var(--paper);border-radius:2px;padding:14px 15px;border-top:2px solid var(--rule)}
+  .rate-card.ok{border-top-color:var(--forest)}
+  .rate-card.flat{border-top-color:var(--navy)}
+  .rate-card.warn{border-top-color:var(--warn)}
+  .rate-num{font-family:'Playfair Display',serif;font-size:22px;color:var(--ink);line-height:1}
+  .rate-desc{font-size:11px;color:var(--muted);margin-top:5px;line-height:1.4}
+  .rate-delta{font-size:11px;margin-top:4px}
+  .rate-delta.ok{color:var(--forest)}
+  .rate-delta.flat{color:var(--muted)}
+  .rate-delta.warn{color:var(--warn)}
+
+  /* Callout */
+  .callout{border-left:3px solid var(--rust);background:var(--paper);padding:16px 20px;margin:20px 0;border-radius:0 2px 2px 0}
+  .callout p{font-family:'Source Serif 4',serif;font-style:italic;font-size:14.5px;color:var(--ink);margin-bottom:0;line-height:1.7}
+  .callout-attr{font-size:10.5px !important;color:var(--muted) !important;margin-top:8px !important;font-style:normal !important;font-family:'DM Sans',sans-serif !important;letter-spacing:0.05em}
+
+  /* Navy data */
+  .data-box{border:1px solid rgba(30,58,95,0.18);background:var(--navy-lt);border-radius:2px;padding:18px 20px;margin:20px 0}
+  .data-label{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--navy);font-weight:500;margin-bottom:8px}
+  .data-box p{font-size:14px;color:#1A2D42;margin-bottom:8px;line-height:1.7}
+  .data-box p:last-child{margin-bottom:0}
+  .data-box strong{color:#0F1E2E}
+
+  /* Warn */
+  .warn-box{border:1px solid rgba(139,32,32,0.2);background:var(--warn-lt);border-radius:2px;padding:20px 22px;margin:20px 0}
+  .warn-label{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--warn);font-weight:500;margin-bottom:8px}
+  .warn-box p{font-size:14px;color:#2E0A0A;margin-bottom:8px;line-height:1.7}
+  .warn-box p:last-child{margin-bottom:0}
+  .warn-box strong{color:#1A0505}
+
+  /* Green */
+  .opp-box{border:1px solid rgba(47,107,62,0.2);background:var(--forest-lt);border-radius:2px;padding:20px 22px;margin:20px 0}
+  .opp-label{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--forest);font-weight:500;margin-bottom:8px}
+  .opp-box p{font-size:14px;color:#1C3D24;margin-bottom:8px;line-height:1.72}
+  .opp-box p:last-child{margin-bottom:0}
+  .opp-box strong{color:#122618}
+
+  /* Amber watch */
+  .watch-box{border:1px solid rgba(196,122,16,0.2);background:var(--amber-lt);border-radius:2px;padding:18px 20px;margin:20px 0}
+  .watch-label{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--amber);font-weight:500;margin-bottom:8px}
+  .watch-box p{font-size:14px;color:#3D2200;margin-bottom:8px;line-height:1.7}
+  .watch-box p:last-child{margin-bottom:0}
+  .watch-box strong{color:#1F1000}
+
+  /* Take */
+  .take-box{border:1px solid rgba(176,90,50,0.2);background:var(--rust-lt);border-radius:2px;padding:20px 22px;margin:20px 0}
+  .take-label{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--rust);font-weight:500;margin-bottom:8px}
+  .take-box p{font-size:14px;color:#3D1E0A;margin-bottom:8px;line-height:1.72}
+  .take-box p:last-child{margin-bottom:0}
+  .take-box strong{color:#231005}
+
+  /* Personal dark */
+  .personal-box{background:var(--ink);border-radius:2px;padding:24px 26px;margin:20px 0;position:relative;overflow:hidden}
+  .personal-box::before{content:'';position:absolute;top:-40px;right:-40px;width:160px;height:160px;border-radius:50%;background:radial-gradient(circle,rgba(194,145,58,0.1) 0%,transparent 70%);pointer-events:none}
+  .personal-label{font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:12px}
+  .personal-box p{font-size:14px;color:rgba(248,244,238,0.75);margin-bottom:10px;line-height:1.78}
+  .personal-box p:last-child{margin-bottom:0}
+  .personal-box strong{color:#F8F4EE}
+  .personal-box em{font-style:italic;color:rgba(248,244,238,0.55)}
+
+  /* Ornament */
+  .ornament{display:flex;align-items:center;gap:12px;margin:30px 0}
+  .ornament hr{flex:1;border:none;border-top:1px solid var(--rule)}
+  .ornament-mark{font-size:10px;color:var(--gold);letter-spacing:0.12em}
+
+  /* Closing */
+  .closing{font-family:'Source Serif 4',serif;font-size:14.5px;font-style:italic;color:var(--muted);line-height:1.75;padding-top:24px;border-top:1px solid var(--rule)}
+  .closing b{color:var(--ink);font-style:normal;font-weight:500}
+
+  /* Footer */
+  .footer{background:var(--paper);border-top:1px solid var(--rule);padding:18px 36px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px}
+  .footer-sig{font-family:'Source Serif 4',serif;font-style:italic;font-size:13px;color:var(--muted)}
+  .footer-sig b{color:var(--ink);font-style:normal;font-weight:500}
+  .footer-nmls{font-size:10px;color:rgba(106,99,88,0.4);letter-spacing:0.04em}
+
+  @media(max-width:560px){
+    .body{padding:28px 20px 24px}
+    .masthead-top{flex-direction:column}
+    .masthead-meta{text-align:left;border-left:none;border-top:1px solid rgba(255,255,255,0.06);padding:14px 36px}
+    .rate-row{grid-template-columns:1fr 1fr}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- MASTHEAD -->
+  <div class="masthead">
+    <div class="masthead-top">
+      <div class="brand">
+        <div class="brand-name">Measured</div>
+        <div class="brand-sub">A weekly note on mortgage decisions that matter</div>
+      </div>
+      <div class="masthead-meta">
+        <div class="meta-issue">Issue No. 12</div>
+        <div class="meta-date">Monday, July 13, 2026</div>
+      </div>
+    </div>
+    <div class="author-bar">
+      <div class="avatar">A</div>
+      <div>
+        <div class="author-name">Anthony · Loan Pronto</div>
+        <div class="author-role">Mortgage advisor · wholesale lending · plain English, always</div>
+      </div>
+    </div>
+    <div class="hero">
+      <div class="hero-kicker">This week in Measured</div>
+      <div class="hero-hed">Two referrals at 9am. A market spike by afternoon. And why <em>the order matters.</em></div>
+      <div class="hero-deck">This morning started with two pre-approvals from relationships built years ago. By this afternoon the ceasefire had collapsed at NATO and the bond market was moving hard. The sequence of those two things is the whole lesson.</div>
+    </div>
+  </div>
+
+  <!-- BODY -->
+  <div class="body">
+
+    <p class="opener">Writing this Monday evening after a day that had more range than most. It started calm — two pre-approvals in before 9am, both from people I've invested in for a long time. By this afternoon the headlines out of Ankara had the bond market moving in the wrong direction and rates pricing higher. The gap between those two moments — the 9am and the afternoon — is what this issue is about. — Anthony</p>
+
+    <!-- SECTION 1: THE TWO REFERRALS -->
+    <div class="section">
+      <div class="sec-label"><div class="sec-pip"></div><div class="sec-title">9am this morning — two referrals, zero cold calls, all relationship</div></div>
+
+      <p>Before the market had fully opened this morning, two pre-approvals came in. Not from a paid lead service. Not from a marketing campaign. Not from anything I set up last week.</p>
+
+      <p>The first was from a past client I closed a couple of years ago on a straightforward purchase. They called unprompted and said a friend of theirs was ready to buy — "just reach out to Anthony." The second came from a financial advisor I've been building a relationship with for the better part of a year. He had a client making a housing decision and wanted someone he trusted to handle the mortgage conversation. He thought of me.</p>
+
+      <p>Two deals. Same morning. Both from relationships that were built during a period when there was nothing specific to ask for. That's not luck. That's what patient, consistent investment in people actually looks like when it matures.</p>
+
+      <div class="opp-box">
+        <div class="opp-label">Why These Two Deals Are Different From Any Other Lead</div>
+        <p>A purchased lead arrives with skepticism built in. The borrower doesn't know you, doesn't trust you yet, and is likely talking to several other people simultaneously. You're starting at zero and working uphill.</p>
+        <p>A referral from a past client arrives with trust already transferred. That borrower heard your name from someone they respect. They're not comparison shopping — they're calling because someone vouched for you personally. <strong>The quality of the relationship, the likelihood of a smooth transaction, and the probability of a future referral from that borrower are all materially better before you've said a single word.</strong></p>
+        <p>The financial advisor referral works differently but is even more valuable over time. That advisor is watching how I treat their client as closely as the client is. If the experience is sharp, communicative, and better than expected — he sends me the next one. And the one after that. One good referral from a trusted advisor isn't one deal. It's the beginning of a pipeline that runs as long as the relationship does.</p>
+      </div>
+
+      <p>The financial advisor who called this morning — I've been staying in regular contact with him for months. Sending rate updates when they're relevant to his clients' financial plans. Picking up the phone when he has a question about what's happening in the market. Not asking for business. Just showing up as someone useful. <strong>This morning was the result of that.</strong> The best time to build a referral relationship is before you need the deal. By the time you need it, it's too late to build it.</p>
+
+      <div class="take-box">
+        <div class="take-label">Anthony's Take — The Relationships Paying Off Right Now</div>
+        <p>The relationships I built two and three years ago are starting to show up in ways that are hard to explain to someone who hasn't been in this business long enough to see the cycle complete. At the time, a lot of those conversations felt like maintenance. Staying in touch. Following up. Being present without a specific agenda.</p>
+        <p>Now they're walking through the door at 9am on a Monday morning. <strong>Every borrower you serve well is a future referral source. Every professional relationship you invest in consistently is a future pipeline.</strong> The work you do today on deals that haven't happened yet is some of the most important work you do.</p>
+      </div>
+    </div>
+
+    <!-- SECTION 2: THE MARKET SPIKE -->
+    <div class="section">
+      <div class="sec-label"><div class="sec-pip"></div><div class="sec-title">Then this afternoon happened — the ceasefire collapsed and the bond market moved fast</div></div>
+
+      <p>By early afternoon today, the picture had changed completely.</p>
+
+      <p>News broke that at the NATO summit in Ankara, Turkey, President Trump told reporters the U.S.-Iran ceasefire is <strong>"effectively over."</strong> U.S. and Iranian forces had exchanged strikes over the weekend. Trump reinstituted the blockade of Iranian ships through the Strait of Hormuz. Oil prices surged. And the bond market — which had started the day in a relatively settled position — moved hard.</p>
+
+      <div class="warn-box">
+        <div class="warn-label">⚠️ What Happened to Rates This Afternoon</div>
+        <p>The 10-year Treasury yield, which opened Monday near 4.44%, climbed sharply as the ceasefire news broke — pushing toward <strong>4.61%</strong> intraday. The 30-year Treasury bond crossed 5.10%. Mortgage pricing worsened across lenders as the afternoon unfolded. The Freddie Mac weekly survey — which captures Monday through Wednesday and releases Thursday — had shown <strong>6.49%</strong> last week, up from 6.43% the week before. Today's move suggests the next reading will not be an improvement.</p>
+        <p>The 2-year Treasury yield climbed more than 5 basis points to 4.218%. Oil surged. Inflation expectations reignited — and with them, the rate hike conversation that the June jobs miss had briefly quieted. <strong>In a single afternoon, most of the rate relief that came from the June jobs report was given back.</strong></p>
+      </div>
+
+      <div class="rate-row">
+        <div class="rate-card warn">
+          <div class="rate-num">6.49%</div>
+          <div class="rate-desc">30-yr fixed<br>Freddie Mac, July 9</div>
+          <div class="rate-delta warn">↑ from 6.43% prior week</div>
+        </div>
+        <div class="rate-card warn">
+          <div class="rate-num">4.61%</div>
+          <div class="rate-desc">10-yr Treasury<br>Intraday high, today</div>
+          <div class="rate-delta warn">↑ sharply on ceasefire news</div>
+        </div>
+        <div class="rate-card ok">
+          <div class="rate-num">6.72%</div>
+          <div class="rate-desc">30-yr fixed<br>One year ago today</div>
+          <div class="rate-delta ok">↓ Still 23 bps better YoY</div>
+        </div>
+      </div>
+
+      <p>This is now the third time in 2026 that rates have reversed sharply on a single news event tied to the Middle East. February when the war started. April when the first ceasefire collapsed. And today. The pattern is consistent and the lesson is the same each time: <strong>the window between "rates improve" and "rates reverse" in this environment is measured in days, not weeks.</strong></p>
+
+      <div class="callout">
+        <p>Mortgage rates have not changed much recently, but economic growth and housing affordability continue to improve for homebuyers as they shop for homes in today's market.</p>
+        <p class="callout-attr">— Sam Khater, Chief Economist, Freddie Mac · July 9, 2026</p>
+      </div>
+
+      <p>Khater's comment was made Thursday, before today's spike. It captures where the market stood heading into this week — stable, gradually improving, cautiously constructive. Today changed the near-term calculus. The MBA and Fannie Mae both project the 30-year in the <strong>6.4–6.5% range</strong> through year-end, but that range assumes some degree of geopolitical stability. A sustained ceasefire breakdown with oil heading back toward $90+ puts that forecast under real pressure.</p>
+
+      <div class="data-box">
+        <div class="data-label">📊 The Setup Heading Into the Rest of This Week</div>
+        <p><strong>Tuesday July 15 — CPI for June.</strong> The most important data point of the week and possibly the month. May CPI came in at 3.8%. If June shows any moderation as energy costs peaked and began to reverse, the bond market could partially unwind today's spike. A print at or below 3.4% would be meaningfully favorable. A hot number at or above 3.8% — especially now, with oil surging again — puts rates squarely back in the 6.65%+ range.</p>
+        <p><strong>Tuesday July 15 — Fed Chair Warsh before Congress.</strong> His first Senate Banking Committee appearance. With today's ceasefire collapse, every word will be parsed for whether the Fed views this as a temporary shock or a sustained inflationary pressure that changes the rate path.</p>
+        <p><strong>Ongoing — Strait of Hormuz.</strong> Oil closed near <strong>$71.41</strong> on Friday before today's spike. If the blockade holds and Iranian supply comes back off the market, $85+ oil within weeks is a realistic scenario. That is the number that takes rates back above 6.65% and erases most of the year's affordability improvement. Watch WTI crude first thing every morning.</p>
+      </div>
+    </div>
+
+    <!-- SECTION 3: LAKE NORMAN / COLLEAGUES -->
+    <div class="section">
+      <div class="sec-label"><div class="sec-pip"></div><div class="sec-title">Friday on Lake Norman — why knowing your colleagues changes how you work</div></div>
+
+      <p>Before any of today happened — before the ceasefire news, before the bond market move — Friday was one of the better days of the year.</p>
+
+      <p>The Loan Pronto loan officers spent the day at Lake Norman. Boat rides. Jet skis. Flips off the dock. Dinner on the water in a rainstorm that showed up uninvited and stayed long enough to become the best part of the evening. The kind of afternoon that doesn't show up in a production report but quietly changes how a team functions for months afterward.</p>
+
+      <div class="personal-box">
+        <div class="personal-label">📍 On Lake Norman — Why This Kind of Day Matters</div>
+        <p>I've been in this business long enough to know that the quality of a team isn't just about skill sets and response times. It's about whether you actually know the people you work alongside — what they care about, how they think, what they're like outside of a rate lock conversation.</p>
+        <p>There's something that happens on a day like Friday that doesn't happen on a Zoom call or in a team meeting. You learn things. You laugh at things. You see people differently. And then on Monday morning — when you're working a complex file and need to bounce a tough scenario off someone who gets it — the relationship is warmer, the communication faster, the work better for it.</p>
+        <p>The rainstorm at dinner was, in retrospect, a perfect metaphor for this business. Nobody planned for it. We moved chairs under the overhang, kept the conversation going, and had one of the better evenings of the year. <strong>That's what a good team does when something unexpected shows up — adjusts, stays present, and doesn't let the conditions ruin the moment.</strong> It's also exactly what a good advisor does when rates spike on a Monday afternoon because of a press conference in Turkey.</p>
+        <p>The relationships I'm building internally at Loan Pronto are as important as the ones I'm building externally with clients and referral partners. When a borrower needs something I can't handle alone, I know exactly who to call. <em>That's the team that doesn't show up in a rate sheet but shows up in every single transaction.</em></p>
+      </div>
+    </div>
+
+    <!-- SECTION 4: WATCH THIS WEEK -->
+    <div class="section">
+      <div class="sec-label"><div class="sec-pip"></div><div class="sec-title">What I'm watching the rest of this week</div></div>
+
+      <div class="watch-box">
+        <div class="watch-label">📅 This Week · July 14–18, 2026</div>
+        <p><strong>Tuesday July 15 — CPI for June.</strong> The bond market's first real opportunity to digest today's geopolitical shock against fresh inflation data. If June CPI comes in at 3.4% or below — reflecting the oil price moderation that occurred before today's spike — yields could partially recover and rates stabilize. If it prints at 3.8%+, this week could be the worst for mortgage rates since May.</p>
+        <p><strong>Tuesday July 15 — Warsh before the Senate Banking Committee.</strong> His first public Congressional testimony as Fed Chair. The timing — one trading day after a ceasefire collapse and bond market spike — makes this session considerably more consequential than it looked last week.</p>
+        <p><strong>Friday July 18 — Consumer Sentiment (University of Michigan).</strong> A leading indicator of household confidence and spending. If sentiment has deteriorated on the back of renewed conflict and higher energy prices, the Fed has less runway to hike. A weak number is paradoxically bond-market friendly.</p>
+        <p><strong>Every morning this week — WTI crude oil.</strong> More important than any of the above. Oil is the transmission mechanism between the Middle East and your mortgage rate. Below $75 and the inflation story stabilizes. Above $85 and we're back to the worst rate environment of the year. Open the oil price before you open anything else.</p>
+      </div>
+    </div>
+
+    <!-- ORNAMENT -->
+    <div class="ornament"><hr><div class="ornament-mark">· · ·</div><hr></div>
+
+    <p class="closing">Today had more range in it than most full weeks. Two referrals at 9am from relationships that took years to build. A market spike by afternoon from a single sentence in Turkey. Friday on the water with the people I work with every day. The through-line in all of it is the same: the investments you make before you need them — in relationships, in colleagues, in clients — are the ones that hold when everything else gets volatile. Reply to this email if you want to talk through what today's move means for your specific situation. <b>— Anthony</b></p>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-sig">Written by <b>Anthony</b> · Loan Pronto · July 13, 2026</div>
+    <div class="footer-nmls">NMLS #2096979 · Equal Housing Lender</div>
+  </div>
+
+</div>
+</body>
+</html>
