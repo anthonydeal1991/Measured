@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Measured — Issue No. 13 · July 18, 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,400;1,500&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;1,8..60,300&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --paper:#F8F4EE;--white:#FDFBF8;--ink:#1A1915;--muted:#6A6358;
+    --rule:rgba(26,25,21,0.09);--rust:#B05A32;--rust-lt:#ECD9CE;
+    --gold:#C2913A;--forest:#2F6B3E;--forest-lt:#D4E8D9;
+    --navy:#1E3A5F;--navy-lt:#D2DFF0;--amber:#C47A10;--amber-lt:#FAE9CB;
+    --warn:#8B2020;--warn-lt:#F5D5D5;
+  }
+  body{font-family:'DM Sans',sans-serif;background:#EDE8DF;color:var(--ink);padding:32px 16px 64px}
+  .wrap{max-width:620px;margin:0 auto;background:var(--white);border-radius:2px;overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,0.04),0 8px 24px rgba(0,0,0,0.07),0 32px 64px rgba(0,0,0,0.07)}
+
+  /* MASTHEAD */
+  .masthead{background:var(--ink)}
+  .masthead-top{display:flex;align-items:stretch;border-bottom:1px solid rgba(255,255,255,0.06)}
+  .brand{flex:1;padding:22px 36px}
+  .brand-name{font-family:'Playfair Display',serif;color:#F8F4EE;font-size:24px;letter-spacing:0.01em;line-height:1}
+  .brand-sub{font-size:10px;color:rgba(248,244,238,0.35);letter-spacing:0.12em;text-transform:uppercase;margin-top:5px}
+  .masthead-meta{padding:22px 36px;text-align:right;border-left:1px solid rgba(255,255,255,0.06);display:flex;flex-direction:column;justify-content:center;gap:4px}
+  .meta-issue{font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold)}
+  .meta-date{font-size:11px;color:rgba(248,244,238,0.3)}
+  .author-bar{background:var(--rust-lt);padding:14px 36px;display:flex;align-items:center;gap:13px}
+  .avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--rust));display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:17px;color:white;flex-shrink:0;box-shadow:0 2px 6px rgba(176,90,50,0.3)}
+  .author-name{font-size:13.5px;font-weight:500;color:var(--ink)}
+  .author-role{font-size:11.5px;color:var(--muted);margin-top:1px}
+
+  /* HERO */
+  .hero{background:var(--ink);padding:36px 36px 32px;border-top:1px solid rgba(255,255,255,0.04);position:relative;overflow:hidden}
+  .hero::after{content:'';position:absolute;top:-80px;right:-60px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(194,145,58,0.07) 0%,transparent 65%);pointer-events:none}
+  .hero-kicker{font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:16px}
+  .hero-hed{font-family:'Playfair Display',serif;font-size:28px;line-height:1.22;color:#F8F4EE;margin-bottom:14px;max-width:500px}
+  .hero-hed em{font-style:italic;color:var(--gold)}
+  .hero-deck{font-size:13.5px;color:rgba(248,244,238,0.48);line-height:1.65;max-width:460px}
+
+  /* BODY */
+  .body{padding:36px 36px 32px}
+  .opener{font-family:'Source Serif 4',serif;font-size:15px;line-height:1.78;color:var(--ink);font-style:italic;padding-bottom:28px;border-bottom:1px solid var(--rule);margin-bottom:32px}
+  p{font-size:14.5px;line-height:1.78;color:#38342E;margin-bottom:15px}
+  p:last-child{margin-bottom:0}
+  strong{color:var(--ink);font-weight:500}
+  .section{margin-bottom:34px;padding-bottom:34px;border-bottom:1px solid var(--rule)}
+  .section:last-of-type{border-bottom:none;margin-bottom:0;padding-bottom:0}
+  .sec-label{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+  .sec-pip{width:6px;height:6px;border-radius:50%;background:var(--rust);flex-shrink:0}
+  .sec-title{font-family:'Playfair Display',serif;font-size:17px;color:var(--ink);font-weight:500}
+
+  /* Rate cards */
+  .rate-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:20px 0}
+  .rate-card{background:var(--paper);border-radius:2px;padding:14px 15px;border-top:2px solid var(--rule)}
+  .rate-card.ok{border-top-color:var(--forest)}
+  .rate-card.flat{border-top-color:var(--navy)}
+  .rate-card.warn{border-top-color:var(--warn)}
+  .rate-card.gold{border-top-color:var(--gold)}
+  .rate-num{font-family:'Playfair Display',serif;font-size:22px;color:var(--ink);line-height:1}
+  .rate-desc{font-size:11px;color:var(--muted);margin-top:5px;line-height:1.4}
+  .rate-delta{font-size:11px;margin-top:4px}
+  .rate-delta.ok{color:var(--forest)}
+  .rate-delta.flat{color:var(--muted)}
+  .rate-delta.warn{color:var(--warn)}
+
+  /* Callout */
+  .callout{border-left:3px solid var(--rust);background:var(--paper);padding:16px 20px;margin:20px 0;border-radius:0 2px 2px 0}
+  .callout p{font-family:'Source Serif 4',serif;font-style:italic;font-size:14.5px;color:var(--ink);margin-bottom:0;line-height:1.7}
+  .callout-attr{font-size:10.5px !important;color:var(--muted) !important;margin-top:8px !important;font-style:normal !important;font-family:'DM Sans',sans-serif !important;letter-spacing:0.05em}
+
+  /* YOY rate table */
+  .rate-table-wrap{margin:20px 0;border-radius:2px;overflow:hidden;border:1px solid var(--rule)}
+  .rate-table{width:100%;border-collapse:collapse;font-size:13px}
+  .rate-table thead tr{background:var(--ink)}
+  .rate-table thead th{padding:10px 16px;text-align:left;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;font-weight:500;color:rgba(248,244,238,0.65)}
+  .rate-table thead th.gold{color:var(--gold)}
+  .rate-table tbody tr{border-bottom:1px solid var(--rule)}
+  .rate-table tbody tr:last-child{border-bottom:none}
+  .rate-table tbody tr.highlight{background:#FDF8F2}
+  .rate-table tbody td{padding:10px 16px;color:#38342E;vertical-align:middle;font-size:13.5px}
+  .rate-table .period{font-weight:500;color:var(--ink)}
+  .rate-table .rate-val{font-family:'Playfair Display',serif;font-size:15px;color:var(--navy)}
+  .rate-table .change{font-size:13px;font-weight:500}
+  .rate-table .change.pos{color:var(--forest)}
+  .rate-table .change.neg{color:var(--warn)}
+  .rate-table .change.flat{color:var(--muted)}
+  .rate-table .now{color:var(--rust);font-weight:600}
+
+  /* Forecast table */
+  .forecast-wrap{margin:20px 0;border-radius:2px;overflow:hidden;border:1px solid var(--rule)}
+  .forecast-table{width:100%;border-collapse:collapse;font-size:13px}
+  .forecast-table thead tr{background:#2D2D2A}
+  .forecast-table thead th{padding:10px 16px;text-align:left;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;font-weight:500;color:rgba(248,244,238,0.65)}
+  .forecast-table thead th.gold{color:var(--gold)}
+  .forecast-table tbody tr{border-bottom:1px solid var(--rule)}
+  .forecast-table tbody tr:last-child{border-bottom:none}
+  .forecast-table tbody tr:nth-child(even){background:#FAFAF8}
+  .forecast-table tbody td{padding:10px 16px;color:#38342E;font-size:13.5px}
+  .forecast-table .source{font-weight:500;color:var(--ink)}
+  .forecast-table .val{font-family:'Playfair Display',serif;font-size:15px}
+
+  /* App data boxes */
+  .data-box{border:1px solid rgba(30,58,95,0.18);background:var(--navy-lt);border-radius:2px;padding:18px 20px;margin:20px 0}
+  .data-label{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--navy);font-weight:500;margin-bottom:8px}
+  .data-box p{font-size:14px;color:#1A2D42;margin-bottom:8px;line-height:1.7}
+  .data-box p:last-child{margin-bottom:0}
+  .data-box strong{color:#0F1E2E}
+
+  /* App stat cards */
+  .stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:20px 0}
+  .stat-card{background:var(--paper);border-radius:2px;padding:13px 14px;border-top:2px solid var(--gold)}
+  .stat-card.ok{border-top-color:var(--forest)}
+  .stat-card.warn{border-top-color:var(--warn)}
+  .stat-card.flat{border-top-color:var(--navy)}
+  .stat-num{font-family:'Playfair Display',serif;font-size:21px;color:var(--ink);line-height:1}
+  .stat-label{font-size:11px;color:var(--muted);margin-top:5px;line-height:1.4}
+
+  /* Green */
+  .opp-box{border:1px solid rgba(47,107,62,0.2);background:var(--forest-lt);border-radius:2px;padding:20px 22px;margin:20px 0}
+  .opp-label{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--forest);font-weight:500;margin-bottom:8px}
+  .opp-box p{font-size:14px;color:#1C3D24;margin-bottom:8px;line-height:1.72}
+  .opp-box p:last-child{margin-bottom:0}
+  .opp-box strong{color:#122618}
+
+  /* Warn */
+  .warn-box{border:1px solid rgba(139,32,32,0.2);background:var(--warn-lt);border-radius:2px;padding:20px 22px;margin:20px 0}
+  .warn-label{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--warn);font-weight:500;margin-bottom:8px}
+  .warn-box p{font-size:14px;color:#2E0A0A;margin-bottom:8px;line-height:1.7}
+  .warn-box p:last-child{margin-bottom:0}
+  .warn-box strong{color:#1A0505}
+
+  /* Amber watch */
+  .watch-box{border:1px solid rgba(196,122,16,0.2);background:var(--amber-lt);border-radius:2px;padding:18px 20px;margin:20px 0}
+  .watch-label{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--amber);font-weight:500;margin-bottom:8px}
+  .watch-box p{font-size:14px;color:#3D2200;margin-bottom:8px;line-height:1.7}
+  .watch-box p:last-child{margin-bottom:0}
+  .watch-box strong{color:#1F1000}
+
+  /* Take */
+  .take-box{border:1px solid rgba(176,90,50,0.2);background:var(--rust-lt);border-radius:2px;padding:20px 22px;margin:20px 0}
+  .take-label{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--rust);font-weight:500;margin-bottom:8px}
+  .take-box p{font-size:14px;color:#3D1E0A;margin-bottom:8px;line-height:1.72}
+  .take-box p:last-child{margin-bottom:0}
+  .take-box strong{color:#231005}
+
+  /* Ornament */
+  .ornament{display:flex;align-items:center;gap:12px;margin:30px 0}
+  .ornament hr{flex:1;border:none;border-top:1px solid var(--rule)}
+  .ornament-mark{font-size:10px;color:var(--gold);letter-spacing:0.12em}
+
+  /* Closing */
+  .closing{font-family:'Source Serif 4',serif;font-size:14.5px;font-style:italic;color:var(--muted);line-height:1.75;padding-top:24px;border-top:1px solid var(--rule)}
+  .closing b{color:var(--ink);font-style:normal;font-weight:500}
+
+  /* Footer */
+  .footer{background:var(--paper);border-top:1px solid var(--rule);padding:18px 36px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px}
+  .footer-sig{font-family:'Source Serif 4',serif;font-style:italic;font-size:13px;color:var(--muted)}
+  .footer-sig b{color:var(--ink);font-style:normal;font-weight:500}
+  .footer-nmls{font-size:10px;color:rgba(106,99,88,0.4);letter-spacing:0.04em}
+
+  @media(max-width:560px){
+    .body{padding:28px 20px 24px}
+    .masthead-top{flex-direction:column}
+    .masthead-meta{text-align:left;border-left:none;border-top:1px solid rgba(255,255,255,0.06);padding:14px 36px}
+    .rate-row,.stat-row{grid-template-columns:1fr 1fr}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- MASTHEAD -->
+  <div class="masthead">
+    <div class="masthead-top">
+      <div class="brand">
+        <div class="brand-name">Measured</div>
+        <div class="brand-sub">A weekly note on mortgage decisions that matter</div>
+      </div>
+      <div class="masthead-meta">
+        <div class="meta-issue">Issue No. 13</div>
+        <div class="meta-date">Friday, July 18, 2026</div>
+      </div>
+    </div>
+    <div class="author-bar">
+      <div class="avatar">A</div>
+      <div>
+        <div class="author-name">Anthony · Loan Pronto</div>
+        <div class="author-role">Mortgage advisor · wholesale lending · plain English, always</div>
+      </div>
+    </div>
+    <div class="hero">
+      <div class="hero-kicker">This week in Measured</div>
+      <div class="hero-hed">Rates hit their highest level since August 2025. Here's the full picture — <em>and where every major forecaster says we're headed.</em></div>
+      <div class="hero-deck">6.55% this week. Purchase applications up 6% week over week but barely above last year's pace. Rates year over year. And what Fannie Mae, the MBA, Reuters, and Wells Fargo are projecting through the first quarter of 2027 — laid out plainly.</div>
+    </div>
+  </div>
+
+  <!-- BODY -->
+  <div class="body">
+
+    <p class="opener">This issue is data. No noise, no filler — just the numbers that matter right now, where they've been, and where the people who get paid to forecast them say they're going. Read it carefully. The forecast section alone will change how you think about the next six months. — Anthony</p>
+
+    <!-- SECTION 1: RATES THIS WEEK -->
+    <div class="section">
+      <div class="sec-label"><div class="sec-pip"></div><div class="sec-title">Rates this week — the highest level since August 2025</div></div>
+
+      <p>The Freddie Mac Primary Mortgage Market Survey released Thursday July 16 showed the <strong>30-year fixed at 6.55%</strong> — up 6 basis points from 6.49% the prior week and the highest reading since August 2025. The 15-year fixed came in at <strong>5.93%</strong>, up sharply from 5.82% the week before. The MBA's own rate index for the week ending July 17 showed the 30-year conforming rate reaching <strong>6.69%</strong> — its highest level since last August.</p>
+
+      <div class="rate-row">
+        <div class="rate-card warn">
+          <div class="rate-num">6.55%</div>
+          <div class="rate-desc">30-yr fixed<br>Freddie Mac, July 16</div>
+          <div class="rate-delta warn">↑ Highest since Aug 2025</div>
+        </div>
+        <div class="rate-card warn">
+          <div class="rate-num">5.93%</div>
+          <div class="rate-desc">15-yr fixed<br>Freddie Mac, July 16</div>
+          <div class="rate-delta warn">↑ from 5.82% last week</div>
+        </div>
+        <div class="rate-card ok">
+          <div class="rate-num">6.75%</div>
+          <div class="rate-desc">30-yr fixed<br>One year ago today</div>
+          <div class="rate-delta ok">↓ Still 20 bps better YoY</div>
+        </div>
+      </div>
+
+      <p>The week's move was driven entirely by the renewed ceasefire collapse and the oil price surge that followed. The Freddie Mac survey captures Monday through Wednesday — meaning Thursday's partial recovery after a U.S. official said Washington remained "committed to finding a solution" is not yet reflected. <strong>The direction next Thursday will depend almost entirely on what happens with oil and the Strait of Hormuz between now and Wednesday night.</strong></p>
+
+      <div class="callout">
+        <p>Purchase application demand has weakened recently, but housing affordability is more favorable and housing inventory continues to rise, thus the backdrop for prospective homebuyers is modestly improving.</p>
+        <p class="callout-attr">— Sam Khater, Chief Economist, Freddie Mac · July 16, 2026</p>
+      </div>
+    </div>
+
+    <!-- SECTION 2: RATES YEAR OVER YEAR -->
+    <div class="section">
+      <div class="sec-label"><div class="sec-pip"></div><div class="sec-title">Rates year over year — where we've been since July 2025</div></div>
+
+      <p>The headline "highest since August 2025" sounds alarming. Here's what the full year-over-year picture actually shows — and why the context matters before drawing conclusions.</p>
+
+      <div class="rate-table-wrap">
+        <table class="rate-table">
+          <thead>
+            <tr>
+              <th>Period</th>
+              <th>30-yr Fixed</th>
+              <th>15-yr Fixed</th>
+              <th class="gold">YOY vs. Today</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="period">July 18, 2025</td>
+              <td class="rate-val">6.75%</td>
+              <td class="rate-val">5.92%</td>
+              <td class="change pos">↓ 20 bps better now</td>
+            </tr>
+            <tr>
+              <td class="period">Aug 2025 peak</td>
+              <td class="rate-val">6.62%</td>
+              <td class="rate-val">5.91%</td>
+              <td class="change neg">↑ 7 bps worse now</td>
+            </tr>
+            <tr>
+              <td class="period">Oct 2025</td>
+              <td class="rate-val">6.54%</td>
+              <td class="rate-val">5.83%</td>
+              <td class="change neg">↑ ~1 bp worse now</td>
+            </tr>
+            <tr>
+              <td class="period">Jan 2026</td>
+              <td class="rate-val">6.96%</td>
+              <td class="rate-val">6.16%</td>
+              <td class="change pos">↓ 41 bps better now</td>
+            </tr>
+            <tr>
+              <td class="period">Feb 28, 2026</td>
+              <td class="rate-val">~6.00%</td>
+              <td class="rate-val">~5.35%</td>
+              <td class="change neg">↑ 55 bps worse (war began)</td>
+            </tr>
+            <tr>
+              <td class="period">May 23, 2026</td>
+              <td class="rate-val">6.51%</td>
+              <td class="rate-val">5.92%</td>
+              <td class="change neg">↑ slightly worse now</td>
+            </tr>
+            <tr>
+              <td class="period">June 19, 2026</td>
+              <td class="rate-val">6.47%</td>
+              <td class="rate-val">5.81%</td>
+              <td class="change neg">↑ 8 bps worse now</td>
+            </tr>
+            <tr class="highlight">
+              <td class="period now">Today · July 18, 2026</td>
+              <td class="rate-val now">6.55%</td>
+              <td class="rate-val now">5.93%</td>
+              <td class="change flat">— current</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>The table tells a nuanced story. We are <strong>better than a year ago</strong> by 20 basis points — meaningful, but not dramatic. We are <strong>worse than where rates were in late February</strong> before the Iran war, when the 30-year was near 6.00%. And we are at a local high point for 2026, having hit 6.00% in February before the war sent us to 6.55% today.</p>
+
+      <p>The year-over-year improvement is real but fragile. Every time the Strait of Hormuz stabilizes, rates improve toward 6.40%. Every time the ceasefire frays, rates push back toward 6.55–6.65%. That band — roughly <strong>6.40% to 6.65%</strong> — has been the operating range for mortgage rates throughout the summer of 2026. <strong>The wholesale channel runs 0.375–0.50% below that range.</strong> That is where the actual opportunity is for well-prepared borrowers.</p>
+    </div>
+
+    <!-- SECTION 3: PURCHASE APPLICATIONS -->
+    <div class="section">
+      <div class="sec-label"><div class="sec-pip"></div><div class="sec-title">Purchase applications — the week-over-week bounce and the year-over-year reality</div></div>
+
+      <p>The MBA released its latest weekly survey Wednesday covering the week ending July 17. The headline was better than expected given where rates are.</p>
+
+      <div class="stat-row">
+        <div class="stat-card ok">
+          <div class="stat-num">+6%</div>
+          <div class="stat-label">Purchase index week over week — July 17 vs July 10</div>
+        </div>
+        <div class="stat-card flat">
+          <div class="stat-num">+0.2%</div>
+          <div class="stat-label">Purchase index year over year — barely above last year's pace</div>
+        </div>
+        <div class="stat-card ok">
+          <div class="stat-num">+7%</div>
+          <div class="stat-label">Refinance applications year over year — week ending July 17</div>
+        </div>
+      </div>
+
+      <p>The 6% week-over-week jump in purchase applications looks strong but needs context. The prior week — ending July 10 — was depressed by the post-July 4 holiday hangover and the ceasefire collapse shock. Purchase applications had dropped <strong>7% that week</strong> and dipped <strong>2% below year-ago levels</strong> — the first negative year-over-year reading in months. The bounce back this week essentially restored the status quo rather than representing a genuine acceleration.</p>
+
+      <div class="data-box">
+        <div class="data-label">📊 Purchase Application Trend — Last Four Weeks · MBA Data</div>
+        <p><strong>Week ending June 26:</strong> Purchase index up 1% week over week, up <strong>3% year over year</strong>. Holiday adjustment applied.</p>
+        <p><strong>Week ending July 3:</strong> Purchase index down 1% week over week, up <strong>5% year over year</strong>. Holiday-shortened week.</p>
+        <p><strong>Week ending July 10:</strong> Purchase index down 7% week over week, <strong>down 2% year over year</strong>. First negative YoY in months — post-holiday and ceasefire shock combined.</p>
+        <p><strong>Week ending July 17:</strong> Purchase index up 6% week over week, up <strong>0.2% year over year</strong>. Recovery bounce — back just barely above last year's pace despite rates at highest level since August 2025.</p>
+      </div>
+
+      <p>The honest read: purchase demand is <strong>remarkably resilient</strong> given where rates are. The MBA's Mike Fratantoni put it directly this week: <strong>"Purchase volume increased modestly for the week. Growing home inventory in many markets is supporting more purchase activity."</strong> Buyers aren't capitulating. They're adjusting. More inventory is giving them more choices, and the year-over-year comparison — even barely positive at 0.2% — is meaningful when rates are at their highest level in eleven months.</p>
+
+      <div class="opp-box">
+        <div class="opp-label">📈 The Year-Over-Year Purchase Story — In Full Context</div>
+        <p>Through the first half of 2026, purchase applications ran <strong>3–8% ahead of 2025 pace</strong> in most weeks. The brief dip to -2% the week of July 10 was an outlier — the combined effect of holiday timing and a geopolitical shock — not a trend reversal. This week's 0.2% positive reading suggests the underlying demand is intact even at 6.55%.</p>
+        <p>The MBA's own president, Bob Broeksmit, has said homebuyers in 2026 appear to be "resigned to higher-for-longer rates" — not waiting for a breakthrough, but making decisions with the rates available. <strong>That behavioral shift is the single most important development in the purchase market this year.</strong> Buyers who stopped waiting for 5% and started buying at 6.4% in the wholesale channel are already in homes. The ones still waiting are still waiting.</p>
+      </div>
+
+      <p>On the refinance side: applications were down 2% week over week as rising rates reduced the incentive, but up <strong>7% year over year</strong>. FHA and VA borrowers continue to drive the refi activity — these are 2023–2024 borrowers who took on 7%+ loans and are finding meaningful savings even in the current rate environment through the wholesale channel.</p>
+    </div>
+
+    <!-- SECTION 4: FORECASTS THROUGH Q1 2027 -->
+    <div class="section">
+      <div class="sec-label"><div class="sec-pip"></div><div class="sec-title">Where rates are headed — every major forecast through Q1 2027</div></div>
+
+      <p>Every major housing and financial institution publishes quarterly rate forecasts. Here is what all of them say right now, in one place, for the first time in Measured's history. These are their most recently published projections as of July 2026.</p>
+
+      <div class="forecast-wrap">
+        <table class="forecast-table">
+          <thead>
+            <tr>
+              <th>Source</th>
+              <th>Q3 2026</th>
+              <th>Q4 2026</th>
+              <th class="gold">Q1 2027</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="source">Fannie Mae (July)</td>
+              <td class="val">6.4%</td>
+              <td class="val">6.4%</td>
+              <td class="val">6.3%</td>
+            </tr>
+            <tr>
+              <td class="source">MBA (May forecast)</td>
+              <td class="val">6.5%</td>
+              <td class="val">6.5%</td>
+              <td class="val">6.5%</td>
+            </tr>
+            <tr>
+              <td class="source">Wells Fargo</td>
+              <td class="val">6.4%</td>
+              <td class="val">6.3%</td>
+              <td class="val">6.2%</td>
+            </tr>
+            <tr>
+              <td class="source">Reuters Poll (June)</td>
+              <td class="val">6.4%</td>
+              <td class="val">6.3%</td>
+              <td class="val">~6.3%</td>
+            </tr>
+            <tr>
+              <td class="source">Nuveen (mid-year)</td>
+              <td class="val">4.25–4.50%*</td>
+              <td class="val">4.25–4.50%*</td>
+              <td class="val">Cut H1 2027</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p style="font-size:11.5px;color:var(--muted);margin-top:-8px">*Nuveen projects the 10-year Treasury range, not the 30-year mortgage rate directly. At a 205-bps spread that implies a 30-yr in the 6.30–6.55% range. Sources: Fannie Mae July 2026 Housing Forecast, MBA May 2026 Mortgage Finance Forecast, Wells Fargo June 2026 Economic Outlook, Reuters June 2026 housing poll, Nuveen mid-year fixed income outlook.</p>
+
+      <p>The consensus is tight and the message is clear: <strong>nobody expects rates to fall meaningfully before the end of 2026.</strong> The range across all major forecasters for Q4 2026 is 6.3–6.5%. For Q1 2027, the most optimistic scenario — Wells Fargo and Fannie Mae — has the 30-year around 6.2–6.3%. The MBA holds steady at 6.5% through all of 2027.</p>
+
+      <div class="warn-box">
+        <div class="warn-label">⚠️ Why the Forecasts Are Not as Optimistic as They Were in January</div>
+        <p>Fannie Mae's January 2026 forecast had the 30-year reaching <strong>5.7% by Q4 2026</strong>. Today that same institution forecasts 6.4%. The gap between those two projections — nearly 70 basis points — is almost entirely attributable to the Iran war, the Strait of Hormuz closure, and the energy-driven inflation surge that followed. Oil is the variable that no forecast model had sized correctly entering 2026.</p>
+        <p>The MBA economists summed it up plainly in their latest commentary: <strong>"We expect CPI inflation will peak above 4% and remain elevated for the next year or so. With this higher inflation forecast, Treasury yields and mortgage rates will stay higher for longer."</strong> That's the forecasting community's honest acknowledgment that the Iran shock changed the rate trajectory in ways that can't be wished away.</p>
+      </div>
+
+      <div class="opp-box">
+        <div class="opp-label">📉 The One Scenario That Changes Everything</div>
+        <p>Every major forecast carries an implicit assumption: the Iran conflict continues without full resolution through year-end. If that assumption breaks — if a durable peace deal is signed and oil falls back toward $65–70 per barrel — all of these forecasts move lower simultaneously. A sustained oil price at $68 with a credible Strait reopening is worth approximately <strong>30–40 basis points of mortgage rate improvement</strong> within 60 days, based on the market's own demonstrated behavior when the June Versailles deal was announced.</p>
+        <p>That scenario would put the 30-year at <strong>6.10–6.20%</strong> retail — and closer to <strong>5.70–5.80%</strong> through the wholesale channel — before Q4 2026. No forecaster is publishing that as a base case. But it's the scenario the market would price in within hours of confirmation. <strong>Being positioned before that announcement is what separates prepared borrowers from reactive ones.</strong></p>
+      </div>
+
+      <div class="take-box">
+        <div class="take-label">Anthony's Take — What These Forecasts Actually Mean For You</div>
+        <p>The consensus tells you the 30-year stays in the 6.3–6.5% range through Q1 2027 in the base case. Through the wholesale channel, that's roughly <strong>5.85–6.10%</strong> on your actual loan. That is the real number for a well-qualified borrower working with a broker who has wholesale access — not the 6.55% retail headline.</p>
+        <p>The question isn't whether rates are good right now in absolute terms. The question is whether the rate you can access today — and the home you can buy today — is a better position than where you'll be in Q1 2027 after another six months of rent payments, rising prices in your target markets, and continued supply constraints. <strong>For most buyers who are qualified and have found the right property, the math already answers that question. The hard part is being willing to run it.</strong></p>
+        <p>If you want me to model what the actual monthly payment looks like for your loan size at current wholesale pricing — versus what it looks like at the retail headline — reply to this email. That's the conversation worth having before waiting six more months for a rate that every major forecaster says probably won't be meaningfully lower anyway.</p>
+      </div>
+    </div>
+
+    <!-- SECTION 5: WHAT TO WATCH -->
+    <div class="section">
+      <div class="sec-label"><div class="sec-pip"></div><div class="sec-title">What to watch next week</div></div>
+
+      <div class="watch-box">
+        <div class="watch-label">📅 Week of July 21, 2026</div>
+        <p><strong>Monday July 21 — Oil market open.</strong> WTI crude closed at $71.41 Friday after pulling back from the ceasefire shock highs. If it continues lower toward $68–70 on any constructive Middle East news over the weekend, bond markets start the week in a better position. Watch the Sunday evening futures open as your first signal.</p>
+        <p><strong>Tuesday July 22 — Existing Home Sales (June).</strong> The first hard look at how the housing market held up through the worst rate month of the summer. A reading above 4.0 million SAAR signals resilience at 6.5%+ rates. Below 3.8 million raises concern about demand destruction at the current level.</p>
+        <p><strong>Tuesday July 29 — Consumer Confidence (Conference Board).</strong> A leading indicator on whether buyers' willingness to make large financial commitments is holding. If consumer confidence has deteriorated meaningfully since June, the Fed has less runway to hike — paradoxically positive for rates.</p>
+        <p><strong>Tuesday–Wednesday July 28–29 — FOMC Meeting.</strong> The most important Fed meeting of the year. The data going in: CPI at 3.8% (June), PCE at 4.1%, June jobs soft at 57,000, ceasefire uncertain. Rate hike probability has fluctuated from 62% to near 30% and back in the last two weeks. Warsh's language on September will define the rate environment for the rest of Q3.</p>
+      </div>
+    </div>
+
+    <!-- ORNAMENT -->
+    <div class="ornament"><hr><div class="ornament-mark">· · ·</div><hr></div>
+
+    <p class="closing">Thirteen issues. This one is all numbers — because sometimes the most useful thing is to lay it out clearly and let the data speak. The forecasters agree: mid-6% is the range for the foreseeable future. The wholesale channel gets you meaningfully below that range. The rest is a decision about whether the right time to buy is now or later — and that's a personal calculation, not a market one. Reply when you're ready to run it. <b>— Anthony</b></p>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-sig">Written by <b>Anthony</b> · Loan Pronto · July 18, 2026</div>
+    <div class="footer-nmls">NMLS #2096979 · Equal Housing Lender</div>
+  </div>
+
+</div>
+</body>
+</html>
