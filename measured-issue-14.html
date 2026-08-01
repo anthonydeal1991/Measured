@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Measured — Issue No. 14 · July 31, 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,400;1,500&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;1,8..60,300&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --paper:#F8F4EE;--white:#FDFBF8;--ink:#1A1915;--muted:#6A6358;
+    --rule:rgba(26,25,21,0.09);--rust:#B05A32;--rust-lt:#ECD9CE;
+    --gold:#C2913A;--forest:#2F6B3E;--forest-lt:#D4E8D9;
+    --navy:#1E3A5F;--navy-lt:#D2DFF0;--amber:#C47A10;--amber-lt:#FAE9CB;
+    --warn:#8B2020;--warn-lt:#F5D5D5;--teal:#1A5F6A;--teal-lt:#D0EAED;
+    --plum:#5A2D6B;--plum-lt:#EDE0F5;
+  }
+  body{font-family:'DM Sans',sans-serif;background:#EDE8DF;color:var(--ink);padding:32px 16px 64px}
+  .wrap{max-width:620px;margin:0 auto;background:var(--white);border-radius:2px;overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,0.04),0 8px 24px rgba(0,0,0,0.07),0 32px 64px rgba(0,0,0,0.07)}
+
+  /* MASTHEAD */
+  .masthead{background:var(--ink)}
+  .masthead-top{display:flex;align-items:stretch;border-bottom:1px solid rgba(255,255,255,0.06)}
+  .brand{flex:1;padding:22px 36px}
+  .brand-name{font-family:'Playfair Display',serif;color:#F8F4EE;font-size:24px;letter-spacing:0.01em;line-height:1}
+  .brand-sub{font-size:10px;color:rgba(248,244,238,0.35);letter-spacing:0.12em;text-transform:uppercase;margin-top:5px}
+  .masthead-meta{padding:22px 36px;text-align:right;border-left:1px solid rgba(255,255,255,0.06);display:flex;flex-direction:column;justify-content:center;gap:4px}
+  .meta-issue{font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold)}
+  .meta-date{font-size:11px;color:rgba(248,244,238,0.3)}
+  .author-bar{background:var(--rust-lt);padding:14px 36px;display:flex;align-items:center;gap:13px}
+  .avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--rust));display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:17px;color:white;flex-shrink:0;box-shadow:0 2px 6px rgba(176,90,50,0.3)}
+  .author-name{font-size:13.5px;font-weight:500;color:var(--ink)}
+  .author-role{font-size:11.5px;color:var(--muted);margin-top:1px}
+
+  /* HERO */
+  .hero{background:var(--ink);padding:36px 36px 32px;border-top:1px solid rgba(255,255,255,0.04);position:relative;overflow:hidden}
+  .hero::after{content:'';position:absolute;top:-80px;right:-60px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(194,145,58,0.08) 0%,transparent 65%);pointer-events:none}
+  .hero-kicker{font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:16px}
+  .hero-hed{font-family:'Playfair Display',serif;font-size:28px;line-height:1.22;color:#F8F4EE;margin-bottom:14px;max-width:500px}
+  .hero-hed em{font-style:italic;color:var(--gold)}
+  .hero-deck{font-size:13.5px;color:rgba(248,244,238,0.48);line-height:1.65;max-width:460px}
+
+  /* PIPELINE STRIP */
+  .pipeline-bar{background:linear-gradient(135deg,var(--forest) 0%,#1E5A2A 100%);padding:14px 36px;display:flex;align-items:center;gap:16px}
+  .pipeline-nums{display:flex;align-items:center;gap:24px;flex:1}
+  .pipeline-num{display:flex;flex-direction:column}
+  .p-big{font-family:'Playfair Display',serif;font-size:26px;color:white;line-height:1}
+  .p-label{font-size:10px;color:rgba(255,255,255,0.65);margin-top:3px;letter-spacing:0.06em;text-transform:uppercase}
+  .pipeline-divider{width:1px;height:40px;background:rgba(255,255,255,0.2)}
+  .pipeline-note{font-size:12px;color:rgba(255,255,255,0.75);line-height:1.5;max-width:200px}
+  .pipeline-note strong{color:white}
+
+  /* BODY */
+  .body{padding:36px 36px 32px}
+  .opener{font-family:'Source Serif 4',serif;font-size:15px;line-height:1.78;color:var(--ink);font-style:italic;padding-bottom:28px;border-bottom:1px solid var(--rule);margin-bottom:32px}
+  p{font-size:14.5px;line-height:1.78;color:#38342E;margin-bottom:15px}
+  p:last-child{margin-bottom:0}
+  strong{color:var(--ink);font-weight:500}
+  .section{margin-bottom:34px;padding-bottom:34px;border-bottom:1px solid var(--rule)}
+  .section:last-of-type{border-bottom:none;margin-bottom:0;padding-bottom:0}
+  .sec-label{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+  .sec-pip{width:6px;height:6px;border-radius:50%;background:var(--rust);flex-shrink:0}
+  .sec-title{font-family:'Playfair Display',serif;font-size:17px;color:var(--ink);font-weight:500}
+
+  /* Rate cards */
+  .rate-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:20px 0}
+  .rate-card{background:var(--paper);border-radius:2px;padding:14px 15px;border-top:2px solid var(--rule)}
+  .rate-card.ok{border-top-color:var(--forest)}
+  .rate-card.flat{border-top-color:var(--navy)}
+  .rate-card.warn{border-top-color:var(--warn)}
+  .rate-num{font-family:'Playfair Display',serif;font-size:22px;color:var(--ink);line-height:1}
+  .rate-desc{font-size:11px;color:var(--muted);margin-top:5px;line-height:1.4}
+  .rate-delta{font-size:11px;margin-top:4px}
+  .rate-delta.ok{color:var(--forest)}
+  .rate-delta.flat{color:var(--muted)}
+  .rate-delta.warn{color:var(--warn)}
+
+  /* Callout */
+  .callout{border-left:3px solid var(--rust);background:var(--paper);padding:16px 20px;margin:20px 0;border-radius:0 2px 2px 0}
+  .callout p{font-family:'Source Serif 4',serif;font-style:italic;font-size:14.5px;color:var(--ink);margin-bottom:0;line-height:1.7}
+  .callout-attr{font-size:10.5px !important;color:var(--muted) !important;margin-top:8px !important;font-style:normal !important;font-family:'DM Sans',sans-serif !important;letter-spacing:0.05em}
+
+  /* YOY table */
+  .yoy-wrap{margin:20px 0;border-radius:2px;overflow:hidden;border:1px solid var(--rule)}
+  .yoy-table{width:100%;border-collapse:collapse;font-size:13px}
+  .yoy-table thead tr{background:var(--ink)}
+  .yoy-table thead th{padding:10px 14px;text-align:left;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;font-weight:500;color:rgba(248,244,238,0.65)}
+  .yoy-table thead th.gold{color:var(--gold)}
+  .yoy-table tbody tr{border-bottom:1px solid var(--rule)}
+  .yoy-table tbody tr:last-child{border-bottom:none}
+  .yoy-table tbody tr.now{background:#FDF8F2}
+  .yoy-table td{padding:9px 14px;font-size:13.5px;color:#38342E;vertical-align:middle}
+  .yoy-table .period{font-weight:500;color:var(--ink)}
+  .yoy-table .rate-v{font-family:'Playfair Display',serif;font-size:15px;color:var(--navy)}
+  .yoy-table .delta{font-size:12.5px;font-weight:500}
+  .yoy-table .delta.pos{color:var(--forest)}
+  .yoy-table .delta.neg{color:var(--warn)}
+  .yoy-table .delta.flat{color:var(--muted)}
+  .yoy-table .now-val{color:var(--rust);font-weight:600}
+
+  /* Navy data */
+  .data-box{border:1px solid rgba(30,58,95,0.18);background:var(--navy-lt);border-radius:2px;padding:18px 20px;margin:20px 0}
+  .data-label{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--navy);font-weight:500;margin-bottom:8px}
+  .data-box p{font-size:14px;color:#1A2D42;margin-bottom:8px;line-height:1.7}
+  .data-box p:last-child{margin-bottom:0}
+  .data-box strong{color:#0F1E2E}
+
+  /* Warn */
+  .warn-box{border:1px solid rgba(139,32,32,0.2);background:var(--warn-lt);border-radius:2px;padding:20px 22px;margin:20px 0}
+  .warn-label{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--warn);font-weight:500;margin-bottom:8px}
+  .warn-box p{font-size:14px;color:#2E0A0A;margin-bottom:8px;line-height:1.7}
+  .warn-box p:last-child{margin-bottom:0}
+  .warn-box strong{color:#1A0505}
+
+  /* Green */
+  .opp-box{border:1px solid rgba(47,107,62,0.2);background:var(--forest-lt);border-radius:2px;padding:20px 22px;margin:20px 0}
+  .opp-label{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--forest);font-weight:500;margin-bottom:8px}
+  .opp-box p{font-size:14px;color:#1C3D24;margin-bottom:8px;line-height:1.72}
+  .opp-box p:last-child{margin-bottom:0}
+  .opp-box strong{color:#122618}
+
+  /* Teal — HELOC/equity */
+  .heloc-box{border:1px solid rgba(26,95,106,0.2);background:var(--teal-lt);border-radius:2px;padding:20px 22px;margin:20px 0}
+  .heloc-label{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--teal);font-weight:500;margin-bottom:8px}
+  .heloc-box p{font-size:14px;color:#0D2E33;margin-bottom:8px;line-height:1.72}
+  .heloc-box p:last-child{margin-bottom:0}
+  .heloc-box strong{color:#071A1D}
+
+  /* Plum — credit repair partnership */
+  .credit-box{border:1px solid rgba(90,45,107,0.2);background:var(--plum-lt);border-radius:2px;padding:20px 22px;margin:20px 0}
+  .credit-label{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--plum);font-weight:500;margin-bottom:8px}
+  .credit-box p{font-size:14px;color:#2A1233;margin-bottom:8px;line-height:1.72}
+  .credit-box p:last-child{margin-bottom:0}
+  .credit-box strong{color:#180920}
+
+  /* Amber */
+  .watch-box{border:1px solid rgba(196,122,16,0.2);background:var(--amber-lt);border-radius:2px;padding:18px 20px;margin:20px 0}
+  .watch-label{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--amber);font-weight:500;margin-bottom:8px}
+  .watch-box p{font-size:14px;color:#3D2200;margin-bottom:8px;line-height:1.7}
+  .watch-box p:last-child{margin-bottom:0}
+  .watch-box strong{color:#1F1000}
+
+  /* Take */
+  .take-box{border:1px solid rgba(176,90,50,0.2);background:var(--rust-lt);border-radius:2px;padding:20px 22px;margin:20px 0}
+  .take-label{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--rust);font-weight:500;margin-bottom:8px}
+  .take-box p{font-size:14px;color:#3D1E0A;margin-bottom:8px;line-height:1.72}
+  .take-box p:last-child{margin-bottom:0}
+  .take-box strong{color:#231005}
+
+  /* Debt stat row */
+  .stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:20px 0}
+  .stat-card{background:var(--paper);border-radius:2px;padding:13px 14px;border-top:2px solid var(--warn)}
+  .stat-card.ok{border-top-color:var(--forest)}
+  .stat-card.flat{border-top-color:var(--navy)}
+  .stat-card.gold{border-top-color:var(--gold)}
+  .stat-num{font-family:'Playfair Display',serif;font-size:21px;color:var(--ink);line-height:1}
+  .stat-label{font-size:11px;color:var(--muted);margin-top:5px;line-height:1.4}
+
+  /* Econ calendar list */
+  .econ-list{margin:16px 0;display:flex;flex-direction:column;gap:0}
+  .econ-item{display:flex;gap:16px;align-items:flex-start;padding:11px 0;border-bottom:1px solid var(--rule)}
+  .econ-item:last-child{border-bottom:none}
+  .econ-date{font-size:11px;letter-spacing:0.05em;font-weight:600;color:var(--gold);width:96px;flex-shrink:0;padding-top:2px;font-family:'DM Sans',sans-serif}
+  .econ-text{font-size:13.5px;color:#38342E;line-height:1.62}
+  .econ-text strong{color:var(--ink)}
+
+  /* Ornament */
+  .ornament{display:flex;align-items:center;gap:12px;margin:30px 0}
+  .ornament hr{flex:1;border:none;border-top:1px solid var(--rule)}
+  .ornament-mark{font-size:10px;color:var(--gold);letter-spacing:0.12em}
+
+  /* Closing */
+  .closing{font-family:'Source Serif 4',serif;font-size:14.5px;font-style:italic;color:var(--muted);line-height:1.75;padding-top:24px;border-top:1px solid var(--rule)}
+  .closing b{color:var(--ink);font-style:normal;font-weight:500}
+
+  /* Footer */
+  .footer{background:var(--paper);border-top:1px solid var(--rule);padding:18px 36px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px}
+  .footer-sig{font-family:'Source Serif 4',serif;font-style:italic;font-size:13px;color:var(--muted)}
+  .footer-sig b{color:var(--ink);font-style:normal;font-weight:500}
+  .footer-nmls{font-size:10px;color:rgba(106,99,88,0.4);letter-spacing:0.04em}
+
+  @media(max-width:560px){
+    .body{padding:28px 20px 24px}
+    .masthead-top{flex-direction:column}
+    .masthead-meta{text-align:left;border-left:none;border-top:1px solid rgba(255,255,255,0.06);padding:14px 36px}
+    .rate-row,.stat-row{grid-template-columns:1fr 1fr}
+    .pipeline-nums{gap:16px}
+    .pipeline-note{display:none}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- MASTHEAD -->
+  <div class="masthead">
+    <div class="masthead-top">
+      <div class="brand">
+        <div class="brand-name">Measured</div>
+        <div class="brand-sub">A weekly note on mortgage decisions that matter</div>
+      </div>
+      <div class="masthead-meta">
+        <div class="meta-issue">Issue No. 14</div>
+        <div class="meta-date">Friday, July 31, 2026</div>
+      </div>
+    </div>
+    <div class="pipeline-bar">
+      <div class="pipeline-nums">
+        <div class="pipeline-num">
+          <div class="p-big">21</div>
+          <div class="p-label">Active Pre-Approvals</div>
+        </div>
+        <div class="pipeline-divider"></div>
+        <div class="pipeline-num">
+          <div class="p-big">7</div>
+          <div class="p-label">Making Offers Today</div>
+        </div>
+      </div>
+      <div class="pipeline-note"><strong>Every single one</strong> — word of mouth. Clients, FAs, agents, family. Zero paid leads.</div>
+    </div>
+    <div class="author-bar">
+      <div class="avatar">A</div>
+      <div>
+        <div class="author-name">Anthony · Loan Pronto</div>
+        <div class="author-role">Mortgage advisor · wholesale lending · plain English, always</div>
+      </div>
+    </div>
+    <div class="hero">
+      <div class="hero-kicker">This week in Measured</div>
+      <div class="hero-hed">6.66%. $18.8 trillion in consumer debt. An Iran pause that moved markets. And a referral partnership I <em>never saw coming.</em></div>
+      <div class="hero-deck">The Freddie Mac number dropped this morning. Rates are at their highest since August 2025. Americans are carrying more debt than at any point in history. The case for cash-out refis and HELOCs has never been clearer — and a conversation with a credit repair professional this week just opened a door I didn't know was there.</div>
+    </div>
+  </div>
+
+  <!-- BODY -->
+  <div class="body">
+
+    <p class="opener">Last day of July. The market closed out one of the most volatile months of the year — Iran strikes paused and restarted, the FOMC held again, rates pushed to new 2026 highs, and consumer debt crossed an all-time record. Meanwhile, sitting on my desk right now: 21 active pre-approvals and 7 borrowers making offers this weekend. None of them came from a paid lead. All of them came from the relationships built over years. This week's issue covers everything — and there's a credit repair story in here that changed how I think about referral partnerships entirely. — Anthony</p>
+
+    <!-- SECTION 1: RATES + IRAN + MARKET -->
+    <div class="section">
+      <div class="sec-label"><div class="sec-pip"></div><div class="sec-title">Rates hit 6.66% this morning — here's everything behind that number</div></div>
+
+      <p>Freddie Mac released its Primary Mortgage Market Survey this morning and the headline is the highest reading of the year: <strong>6.66%</strong> on the 30-year fixed, up from 6.58% last week. The 15-year fixed rose to <strong>6.04%</strong> — also its highest level this year. Both numbers are being driven by the same force that has controlled the rate market since February: the conflict in the Middle East and the oil price that follows it.</p>
+
+      <div class="rate-row">
+        <div class="rate-card warn">
+          <div class="rate-num">6.66%</div>
+          <div class="rate-desc">30-yr fixed<br>Freddie Mac, July 30</div>
+          <div class="rate-delta warn">↑ Highest reading of 2026</div>
+        </div>
+        <div class="rate-card warn">
+          <div class="rate-num">6.04%</div>
+          <div class="rate-desc">15-yr fixed<br>Freddie Mac, July 30</div>
+          <div class="rate-delta warn">↑ from 5.96% last week</div>
+        </div>
+        <div class="rate-card ok">
+          <div class="rate-num">6.72%</div>
+          <div class="rate-desc">30-yr fixed<br>One year ago today</div>
+          <div class="rate-delta ok">↓ Still 6 bps better YoY</div>
+        </div>
+      </div>
+
+      <p>The Iran situation this week was a case study in how quickly this market moves on geopolitical signals. On Monday July 27, Trump halted lethal strikes on Iran to allow talks to develop — oil fell sharply, Brent crude dropped to <strong>$85.87 per barrel</strong>, its biggest single-day decline since April 8. Bond yields eased. Monday felt like relief. Then Iran's foreign ministry announced Tuesday that Tehran <strong>"has no negotiations with the United States at present"</strong> — contradicting the pause signal entirely. Oil reversed. Yields climbed. Rates followed. <strong>All in 48 hours.</strong></p>
+
+      <div class="data-box">
+        <div class="data-label">📊 Iran Pause — What the Market Saw This Week</div>
+        <p><strong>Monday July 27:</strong> U.S. halts strikes at Iran's request. Brent crude drops 11.3% to $85.87. WTI falls ~7% to $82.61. Bond yields dip on reduced inflation expectations. Fewer than 10 commodity ships passing through Hormuz daily vs. 100+ before the war.</p>
+        <p><strong>Tuesday July 28:</strong> Iran's foreign ministry says there are no current negotiations with the U.S. — the pause was unilateral, not a ceasefire. Trump warns he will resume attacks if a deal isn't reached. Oil reverses. Markets re-price risk upward.</p>
+        <p><strong>End of week:</strong> Brent crude settling in the low-to-mid $80s. Hormuz traffic remains at roughly <strong>75% of pre-war normal</strong> through workarounds — the market is adapting, but the underlying conflict is not resolved. <strong>Rates closed the month at their highest level of the year as a direct result.</strong></p>
+      </div>
+
+      <div class="callout">
+        <p>The housing market continues to benefit from more available inventory, providing prospective homebuyers with additional options and helping support buyer activity as mortgage rates fluctuate.</p>
+        <p class="callout-attr">— Sam Khater, Chief Economist, Freddie Mac · July 30, 2026</p>
+      </div>
+
+      <p>The most recent MBA purchase application data for the week ending July 17 showed the seasonally adjusted purchase index up <strong>6% week over week</strong> — and up <strong>0.2% year over year</strong>, barely holding positive despite rates at their highest level since August 2025. Refinance applications were down 2% week over week but up 7% year over year, driven almost entirely by FHA and VA borrowers who took on 7%+ loans in 2023 and 2024 finding meaningful savings even in the current environment.</p>
+    </div>
+
+    <!-- SECTION 2: RATES YOY COMPARISON -->
+    <div class="section">
+      <div class="sec-label"><div class="sec-pip"></div><div class="sec-title">Rates today vs. one year ago — the honest comparison</div></div>
+
+      <p>The "highest since August 2025" framing is accurate. But the year-over-year comparison tells a more complete story — one that reframes what 6.66% actually means in context.</p>
+
+      <div class="yoy-wrap">
+        <table class="yoy-table">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>30-yr Fixed</th>
+              <th>15-yr Fixed</th>
+              <th class="gold">vs. Today</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="period">July 2025</td>
+              <td class="rate-v">6.72%</td>
+              <td class="rate-v">5.92%</td>
+              <td><span class="delta pos">30-yr slightly better now</span></td>
+            </tr>
+            <tr>
+              <td class="period">Oct 2025</td>
+              <td class="rate-v">6.54%</td>
+              <td class="rate-v">5.83%</td>
+              <td><span class="delta neg">Worse now on both</span></td>
+            </tr>
+            <tr>
+              <td class="period">Jan 2026</td>
+              <td class="rate-v">6.96%</td>
+              <td class="rate-v">6.16%</td>
+              <td><span class="delta pos">↓ 30 bps better now</span></td>
+            </tr>
+            <tr>
+              <td class="period">Feb 28, 2026 (war)</td>
+              <td class="rate-v">~6.00%</td>
+              <td class="rate-v">~5.35%</td>
+              <td><span class="delta neg">↑ 66 bps worse now</span></td>
+            </tr>
+            <tr>
+              <td class="period">Apr 25, 2026 (Issue 1)</td>
+              <td class="rate-v">6.23%</td>
+              <td class="rate-v">5.56%</td>
+              <td><span class="delta neg">↑ 43 bps worse now</span></td>
+            </tr>
+            <tr>
+              <td class="period">June 19, 2026 (low)</td>
+              <td class="rate-v">6.47%</td>
+              <td class="rate-v">5.81%</td>
+              <td><span class="delta neg">↑ 19 bps worse now</span></td>
+            </tr>
+            <tr class="now">
+              <td class="period now-val">Today · July 31, 2026</td>
+              <td class="rate-v now-val">6.66%</td>
+              <td class="rate-v now-val">6.04%</td>
+              <td><span class="delta flat">— current</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>The table shows the real story: we are essentially <strong>flat with a year ago</strong> on the 30-year (6.72% then, 6.66% now), and worse on the 15-year. The Iran war added roughly 66 basis points from the February low. The partial ceasefire optimism earlier this summer brought us back toward 6.43–6.47%. Now those gains are being given back. <strong>The range this year has been 6.00% to 6.66% — and every single move within that range has been directly correlated to Iran war news and oil prices.</strong></p>
+
+      <p>For context: a year ago at this exact time, a borrower taking out a $400,000 loan was paying approximately <strong>$2,607/month</strong> in principal and interest at 6.72%. Today at 6.66%, that same loan is <strong>$2,575/month</strong> — about $32/month less. Meaningful but not dramatic. The bigger opportunity is still in the wholesale channel, where rates run 0.375–0.50% below the retail headline — which today means <strong>6.16–6.29%</strong> for a well-qualified borrower. At 6.20% on a $400,000 loan, the payment is approximately <strong>$2,453/month</strong> — $154/month less than the Freddie Mac headline and $122/month less than last year. <strong>That gap is the conversation most borrowers never get to have.</strong></p>
+    </div>
+
+    <!-- SECTION 3: CONSUMER DEBT -->
+    <div class="section">
+      <div class="sec-label"><div class="sec-pip"></div><div class="sec-title">$18.8 trillion in consumer debt — what it means and why it's your referral pipeline</div></div>
+
+      <p>The Federal Reserve Bank of New York released its Q1 2026 Household Debt and Credit Report in May — and the numbers are extraordinary. Total U.S. household debt reached <strong>$18.8 trillion</strong> as of Q1 2026. That is a new all-time record, exceeding even the peak of the 2008 housing bubble in nominal terms. And the composition of that debt tells you exactly where the opportunity is for mortgage professionals right now.</p>
+
+      <div class="stat-row">
+        <div class="stat-card">
+          <div class="stat-num">$18.8T</div>
+          <div class="stat-label">Total U.S. household debt — Q1 2026 record high (NY Fed)</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">$1.252T</div>
+          <div class="stat-label">Credit card balances — near all-time record, avg APR 22.15%</div>
+        </div>
+        <div class="stat-card ok">
+          <div class="stat-num">$11T</div>
+          <div class="stat-label">Available tappable home equity — sitting unused in American homes</div>
+        </div>
+      </div>
+
+      <p>Here's the mismatch that should get every mortgage advisor's attention: Americans are carrying <strong>$1.252 trillion in credit card debt at an average APR of 22.15%</strong> — while simultaneously sitting on <strong>$11 trillion in untapped home equity</strong> that can be accessed at a fraction of that cost. The arbitrage between those two numbers — 22% credit card debt vs. 8–9% home equity debt — is the most underserved conversation in the mortgage industry right now.</p>
+
+      <div class="warn-box">
+        <div class="warn-label">📉 The Consumer Debt Crisis — In Plain Numbers</div>
+        <p>The average American household carries <strong>$105,444 in total debt</strong>. Excluding mortgage debt, the average non-housing debt is <strong>$21,603</strong>. Credit card delinquency rates at 90+ days past due reached <strong>3.2%</strong> — the highest since 2012. The average credit card APR hit <strong>22.15%</strong> in Q2 2026. The bottom income quartile's consumer debt stress score is <strong>98.8 out of 100</strong>, according to the Axis Consumer Debt Burden Index — essentially maxed out.</p>
+        <p>The number that puts all of this in context: <strong>$4.6 trillion more in consumer debt than existed in 2019</strong> — a 32.9% increase in five years. This isn't a normal credit cycle. It's a structural accumulation of high-interest consumer debt that is quietly strangling household cash flow across America.</p>
+      </div>
+
+      <p>What does this mean for your clients and your referral network? It means the mortgage conversation has expanded. It's not just about the purchase or the refinance — it's about whether the client sitting on $60,000 in home equity should be paying 22% on their credit cards or rolling that debt into a HELOC or cash-out refi at a fraction of the cost. That conversation is the one most financial advisors, CPAs, and credit repair professionals need someone to have with their clients. <strong>And most of them don't have a mortgage advisor they trust enough to send that client to.</strong></p>
+    </div>
+
+    <!-- SECTION 4: HELOC / CASH-OUT REFI -->
+    <div class="section">
+      <div class="sec-label"><div class="sec-pip"></div><div class="sec-title">Cash-out refis and HELOCs — why the conversation has never mattered more</div></div>
+
+      <p>American homeowners tapped an estimated <strong>$47 billion in home equity</strong> in Q1 2026 alone — the highest first-quarter figure since 2021, according to Intercontinental Exchange. <strong>HELOCs and home equity loans accounted for 54% of that activity.</strong> Cash-out refinances made up the other 46%. The shift toward HELOCs tells you everything about borrower psychology right now.</p>
+
+      <div class="heloc-box">
+        <div class="heloc-label">🏠 Cash-Out Refi vs. HELOC — The Decision Every Homeowner Needs to Make</div>
+        <p><strong>The core constraint:</strong> More than 80% of existing U.S. mortgages are locked in at rates below 6%. For those homeowners, replacing their entire loan with a new 6.66% mortgage to pull out cash is almost never the right answer. The math is punishing — you're paying a higher rate on your entire balance to access a portion of your equity.</p>
+        <p><strong>What actually makes sense for most:</strong> A HELOC or home equity loan preserves the first mortgage at its existing rate and adds a second lien only on the equity you're accessing. The current average HELOC rate is approximately <strong>8.10%</strong>. The average home equity loan is <strong>8.12–8.20%</strong>. Those are not cheap — but they're vastly less expensive than the <strong>22% APR</strong> the average credit card is charging. For a homeowner with $50,000 in credit card debt at 22%, moving that balance to a HELOC at 8.10% saves approximately <strong>$565/month in interest</strong> alone.</p>
+        <p><strong>When a cash-out refi does make sense:</strong> Borrowers who bought at 7%+ in 2023–2024 — and there are a meaningful number of them — who now also have consumer debt. They can refinance their first mortgage (getting a better rate), pull out equity, pay off consumer debt, and end up with one consolidated payment that is lower than the sum of what they were paying before. Nearly half of all Q1 2026 cash-out refis came from borrowers with 2023 or later origination dates. That cohort is the target audience for this conversation.</p>
+      </div>
+
+      <div class="opp-box">
+        <div class="opp-label">💡 The $11 Trillion Opportunity That Most Borrowers Aren't Tapping</div>
+        <p>The St. Louis Fed published a study in June noting that HELOC borrowers as a share of housing debt holders increased <strong>18% from Q1 2022 through Q1 2026</strong>. Chase Home Lending re-entered the HELOC market in 2026 after years-long absence — a signal of where institutional money sees the opportunity. The category is growing because the need is real.</p>
+        <p>The conversation to have with your financial advisor and CPA partners: <strong>Do any of your clients have consumer debt above 15% APR and meaningful home equity?</strong> Because if they do, a 30-minute mortgage consultation could save them hundreds of dollars a month. That's not a sales pitch. That's math. And it's the kind of introduction that makes you look like the advisor who actually looks out for clients — not the one who only mentions the mortgage when someone's buying a house.</p>
+      </div>
+    </div>
+
+    <!-- SECTION 5: CREDIT REPAIR PARTNERSHIP -->
+    <div class="section">
+      <div class="sec-label"><div class="sec-pip"></div><div class="sec-title">The referral partnership I never thought to build — and why it's already working</div></div>
+
+      <p>This week something clicked that I honestly hadn't thought about before — and I want to share it because I think it's genuinely underutilized in this industry.</p>
+
+      <p>A past client of mine — someone I worked with a couple of years ago — referred me to a colleague of his who specializes in consumer credit repair. This client works in business credit himself, so the relationship made sense in his world. His colleague cleans up consumer credit profiles for people who need it — disputing inaccuracies, removing derogatory marks, structuring accounts to optimize scoring — the kind of work that can take someone from a 580 to a 640, or from a 640 to a 700, in a matter of months.</p>
+
+      <p>We talked this week. The conversation was simple: <strong>he has clients who are creditworthy in every practical sense but whose score is holding them back from qualifying for a mortgage. I have clients who want to buy but aren't ready yet because their credit needs work first.</strong> We each have something the other needs.</p>
+
+      <div class="credit-box">
+        <div class="credit-label">🤝 Why This Partnership Makes Sense — For Both Sides</div>
+        <p>The credit repair professional sees clients at the beginning of a financial journey — people who want to buy a home but can't yet, who want to consolidate debt but don't qualify, who need a better score before any meaningful financial product is available to them. <strong>He gets them to the starting line. I run the race.</strong></p>
+        <p>I see clients who are almost there — 610 credit score when they need 620, two late payments that need context, a collection account from three years ago that's dragging a solid borrower into a worse pricing tier. Those clients need someone skilled at navigating consumer credit, not a waiting game. <strong>Sending them to the right credit professional — and staying in close contact through the process — means I'm still involved when they're ready to apply. That's a pipeline I built without picking up the phone.</strong></p>
+        <p>This week alone: I sent him two referrals. He sent me two back. Four total relationships initiated — every one of them with real momentum toward a mortgage. I've been doing this for years and this is the first time I've formalized this kind of partnership. <strong>It took one conversation with a past client's colleague to open a door I didn't even know was there.</strong></p>
+      </div>
+
+      <p>The broader principle: the best referral partners aren't always the most obvious ones. Real estate agents, financial advisors, CPAs — those are the standard. But the consumer credit professional, the estate planning attorney, the divorce attorney, the HR director managing employee relocations — every one of these people touches your future clients before you do. <strong>The credit repair professional specifically touches clients at their most motivated moment — when they've decided they want to own a home and are doing the work to get there.</strong> That motivation doesn't expire. It waits for the right person to call.</p>
+
+      <div class="take-box">
+        <div class="take-label">Anthony's Take — On Seeing Referral Partnerships Differently</div>
+        <p>I've always thought about referrals in terms of people who send me deals now. The financial advisor with a client buying a house. The agent with a buyer who needs a mortgage. The past client whose friend is moving. All real — and all still important.</p>
+        <p>But the credit repair conversation this week reminded me that the referral network worth building isn't just about now. It's about the full pipeline of people becoming mortgage-ready. <strong>Someone who helps a borrower fix their credit in the next 90 days is sending me a deal in the next 90 days.</strong> That's not a long runway. That's this quarter.</p>
+        <p>If you're reading this and you have a client whose credit is the only thing standing between them and a purchase — or a refinance that would meaningfully improve their financial situation — reach out. I'll connect you with someone who can actually help, and I'll stay in the conversation from start to close.</p>
+      </div>
+    </div>
+
+    <!-- SECTION 6: ECONOMIC CALENDAR -->
+    <div class="section">
+      <div class="sec-label"><div class="sec-pip"></div><div class="sec-title">The economic calendar — every date that will move your rate through September</div></div>
+
+      <p>The next 60 days have more market-moving data than any other stretch of the year. Here's every date that matters, in order:</p>
+
+      <div class="econ-list">
+        <div class="econ-item">
+          <div class="econ-date">Tue Aug 5</div>
+          <div class="econ-text"><strong>ISM Services Index (July).</strong> A leading indicator of economic activity in the service sector. A reading above 55 signals expansion and reduces cut probability. Below 50 signals contraction — bond-market friendly.</div>
+        </div>
+        <div class="econ-item">
+          <div class="econ-date">Fri Aug 7</div>
+          <div class="econ-text"><strong>Jobs Report (July).</strong> The most market-moving monthly release. June printed 57,000 — a miss. If July bounces back above 120,000, rate hike pressure returns immediately. A second straight soft number changes the Fed calculus for September.</div>
+        </div>
+        <div class="econ-item">
+          <div class="econ-date">Wed Aug 12</div>
+          <div class="econ-text"><strong>CPI for July.</strong> The next major inflation read. June CPI came in at 3.8%. If July's number starts to reflect the oil price moderation from late June, a reading at or below 3.4% would be meaningfully favorable for bonds and rates. A hot print — 3.9%+ — with oil now back in the low $80s would be a nasty surprise.</div>
+        </div>
+        <div class="econ-item">
+          <div class="econ-date">Thu Aug 14</div>
+          <div class="econ-text"><strong>Retail Sales (June).</strong> Consumer spending data. Strong retail sales signal resilient demand — keeps rate hike risk elevated. Weakness signals cracks forming in the consumer — favorable for rates.</div>
+        </div>
+        <div class="econ-item">
+          <div class="econ-date">Fri Aug 22</div>
+          <div class="econ-text"><strong>Jackson Hole Economic Symposium begins.</strong> The Fed's annual retreat in Wyoming. Warsh will almost certainly deliver a major policy address. What he says here will define the September FOMC meeting. This is the speech the market has been waiting for all year.</div>
+        </div>
+        <div class="econ-item">
+          <div class="econ-date">Thu Aug 28</div>
+          <div class="econ-text"><strong>PCE Inflation (July).</strong> The Fed's preferred gauge. June PCE came in at 4.1% — a three-year high. July's reading will be the first to capture lower oil prices from the brief ceasefire period. A meaningful drop toward 3.4% or below changes the rate outlook materially. Watch this number above all others in August.</div>
+        </div>
+        <div class="econ-item">
+          <div class="econ-date">Tue-Wed Sep 15-16</div>
+          <div class="econ-text"><strong>FOMC Meeting.</strong> The most consequential Fed meeting of the year. Will Warsh hike? Hold? Signal a cut is possible? Every data release between now and September 16 feeds directly into that decision. The rate environment in October — and through year-end — gets set on this date.</div>
+        </div>
+        <div class="econ-item">
+          <div class="econ-date">Fri Sep 5</div>
+          <div class="econ-text"><strong>Jobs Report (August).</strong> The last major employment data point before the September FOMC meeting. Two consecutive soft prints — June 57K, a soft August — and the hike discussion gets shelved. A bounce-back above 150K and September becomes live again for a potential hike.</div>
+        </div>
+      </div>
+
+      <div class="watch-box">
+        <div class="watch-label">🛢️ The Variable That Overrides All of the Above</div>
+        <p>Every data point above matters — and every one of them can be overridden in a single afternoon by a development in the Strait of Hormuz. <strong>Oil is the X-factor that no economic calendar captures.</strong> Hormuz at 75% capacity with crude in the low $80s produces one rate environment. A fresh round of Iranian strikes that closes the Strait again produces a completely different one. Check oil prices before you check anything else — every single morning, without exception.</p>
+      </div>
+    </div>
+
+    <!-- ORNAMENT -->
+    <div class="ornament"><hr><div class="ornament-mark">· · ·</div><hr></div>
+
+    <p class="closing">Fourteen issues. Last day of July. 21 pre-approvals and 7 buyers in the market this weekend — every one of them from a relationship, not a database. The credit repair partnership, the consumer debt conversation, the HELOC math, the economic calendar — all of it connects to the same thing: the advisors who understand the full picture of a borrower's financial life are the ones who get called first. Reply to this email whenever you're ready to have that conversation. I'll pick up. <b>— Anthony</b></p>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-sig">Written by <b>Anthony</b> · Loan Pronto · July 31, 2026</div>
+    <div class="footer-nmls">NMLS #2096979 · Equal Housing Lender</div>
+  </div>
+
+</div>
+</body>
+</html>
