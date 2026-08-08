@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Measured — Issue No. 15 · August 7, 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,400;1,500&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;1,8..60,300&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --paper:#F8F4EE;--white:#FDFBF8;--ink:#1A1915;--muted:#6A6358;
+    --rule:rgba(26,25,21,0.09);--rust:#B05A32;--rust-lt:#ECD9CE;
+    --gold:#C2913A;--forest:#2F6B3E;--forest-lt:#D4E8D9;
+    --navy:#1E3A5F;--navy-lt:#D2DFF0;--amber:#C47A10;--amber-lt:#FAE9CB;
+    --warn:#8B2020;--warn-lt:#F5D5D5;--teal:#1A5F6A;--teal-lt:#D0EAED;
+  }
+  body{font-family:'DM Sans',sans-serif;background:#EDE8DF;color:var(--ink);padding:32px 16px 64px}
+  .wrap{max-width:620px;margin:0 auto;background:var(--white);border-radius:2px;overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,0.04),0 8px 24px rgba(0,0,0,0.07),0 32px 64px rgba(0,0,0,0.07)}
+
+  /* MASTHEAD */
+  .masthead{background:var(--ink)}
+  .masthead-top{display:flex;align-items:stretch;border-bottom:1px solid rgba(255,255,255,0.06)}
+  .brand{flex:1;padding:22px 36px}
+  .brand-name{font-family:'Playfair Display',serif;color:#F8F4EE;font-size:24px;letter-spacing:0.01em;line-height:1}
+  .brand-sub{font-size:10px;color:rgba(248,244,238,0.35);letter-spacing:0.12em;text-transform:uppercase;margin-top:5px}
+  .masthead-meta{padding:22px 36px;text-align:right;border-left:1px solid rgba(255,255,255,0.06);display:flex;flex-direction:column;justify-content:center;gap:4px}
+  .meta-issue{font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold)}
+  .meta-date{font-size:11px;color:rgba(248,244,238,0.3)}
+  .author-bar{background:var(--rust-lt);padding:14px 36px;display:flex;align-items:center;gap:13px}
+  .avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--rust));display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:17px;color:white;flex-shrink:0;box-shadow:0 2px 6px rgba(176,90,50,0.3)}
+  .author-name{font-size:13.5px;font-weight:500;color:var(--ink)}
+  .author-role{font-size:11.5px;color:var(--muted);margin-top:1px}
+
+  /* HERO */
+  .hero{background:var(--ink);padding:36px 36px 32px;border-top:1px solid rgba(255,255,255,0.04);position:relative;overflow:hidden}
+  .hero::after{content:'';position:absolute;top:-80px;right:-60px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(194,145,58,0.08) 0%,transparent 65%);pointer-events:none}
+  .hero-kicker{font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:16px}
+  .hero-hed{font-family:'Playfair Display',serif;font-size:28px;line-height:1.22;color:#F8F4EE;margin-bottom:14px;max-width:500px}
+  .hero-hed em{font-style:italic;color:var(--gold)}
+  .hero-deck{font-size:13.5px;color:rgba(248,244,238,0.48);line-height:1.65;max-width:460px}
+
+  /* BODY */
+  .body{padding:36px 36px 32px}
+  .opener{font-family:'Source Serif 4',serif;font-size:15px;line-height:1.78;color:var(--ink);font-style:italic;padding-bottom:28px;border-bottom:1px solid var(--rule);margin-bottom:32px}
+  p{font-size:14.5px;line-height:1.78;color:#38342E;margin-bottom:15px}
+  p:last-child{margin-bottom:0}
+  strong{color:var(--ink);font-weight:500}
+  .section{margin-bottom:34px;padding-bottom:34px;border-bottom:1px solid var(--rule)}
+  .section:last-of-type{border-bottom:none;margin-bottom:0;padding-bottom:0}
+  .sec-label{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+  .sec-pip{width:6px;height:6px;border-radius:50%;background:var(--rust);flex-shrink:0}
+  .sec-title{font-family:'Playfair Display',serif;font-size:17px;color:var(--ink);font-weight:500}
+
+  /* Rate cards */
+  .rate-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:20px 0}
+  .rate-card{background:var(--paper);border-radius:2px;padding:14px 15px;border-top:2px solid var(--rule)}
+  .rate-card.ok{border-top-color:var(--forest)}
+  .rate-card.flat{border-top-color:var(--navy)}
+  .rate-card.warn{border-top-color:var(--warn)}
+  .rate-card.gold{border-top-color:var(--gold)}
+  .rate-num{font-family:'Playfair Display',serif;font-size:22px;color:var(--ink);line-height:1}
+  .rate-desc{font-size:11px;color:var(--muted);margin-top:5px;line-height:1.4}
+  .rate-delta{font-size:11px;margin-top:4px}
+  .rate-delta.ok{color:var(--forest)}
+  .rate-delta.flat{color:var(--muted)}
+  .rate-delta.warn{color:var(--warn)}
+
+  /* Callout */
+  .callout{border-left:3px solid var(--rust);background:var(--paper);padding:16px 20px;margin:20px 0;border-radius:0 2px 2px 0}
+  .callout p{font-family:'Source Serif 4',serif;font-style:italic;font-size:14.5px;color:var(--ink);margin-bottom:0;line-height:1.7}
+  .callout-attr{font-size:10.5px !important;color:var(--muted) !important;margin-top:8px !important;font-style:normal !important;font-family:'DM Sans',sans-serif !important;letter-spacing:0.05em}
+
+  /* Stat cards */
+  .stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:20px 0}
+  .stat-card{background:var(--paper);border-radius:2px;padding:13px 14px;border-top:2px solid var(--warn)}
+  .stat-card.ok{border-top-color:var(--forest)}
+  .stat-card.flat{border-top-color:var(--navy)}
+  .stat-card.gold{border-top-color:var(--gold)}
+  .stat-num{font-family:'Playfair Display',serif;font-size:21px;color:var(--ink);line-height:1}
+  .stat-label{font-size:11px;color:var(--muted);margin-top:5px;line-height:1.4}
+
+  /* Data boxes */
+  .data-box{border:1px solid rgba(30,58,95,0.18);background:var(--navy-lt);border-radius:2px;padding:18px 20px;margin:20px 0}
+  .data-label{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--navy);font-weight:500;margin-bottom:8px}
+  .data-box p{font-size:14px;color:#1A2D42;margin-bottom:8px;line-height:1.7}
+  .data-box p:last-child{margin-bottom:0}
+  .data-box strong{color:#0F1E2E}
+
+  /* Green */
+  .opp-box{border:1px solid rgba(47,107,62,0.2);background:var(--forest-lt);border-radius:2px;padding:20px 22px;margin:20px 0}
+  .opp-label{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--forest);font-weight:500;margin-bottom:8px}
+  .opp-box p{font-size:14px;color:#1C3D24;margin-bottom:8px;line-height:1.72}
+  .opp-box p:last-child{margin-bottom:0}
+  .opp-box strong{color:#122618}
+
+  /* Warn */
+  .warn-box{border:1px solid rgba(139,32,32,0.2);background:var(--warn-lt);border-radius:2px;padding:20px 22px;margin:20px 0}
+  .warn-label{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--warn);font-weight:500;margin-bottom:8px}
+  .warn-box p{font-size:14px;color:#2E0A0A;margin-bottom:8px;line-height:1.7}
+  .warn-box p:last-child{margin-bottom:0}
+  .warn-box strong{color:#1A0505}
+
+  /* Teal — asset depletion */
+  .asset-box{border:1px solid rgba(26,95,106,0.22);background:var(--teal-lt);border-radius:2px;padding:20px 22px;margin:20px 0}
+  .asset-label{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--teal);font-weight:500;margin-bottom:8px}
+  .asset-box p{font-size:14px;color:#0D2E33;margin-bottom:8px;line-height:1.72}
+  .asset-box p:last-child{margin-bottom:0}
+  .asset-box strong{color:#071A1D}
+
+  /* Asset calc example */
+  .calc-block{background:var(--ink);border-radius:2px;padding:20px 24px;margin:16px 0}
+  .calc-label{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:12px}
+  .calc-row{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid rgba(255,255,255,0.06)}
+  .calc-row:last-child{border-bottom:none;padding-top:12px;margin-top:4px}
+  .calc-row.total{border-top:1px solid rgba(255,255,255,0.15)}
+  .calc-desc{font-size:13px;color:rgba(248,244,238,0.6)}
+  .calc-val{font-family:'Playfair Display',serif;font-size:15px;color:#F8F4EE}
+  .calc-val.gold{color:var(--gold)}
+  .calc-val.forest{color:#7EC893}
+
+  /* Amber */
+  .watch-box{border:1px solid rgba(196,122,16,0.2);background:var(--amber-lt);border-radius:2px;padding:18px 20px;margin:20px 0}
+  .watch-label{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--amber);font-weight:500;margin-bottom:8px}
+  .watch-box p{font-size:14px;color:#3D2200;margin-bottom:8px;line-height:1.7}
+  .watch-box p:last-child{margin-bottom:0}
+  .watch-box strong{color:#1F1000}
+
+  /* Take */
+  .take-box{border:1px solid rgba(176,90,50,0.2);background:var(--rust-lt);border-radius:2px;padding:20px 22px;margin:20px 0}
+  .take-label{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--rust);font-weight:500;margin-bottom:8px}
+  .take-box p{font-size:14px;color:#3D1E0A;margin-bottom:8px;line-height:1.72}
+  .take-box p:last-child{margin-bottom:0}
+  .take-box strong{color:#231005}
+
+  /* Dark personal */
+  .dark-box{background:var(--ink);border-radius:2px;padding:24px 26px;margin:20px 0;position:relative;overflow:hidden}
+  .dark-box::before{content:'';position:absolute;top:-40px;right:-40px;width:160px;height:160px;border-radius:50%;background:radial-gradient(circle,rgba(194,145,58,0.1) 0%,transparent 70%);pointer-events:none}
+  .dark-label{font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:12px}
+  .dark-box p{font-size:14px;color:rgba(248,244,238,0.75);margin-bottom:10px;line-height:1.78}
+  .dark-box p:last-child{margin-bottom:0}
+  .dark-box strong{color:#F8F4EE}
+  .dark-box em{font-style:italic;color:rgba(248,244,238,0.55)}
+
+  /* Ornament */
+  .ornament{display:flex;align-items:center;gap:12px;margin:30px 0}
+  .ornament hr{flex:1;border:none;border-top:1px solid var(--rule)}
+  .ornament-mark{font-size:10px;color:var(--gold);letter-spacing:0.12em}
+
+  /* Closing */
+  .closing{font-family:'Source Serif 4',serif;font-size:14.5px;font-style:italic;color:var(--muted);line-height:1.75;padding-top:24px;border-top:1px solid var(--rule)}
+  .closing b{color:var(--ink);font-style:normal;font-weight:500}
+
+  /* Footer */
+  .footer{background:var(--paper);border-top:1px solid var(--rule);padding:18px 36px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px}
+  .footer-sig{font-family:'Source Serif 4',serif;font-style:italic;font-size:13px;color:var(--muted)}
+  .footer-sig b{color:var(--ink);font-style:normal;font-weight:500}
+  .footer-nmls{font-size:10px;color:rgba(106,99,88,0.4);letter-spacing:0.04em}
+
+  @media(max-width:560px){
+    .body{padding:28px 20px 24px}
+    .masthead-top{flex-direction:column}
+    .masthead-meta{text-align:left;border-left:none;border-top:1px solid rgba(255,255,255,0.06);padding:14px 36px}
+    .rate-row,.stat-row{grid-template-columns:1fr 1fr}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- MASTHEAD -->
+  <div class="masthead">
+    <div class="masthead-top">
+      <div class="brand">
+        <div class="brand-name">Measured</div>
+        <div class="brand-sub">A weekly note on mortgage decisions that matter</div>
+      </div>
+      <div class="masthead-meta">
+        <div class="meta-issue">Issue No. 15</div>
+        <div class="meta-date">Friday, August 7, 2026</div>
+      </div>
+    </div>
+    <div class="author-bar">
+      <div class="avatar">A</div>
+      <div>
+        <div class="author-name">Anthony · Loan Pronto</div>
+        <div class="author-role">Mortgage advisor · wholesale lending · plain English, always</div>
+      </div>
+    </div>
+    <div class="hero">
+      <div class="hero-kicker">This week in Measured</div>
+      <div class="hero-hed">The economy just lost jobs. Rates hit 6.69%. And a loan most advisors <em>don't know exists</em> is changing how high-net-worth clients buy homes.</div>
+      <div class="hero-deck">This morning's jobs report came in at -23,000 — the first outright loss in months. Rates are at their highest of 2026. And a Non-QM asset depletion loan that converts investment portfolios into qualifying income may be the most underutilized product in this market. All of it, below.</div>
+    </div>
+  </div>
+
+  <!-- BODY -->
+  <div class="body">
+
+    <p class="opener">Fifteen straight weeks. This one broke news this morning that changes the rate conversation more than anything in the past three months. The economy shed jobs in July — actually shed them, for the first time in a meaningful stretch — while rates climbed to their highest level of 2026. The contradiction between those two data points is the whole story of this market right now. Below: the full picture, a loan product that belongs in every financial advisor's toolkit, why the phone call with the realtor matters more than most LOs realize, and what willingness to fail actually looks like in practice. — Anthony</p>
+
+    <!-- SECTION 1: JOBS REPORT + RATES -->
+    <div class="section">
+      <div class="sec-label"><div class="sec-pip"></div><div class="sec-title">-23,000 jobs this morning — the first outright loss in months</div></div>
+
+      <p>The Bureau of Labor Statistics released the July employment report at 8:30am this morning and the headline stopped people mid-sentence: <strong>nonfarm payrolls fell by 23,000</strong> in July. Wall Street had expected a gain of 83,000. That's a miss of more than 100,000 jobs. It is the first outright monthly job loss since the labor market stalled in 2025 and the most significant labor market print of 2026 by a wide margin.</p>
+
+      <div class="stat-row">
+        <div class="stat-card warn">
+          <div class="stat-num">−23K</div>
+          <div class="stat-label">Jobs added July — vs. +83K expected. First outright loss in months.</div>
+        </div>
+        <div class="stat-card flat">
+          <div class="stat-num">4.1%</div>
+          <div class="stat-label">Unemployment rate — down from 4.2%, but for the wrong reason</div>
+        </div>
+        <div class="stat-card warn">
+          <div class="stat-num">−103K</div>
+          <div class="stat-label">May + June combined revisions — both months revised sharply lower</div>
+        </div>
+      </div>
+
+      <p>The details make the headline worse. Government jobs fell by <strong>53,000</strong> — led by a loss of 50,000 in local government education. Retail trade shed 19,000. The unemployment rate dipped to 4.1% from 4.2%, but the improvement came almost entirely from workers leaving the labor force — the labor force participation rate fell to <strong>61.4%</strong>, its lowest level in over five years. Average hourly earnings rose just 2 cents, pushing the 12-month wage growth rate down to <strong>3.2%</strong> — the lowest since May 2021.</p>
+
+      <p>May and June were also revised sharply lower — a combined <strong>103,000 fewer jobs</strong> than originally reported. The three-month average is now just 20,000 — a level consistent with a labor market that is stalling, not merely cooling. This is not a single bad month. <strong>It is the clearest signal yet that the Fed's higher-for-longer stance is extracting real cost from the labor market.</strong></p>
+
+      <div class="data-box">
+        <div class="data-label">📊 What This Does to the Rate Picture — Immediately</div>
+        <p>The jobs miss matters enormously for mortgage rates. Here's the transmission mechanism: weak jobs → reduced rate hike probability → bond markets rally → Treasury yields fall → mortgage rates improve. September rate hike probability, which had climbed back toward 60% on recent inflation data, will fall sharply in the coming days as the market absorbs this print.</p>
+        <p>The 10-year Treasury opened Friday at <strong>4.647%</strong> before easing slightly to <strong>4.639%</strong> as the session progressed. The market's first reaction to the jobs miss was muted — oil rising to <strong>$77.11</strong> and gold at <strong>$4,376</strong> kept inflation expectations elevated even as labor data softened. But the full repricing of September FOMC expectations will play out over the coming week. <strong>Citi's economics team — out-of-consensus for months — now has a well-founded basis for their call: three rate cuts between now and January 2027.</strong></p>
+        <p>The FOMC voted 9-3 to hold at last week's July 28-29 meeting. Three members wanted to cut. Before this morning's report that was a minority view. After it, the balance of risks has visibly shifted.</p>
+      </div>
+
+      <div class="rate-row">
+        <div class="rate-card warn">
+          <div class="rate-num">6.69%</div>
+          <div class="rate-desc">30-yr fixed<br>Freddie Mac, Aug 6 — new 2026 high</div>
+          <div class="rate-delta warn">↑ from 6.66% last week</div>
+        </div>
+        <div class="rate-card warn">
+          <div class="rate-num">6.01%</div>
+          <div class="rate-desc">15-yr fixed<br>Freddie Mac, Aug 6</div>
+          <div class="rate-delta ok">↓ from 6.04% last week</div>
+        </div>
+        <div class="rate-card flat">
+          <div class="rate-num">6.63%</div>
+          <div class="rate-desc">30-yr fixed<br>One year ago today</div>
+          <div class="rate-delta warn">↑ 6 bps worse YoY</div>
+        </div>
+      </div>
+
+      <div class="callout">
+        <p>While mortgage rates continue to influence affordability, the housing market is showing signs of adjustment, with listing prices modestly below year-ago levels and for-sale inventory improving from the limited supply seen in recent years.</p>
+        <p class="callout-attr">— Sam Khater, Chief Economist, Freddie Mac · August 6, 2026</p>
+      </div>
+
+      <p>One number worth sitting with: <strong>rates are now higher than a year ago</strong> on the 30-year. Last August the 30-year averaged 6.63%. Today it's 6.69%. The brief period of improvement from the Versailles deal in June — which brought rates to 6.43% — has been entirely erased. But today's jobs miss is the first meaningful catalyst for improvement since then. The next four weeks — CPI on August 12, PCE on August 28, Jackson Hole on August 22, September FOMC on September 15-16 — will determine whether this morning marks the beginning of a rate reversal or a temporary data blip in a higher-for-longer story.</p>
+    </div>
+
+    <!-- SECTION 2: ASSET DEPLETION LOAN -->
+    <div class="section">
+      <div class="sec-label"><div class="sec-pip"></div><div class="sec-title">The asset depletion loan — what it is, how it works, and why your FA needs to know about it</div></div>
+
+      <p>This section is for a specific borrower that most loan officers quietly struggle to help — and most financial advisors don't realize a solution exists. The borrower has significant investable assets. A well-managed portfolio. Potentially a business, real estate holdings, and real wealth by every observable measure. But their documented income on paper — especially if they're retired, running a business in a growth phase, or drawing minimally from their portfolio — doesn't tell the underwriter what their balance sheet tells everyone else. <strong>They are asset-rich and income-qualification-challenged. And they've been underserved by conventional lending for years.</strong></p>
+
+      <p>The product that changes this is called an <strong>asset depletion loan</strong> — also known as an asset qualifier or asset dissipation mortgage. It is a Non-QM loan that converts verified liquid assets into qualifying income, without requiring W-2s, tax returns, or proof of employment. The math is straightforward and, for the right borrower, extraordinarily powerful.</p>
+
+      <div class="asset-box">
+        <div class="asset-label">📐 How the Math Works — The 60-Month Divisor</div>
+        <p>The most aggressive Non-QM lenders use a <strong>60-month divisor</strong> — meaning your eligible liquid assets are divided by 60 months to generate a monthly qualifying income figure. This is the number that goes into the debt-to-income calculation. It's not money paid to the borrower. It's the income figure the underwriter uses to determine what loan the borrower can support.</p>
+        <p>Compare that to agency programs (Fannie Mae / Freddie Mac), which divide by <strong>360 months</strong> — producing one-sixth of the income and dramatically limiting loan size. The 60-month divisor is what makes Non-QM asset depletion work for high-net-worth borrowers with real purchasing power. <strong>Same assets, six times the qualifying income.</strong></p>
+      </div>
+
+      <div class="calc-block">
+        <div class="calc-label">🔢 Asset Depletion — Working Example</div>
+        <div class="calc-row">
+          <span class="calc-desc">Total liquid assets (brokerage + cash)</span>
+          <span class="calc-val">$1,500,000</span>
+        </div>
+        <div class="calc-row">
+          <span class="calc-desc">Less: down payment + closing costs</span>
+          <span class="calc-val">− $250,000</span>
+        </div>
+        <div class="calc-row">
+          <span class="calc-desc">Eligible assets remaining</span>
+          <span class="calc-val">$1,250,000</span>
+        </div>
+        <div class="calc-row">
+          <span class="calc-desc">÷ 60 months (Non-QM divisor)</span>
+          <span class="calc-val gold">= $20,833 / mo qualifying income</span>
+        </div>
+        <div class="calc-row total">
+          <span class="calc-desc">Supports loan of approximately</span>
+          <span class="calc-val forest">~$1,000,000 – $1,200,000</span>
+        </div>
+      </div>
+
+      <p>The same $1,500,000 in assets under a conventional agency program — dividing by 360 — produces just <strong>$3,472/month</strong> in qualifying income. That number won't get a meaningful loan done. The 60-month Non-QM program produces $20,833/month and closes deals that conventional lending simply cannot touch.</p>
+
+      <div class="opp-box">
+        <div class="opp-label">💡 Why This Product Is Built for FA Clients Specifically</div>
+        <p>Financial advisors work with exactly the clients this loan was designed for. The retired executive with $2M under management and a portfolio income that doesn't look like a W-2. The business owner taking minimal salary in a growth year. The inherited wealth client who has never drawn meaningfully on their assets and whose tax returns look like a puzzle. <strong>These clients want to buy homes — sometimes significant homes — and have consistently been told conventional lending can't help them.</strong></p>
+        <p>Here's the strategic layer that makes this conversation even more valuable for the FA: the asset depletion loan allows the client to <strong>keep their assets invested and growing</strong> rather than liquidating to buy the home. A client with $2M in a well-managed portfolio facing a $500,000 purchase doesn't need to pull half their portfolio out of the market. They use the asset depletion loan, put down 20%, finance the rest using the portfolio as the income qualifier, and keep the remaining assets working. <strong>The FA keeps the AUM. The client keeps the growth. The mortgage gets done.</strong></p>
+        <p>The rate trade-off is real: Non-QM asset depletion loans typically price <strong>50–150 basis points above conventional</strong> — at today's market, that means rates in the high 6s to mid 7s depending on FICO and LTV. But for a borrower choosing between liquidating $500,000 from a portfolio generating 8–10% annually and paying a 7.25% mortgage rate, the math heavily favors keeping the assets invested. That's the conversation the FA and the mortgage advisor need to have together.</p>
+      </div>
+
+      <div class="asset-box">
+        <div class="asset-label">📋 What Qualifies — and What Doesn't</div>
+        <p><strong>Eligible assets (counted at or near 100%):</strong> Cash, checking, savings, CDs, money market funds. These are fully liquid with no volatility discount.</p>
+        <p><strong>Eligible assets with haircuts:</strong> Stocks, bonds, mutual funds, ETFs — typically counted at <strong>70–80%</strong> of market value to buffer against volatility. Brokerage accounts generally qualify at this level.</p>
+        <p><strong>Retirement accounts:</strong> Counted at <strong>60–70%</strong> if the borrower is under retirement age (the penalty-withdrawal discount). Rises to 80–90%+ once penalty-free withdrawals are available. The specific percentage varies by lender — always confirm.</p>
+        <p><strong>What does NOT qualify:</strong> Real estate equity (not liquid), business ownership interests (not verifiable as liquid monthly income), unvested stock options. These are wealth, but they cannot be divided and deployed monthly in the underwriting model. For real estate equity specifically, a cash-out refi or DSCR product is the right path.</p>
+        <p><strong>Minimum requirements (Non-QM 60-month programs):</strong> Typically 700 FICO minimum, 20% down payment, post-closing asset reserves of the greater of $500,000 or the loan amount plus 60 months of debt service. These are real requirements — this is not a low-documentation product for under-qualified borrowers. It is a different documentation method for correctly qualified ones.</p>
+      </div>
+
+      <div class="take-box">
+        <div class="take-label">Anthony's Take — Why I Want Every FA I Work With to Know This Exists</div>
+        <p>I've had the conversation too many times: a financial advisor refers a client, the client has $1.5 million under management, they want to buy a $900,000 home, and the income picture doesn't support a conventional loan. Most of those conversations used to end at "I'll refer you to a private bank" or "you'll need to liquidate some assets." Neither answer serves the client well.</p>
+        <p>The asset depletion loan changes that outcome. It is a legitimate, well-structured Non-QM product with real underwriting discipline — not a workaround. The higher rate is a real trade-off. But for the right client — asset-rich, income-qualified by balance sheet rather than pay stub — it's the conversation that closes the deal and preserves the relationship on both sides. <strong>If you're a financial advisor reading this and you've had a client in this situation, reach out. I'd rather talk through the scenario before they give up than after.</strong></p>
+      </div>
+    </div>
+
+    <!-- SECTION 3: GET ON THE PHONE WITH REALTORS -->
+    <div class="section">
+      <div class="sec-label"><div class="sec-pip"></div><div class="sec-title">Stop playing middle man — why the call with the buyer's agent changes everything</div></div>
+
+      <p>There's a version of this job that most loan officers default to: receive the application, send the pre-approval, answer the borrower's questions, and let the real estate agent and borrower manage the offer strategy between themselves. The LO shows up when documents are needed and disappears in between.</p>
+
+      <p>That version of the job leaves deals on the table. It leaves clients underserved. And it leaves real estate agents without a partner they can actually count on — which means they send the next deal to someone else.</p>
+
+      <div class="dark-box">
+        <div class="dark-label">📞 What Actually Happens When You Get on the Phone with the Agent</div>
+        <p>The buyer's agent knows things the borrower often doesn't. They know what the seller's situation is, what concessions are realistic, whether a quick close is more valuable than a higher price in this particular deal, what the appraisal risk looks like on the property, and whether competing offers are likely. <strong>That context is the difference between a pre-approval letter and a winning offer strategy.</strong></p>
+        <p>When you pick up the phone and call the agent directly — not as an order-taker, but as a collaborator — the conversation changes. You find out the seller needs 45 days but your borrower can close in 21. You find out there's a competing cash offer and you need to structure a bridge scenario or escalation clause. You find out the asking price is $30,000 above the likely appraisal and the borrower needs to be prepared for that gap.</p>
+        <p>None of that information arrives in the loan application. All of it affects the outcome of the transaction. <strong>The loan officers who make that call are the ones agents remember. The ones who don't are the ones agents swap out on the next deal.</strong></p>
+        <p>It's also a different conversation with the agent than the borrower's version of events. Borrowers sometimes filter what they tell the lender. Agents almost never do — they need the deal to close and they need a lender who understands the full picture. When you call the agent, you learn the real story. That's the call that gets done right.</p>
+      </div>
+
+      <p>The practical rule: on every purchase transaction, call the buyer's agent before the pre-approval letter goes out. Learn the property, the seller's situation, and the competitive landscape. Then structure the pre-approval — and the rate lock strategy — around what you actually know, not what the borrower guessed. <strong>That call takes ten minutes and changes the probability of closing meaningfully. Almost no one does it consistently. That is exactly why it's the advantage.</strong></p>
+    </div>
+
+    <!-- SECTION 4: WILLINGNESS TO FAIL -->
+    <div class="section">
+      <div class="sec-label"><div class="sec-pip"></div><div class="sec-title">The willingness to fail — why the risk of a no is where all the growth is</div></div>
+
+      <p>Something I've been thinking about more as the referral business grows: the gap between advisors who have comfortable, predictable pipelines and advisors who build genuinely expanding businesses is almost never skill. It's almost always willingness to put themselves in situations where the answer might be no.</p>
+
+      <p>It's easy to work with agents you already have relationships with. The repeat calls, the reliable closings, the comfortable dynamic — none of that requires risk. But the agent sending you three deals a month was a stranger once. Somewhere in that history is a first call you made, a first meeting you asked for, a first deal you probably had to earn. That moment was uncomfortable. The outcome was not guaranteed.</p>
+
+      <div class="dark-box">
+        <div class="dark-label">On Compounding Failure Into Success</div>
+        <p>The advisors I've watched build the most durable businesses are not the ones who failed the least. They're the ones who failed the most — and kept going anyway. They asked agents for business who said no. They followed up on referrals that went cold. They showed up at events where they didn't know anyone and introduced themselves to rooms full of people who had no reason to care yet.</p>
+        <p>Each no is a data point. Each awkward conversation is practice. Each relationship that doesn't go anywhere is still a person who knows your name and might remember it when something changes. <strong>The willingness to fail is not just a character trait. It's a compounding asset. The more rejection you absorb without pulling back, the more surface area you have for success to land on.</strong></p>
+        <p>The comfortable version of this business — the one that depends entirely on the relationships you already have — is fragile. Agents retire. Clients move. Markets shift. The advisor who has only ever worked with people they already know has a pipeline that is one life change away from stalling. The advisor who has consistently put themselves in new rooms, made new calls, and accepted the discomfort of asking — that business compounds in a way the comfortable one never does.</p>
+        <p><em>The goal is not to be unafraid of failure. The goal is to do the thing anyway — and to let the accumulated attempts do the work that talent alone never will.</em></p>
+      </div>
+
+      <p>Practically: pick one agent this week you don't currently work with but respect. Make the call. Not to pitch. To learn. What are they seeing in their market? What do their clients struggle with most? What does their ideal lending partner look like? Listen for ten minutes. <strong>The answer to that question is a roadmap for becoming exactly what they need — and that is how referral relationships actually begin.</strong></p>
+    </div>
+
+    <!-- SECTION 5: WHAT TO WATCH -->
+    <div class="section">
+      <div class="sec-label"><div class="sec-pip"></div><div class="sec-title">What to watch the next four weeks</div></div>
+
+      <div class="watch-box">
+        <div class="watch-label">📅 August 7 – September 5, 2026</div>
+        <p><strong>Next week — bond market repricing.</strong> Today's jobs miss will drive a sustained repricing of September FOMC expectations. Watch the 10-year Treasury closely next week — if it breaks below <strong>4.50%</strong> on the jobs data, mortgage rates will follow. That is the level that meaningfully changes what buyers can afford. The market will reprice this data through Monday and Tuesday especially.</p>
+        <p><strong>Tuesday August 12 — CPI for July.</strong> The most important remaining data point of the summer. June CPI came in at 3.8%. If July reflects any moderation — and today's weak wage data at 3.2% YoY growth is encouraging — a print at or below 3.4% combined with today's jobs miss could begin a meaningful rate improvement trend into September.</p>
+        <p><strong>Friday August 22 — Jackson Hole.</strong> Warsh's address here will set the tone for September. With three FOMC members already calling for cuts, and the jobs market now showing outright losses, the probability that Warsh signals patience — rather than additional tightening — has increased materially this morning. A dovish Jackson Hole speech is the catalyst that could bring rates below 6.40% before Labor Day.</p>
+        <p><strong>Thursday August 28 — PCE Inflation (July).</strong> The Fed's preferred gauge. If it confirms what today's wage data suggests — that inflationary pressure is easing in the labor market — the September rate cut case gets materially stronger. Every basis point of PCE improvement translates almost directly to bond yield movement.</p>
+        <p><strong>Monday September 15 – Tuesday September 16 — FOMC Meeting.</strong> Before this morning, a hike was the primary risk here. After this morning, a hold with a clear signal toward cuts is the most likely outcome. September 15–16 now has a plausible path to being the meeting where the Fed pivots its tone definitively — and the mortgage rate environment follows.</p>
+      </div>
+    </div>
+
+    <!-- ORNAMENT -->
+    <div class="ornament"><hr><div class="ornament-mark">· · ·</div><hr></div>
+
+    <p class="closing">Fifteen issues. The jobs market just cracked. Rates are at their highest level of the year. And the next four weeks of data will either confirm a turning point or extend the higher-for-longer story into the fall. The asset depletion conversation opens a door for a specific borrower that most advisors walk past without trying. The phone call with the realtor changes the deal. And the willingness to sit in uncomfortable rooms is where the business that doesn't exist yet begins to take shape. Reply whenever you're ready. <b>— Anthony</b></p>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-sig">Written by <b>Anthony</b> · Loan Pronto · August 7, 2026</div>
+    <div class="footer-nmls">NMLS #2096979 · Equal Housing Lender</div>
+  </div>
+
+</div>
+</body>
+</html>
