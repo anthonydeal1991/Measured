@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Measured — Issue No. 16 · September 26, 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,400;1,500&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;1,8..60,300&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --paper:#F8F4EE;--white:#FDFBF8;--ink:#1A1915;--muted:#6A6358;
+    --rule:rgba(26,25,21,0.09);--rust:#B05A32;--rust-lt:#ECD9CE;
+    --gold:#C2913A;--forest:#2F6B3E;--forest-lt:#D4E8D9;
+    --navy:#1E3A5F;--navy-lt:#D2DFF0;--amber:#C47A10;--amber-lt:#FAE9CB;
+    --warn:#8B2020;--warn-lt:#F5D5D5;
+  }
+  body{font-family:'DM Sans',sans-serif;background:#EDE8DF;color:var(--ink);padding:32px 16px 64px}
+  .wrap{max-width:620px;margin:0 auto;background:var(--white);border-radius:2px;overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,0.04),0 8px 24px rgba(0,0,0,0.07),0 32px 64px rgba(0,0,0,0.07)}
+
+  /* MASTHEAD */
+  .masthead{background:var(--ink)}
+  .masthead-top{display:flex;align-items:stretch;border-bottom:1px solid rgba(255,255,255,0.06)}
+  .brand{flex:1;padding:22px 36px}
+  .brand-name{font-family:'Playfair Display',serif;color:#F8F4EE;font-size:24px;letter-spacing:0.01em;line-height:1}
+  .brand-sub{font-size:10px;color:rgba(248,244,238,0.35);letter-spacing:0.12em;text-transform:uppercase;margin-top:5px}
+  .masthead-meta{padding:22px 36px;text-align:right;border-left:1px solid rgba(255,255,255,0.06);display:flex;flex-direction:column;justify-content:center;gap:4px}
+  .meta-issue{font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold)}
+  .meta-date{font-size:11px;color:rgba(248,244,238,0.3)}
+  .author-bar{background:var(--rust-lt);padding:14px 36px;display:flex;align-items:center;gap:13px}
+  .avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--rust));display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:17px;color:white;flex-shrink:0;box-shadow:0 2px 6px rgba(176,90,50,0.3)}
+  .author-name{font-size:13.5px;font-weight:500;color:var(--ink)}
+  .author-role{font-size:11.5px;color:var(--muted);margin-top:1px}
+
+  /* HERO */
+  .hero{background:var(--ink);padding:36px 36px 32px;border-top:1px solid rgba(255,255,255,0.04);position:relative;overflow:hidden}
+  .hero::after{content:'';position:absolute;top:-80px;right:-60px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(194,145,58,0.07) 0%,transparent 65%);pointer-events:none}
+  .hero-kicker{font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:16px}
+  .hero-hed{font-family:'Playfair Display',serif;font-size:28px;line-height:1.22;color:#F8F4EE;margin-bottom:14px;max-width:500px}
+  .hero-hed em{font-style:italic;color:var(--gold)}
+  .hero-deck{font-size:13.5px;color:rgba(248,244,238,0.48);line-height:1.65;max-width:460px}
+
+  /* BODY */
+  .body{padding:36px 36px 32px}
+  .opener{font-family:'Source Serif 4',serif;font-size:15px;line-height:1.78;color:var(--ink);font-style:italic;padding-bottom:28px;border-bottom:1px solid var(--rule);margin-bottom:32px}
+  p{font-size:14.5px;line-height:1.78;color:#38342E;margin-bottom:15px}
+  p:last-child{margin-bottom:0}
+  strong{color:var(--ink);font-weight:500}
+  .section{margin-bottom:34px;padding-bottom:34px;border-bottom:1px solid var(--rule)}
+  .section:last-of-type{border-bottom:none;margin-bottom:0;padding-bottom:0}
+  .sec-label{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+  .sec-pip{width:6px;height:6px;border-radius:50%;background:var(--rust);flex-shrink:0}
+  .sec-title{font-family:'Playfair Display',serif;font-size:17px;color:var(--ink);font-weight:500}
+
+  /* Rate cards */
+  .rate-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:20px 0}
+  .rate-card{background:var(--paper);border-radius:2px;padding:14px 15px;border-top:2px solid var(--rule)}
+  .rate-card.ok{border-top-color:var(--forest)}
+  .rate-card.flat{border-top-color:var(--navy)}
+  .rate-card.warn{border-top-color:var(--warn)}
+  .rate-num{font-family:'Playfair Display',serif;font-size:22px;color:var(--ink);line-height:1}
+  .rate-desc{font-size:11px;color:var(--muted);margin-top:5px;line-height:1.4}
+  .rate-delta{font-size:11px;margin-top:4px}
+  .rate-delta.ok{color:var(--forest)}
+  .rate-delta.flat{color:var(--muted)}
+  .rate-delta.warn{color:var(--warn)}
+
+  /* Callout */
+  .callout{border-left:3px solid var(--rust);background:var(--paper);padding:16px 20px;margin:20px 0;border-radius:0 2px 2px 0}
+  .callout p{font-family:'Source Serif 4',serif;font-style:italic;font-size:14.5px;color:var(--ink);margin-bottom:0;line-height:1.7}
+  .callout-attr{font-size:10.5px !important;color:var(--muted) !important;margin-top:8px !important;font-style:normal !important;font-family:'DM Sans',sans-serif !important;letter-spacing:0.05em}
+
+  /* Stat row */
+  .stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:20px 0}
+  .stat-card{background:var(--paper);border-radius:2px;padding:13px 14px;border-top:2px solid var(--warn)}
+  .stat-card.ok{border-top-color:var(--forest)}
+  .stat-card.flat{border-top-color:var(--navy)}
+  .stat-card.gold{border-top-color:var(--gold)}
+  .stat-num{font-family:'Playfair Display',serif;font-size:21px;color:var(--ink);line-height:1}
+  .stat-label{font-size:11px;color:var(--muted);margin-top:5px;line-height:1.4}
+
+  /* Navy data */
+  .data-box{border:1px solid rgba(30,58,95,0.18);background:var(--navy-lt);border-radius:2px;padding:18px 20px;margin:20px 0}
+  .data-label{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--navy);font-weight:500;margin-bottom:8px}
+  .data-box p{font-size:14px;color:#1A2D42;margin-bottom:8px;line-height:1.7}
+  .data-box p:last-child{margin-bottom:0}
+  .data-box strong{color:#0F1E2E}
+
+  /* Warn */
+  .warn-box{border:1px solid rgba(139,32,32,0.2);background:var(--warn-lt);border-radius:2px;padding:20px 22px;margin:20px 0}
+  .warn-label{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--warn);font-weight:500;margin-bottom:8px}
+  .warn-box p{font-size:14px;color:#2E0A0A;margin-bottom:8px;line-height:1.7}
+  .warn-box p:last-child{margin-bottom:0}
+  .warn-box strong{color:#1A0505}
+
+  /* Green */
+  .opp-box{border:1px solid rgba(47,107,62,0.2);background:var(--forest-lt);border-radius:2px;padding:20px 22px;margin:20px 0}
+  .opp-label{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--forest);font-weight:500;margin-bottom:8px}
+  .opp-box p{font-size:14px;color:#1C3D24;margin-bottom:8px;line-height:1.72}
+  .opp-box p:last-child{margin-bottom:0}
+  .opp-box strong{color:#122618}
+
+  /* Amber watch */
+  .watch-box{border:1px solid rgba(196,122,16,0.2);background:var(--amber-lt);border-radius:2px;padding:18px 20px;margin:20px 0}
+  .watch-label{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--amber);font-weight:500;margin-bottom:8px}
+  .watch-box p{font-size:14px;color:#3D2200;margin-bottom:8px;line-height:1.7}
+  .watch-box p:last-child{margin-bottom:0}
+  .watch-box strong{color:#1F1000}
+
+  /* Take */
+  .take-box{border:1px solid rgba(176,90,50,0.2);background:var(--rust-lt);border-radius:2px;padding:20px 22px;margin:20px 0}
+  .take-label{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--rust);font-weight:500;margin-bottom:8px}
+  .take-box p{font-size:14px;color:#3D1E0A;margin-bottom:8px;line-height:1.72}
+  .take-box p:last-child{margin-bottom:0}
+  .take-box strong{color:#231005}
+
+  /* Dark personal */
+  .dark-box{background:var(--ink);border-radius:2px;padding:24px 26px;margin:20px 0;position:relative;overflow:hidden}
+  .dark-box::before{content:'';position:absolute;top:-40px;right:-40px;width:160px;height:160px;border-radius:50%;background:radial-gradient(circle,rgba(194,145,58,0.1) 0%,transparent 70%);pointer-events:none}
+  .dark-label{font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:12px}
+  .dark-box p{font-size:14px;color:rgba(248,244,238,0.75);margin-bottom:10px;line-height:1.78}
+  .dark-box p:last-child{margin-bottom:0}
+  .dark-box strong{color:#F8F4EE}
+  .dark-box em{font-style:italic;color:rgba(248,244,238,0.55)}
+
+  /* Ornament */
+  .ornament{display:flex;align-items:center;gap:12px;margin:30px 0}
+  .ornament hr{flex:1;border:none;border-top:1px solid var(--rule)}
+  .ornament-mark{font-size:10px;color:var(--gold);letter-spacing:0.12em}
+
+  /* Closing */
+  .closing{font-family:'Source Serif 4',serif;font-size:14.5px;font-style:italic;color:var(--muted);line-height:1.75;padding-top:24px;border-top:1px solid var(--rule)}
+  .closing b{color:var(--ink);font-style:normal;font-weight:500}
+
+  /* Footer */
+  .footer{background:var(--paper);border-top:1px solid var(--rule);padding:18px 36px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px}
+  .footer-sig{font-family:'Source Serif 4',serif;font-style:italic;font-size:13px;color:var(--muted)}
+  .footer-sig b{color:var(--ink);font-style:normal;font-weight:500}
+  .footer-nmls{font-size:10px;color:rgba(106,99,88,0.4);letter-spacing:0.04em}
+
+  @media(max-width:560px){
+    .body{padding:28px 20px 24px}
+    .masthead-top{flex-direction:column}
+    .masthead-meta{text-align:left;border-left:none;border-top:1px solid rgba(255,255,255,0.06);padding:14px 36px}
+    .rate-row,.stat-row{grid-template-columns:1fr 1fr}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- MASTHEAD -->
+  <div class="masthead">
+    <div class="masthead-top">
+      <div class="brand">
+        <div class="brand-name">Measured</div>
+        <div class="brand-sub">A weekly note on mortgage decisions that matter</div>
+      </div>
+      <div class="masthead-meta">
+        <div class="meta-issue">Issue No. 16</div>
+        <div class="meta-date">Monday, September 28, 2026</div>
+      </div>
+    </div>
+    <div class="author-bar">
+      <div class="avatar">A</div>
+      <div>
+        <div class="author-name">Anthony · Loan Pronto</div>
+        <div class="author-role">Mortgage advisor · wholesale lending · plain English, always</div>
+      </div>
+    </div>
+    <div class="hero">
+      <div class="hero-kicker">Issue No. 16 — Measured is back</div>
+      <div class="hero-hed">The most important data week of 2026 starts <em>Tuesday morning.</em></div>
+      <div class="hero-deck">PCE on Tuesday. The jobs report on Friday. The October FOMC hike at 70% probability. The 10-year Treasury at a 19-year high. Everything that happens to rates between now and year-end gets decided in the next five days. Here's where things stand — and what to watch, hour by hour.</div>
+    </div>
+  </div>
+
+  <!-- BODY -->
+  <div class="body">
+
+    <p class="opener">I owe you an honest explanation before anything else. Measured went quiet for a few weeks — and it wasn't because nothing was happening in the market. It was because I was heads down playing general contractor on a house in Steele Creek. Subcontractors, decisions, timelines, problems I didn't plan for — all of it. It was not an easy thing to manage, and it consumed more of me than I expected. The good news: it's finally finished. I'm back, finding my groove again at work, and Issue 16 is long overdue. Let's get you caught up. — Anthony</p>
+
+    <!-- SECTION 1: THE FED HIKE + RATES -->
+    <div class="section">
+      <div class="sec-label"><div class="sec-pip"></div><div class="sec-title">The September Freddie Mac sequence — how we got from 6.71% to where we are today</div></div>
+
+      <p>On September 16, the Federal Open Market Committee voted <strong>unanimously — 12 to 0</strong> — to raise the federal funds rate by 25 basis points to a target range of <strong>3.75% to 4.00%</strong>. The first hike since 2023. But that decision didn't appear in a vacuum — rates had been climbing for weeks before the FOMC met. Here is the confirmed Freddie Mac weekly sequence for September, from primary sources:</p>
+
+      <div class="rate-row">
+        <div class="rate-card flat">
+          <div class="rate-num">6.71%</div>
+          <div class="rate-desc">Sept 3<br>Freddie Mac PMMS</div>
+          <div class="rate-delta flat">↑ from 6.66% Aug 27</div>
+        </div>
+        <div class="rate-card flat">
+          <div class="rate-num">6.76%</div>
+          <div class="rate-desc">Sept 10<br>Freddie Mac PMMS</div>
+          <div class="rate-delta flat">↑ from 6.71% prior week</div>
+        </div>
+        <div class="rate-card warn">
+          <div class="rate-num">6.95%</div>
+          <div class="rate-desc">Sept 17<br>First survey post-hike</div>
+          <div class="rate-delta warn">↑ 19 bps in one week</div>
+        </div>
+      </div>
+
+      <div class="rate-row">
+        <div class="rate-card warn">
+          <div class="rate-num">7.03%</div>
+          <div class="rate-desc">Sept 24<br>Freddie Mac PMMS — above 7%</div>
+          <div class="rate-delta warn">↑ 8 bps from prior week</div>
+        </div>
+        <div class="rate-card warn">
+          <div class="rate-num">7.23–7.36%</div>
+          <div class="rate-desc">Today, Sept 28<br>Optimal Blue / Bankrate real-time</div>
+          <div class="rate-delta warn">↑ continued move this morning</div>
+        </div>
+        <div class="rate-card warn">
+          <div class="rate-num">6.30%</div>
+          <div class="rate-desc">One year ago today<br>Sept 25, 2025</div>
+          <div class="rate-delta warn">↑ 73–100 bps worse YoY</div>
+        </div>
+      </div>
+
+      <p>The September 10 reading — 6.76% — was the last week the 30-year was clearly below 7% on the Freddie Mac survey. <strong>Rates crossed 7% on the September 24 reading, the first time above that threshold since January 2025.</strong> The move from 6.71% on September 3 to 7.03% on September 24 is 32 basis points in three weeks — driven by the 10-year Treasury climbing to a 19-year high of 5.18% and oil pushing back above $94 per barrel. Today the 10-year is at 5.209%, and real-time rate data from Optimal Blue sits at 7.23% with Bankrate at 7.36%. The Freddie Mac weekly survey is always a few days behind the live market.</p>
+
+      <p>For a well-qualified borrower in the wholesale channel today, the actual rate conversation is in the <strong>6.75–7.00% range</strong> — the 0.375–0.50% wholesale advantage is more meaningful right now than at any point this year. The 15-year moved from 6.04% on September 3 to 6.42% on September 24. A year ago the 30-year averaged 6.30%. The year-over-year gap is now 73–100 basis points depending on the source and date of comparison.</p>
+
+      <div class="warn-box">
+        <div class="warn-label">⚠️ What's Driving This — And What Comes Next</div>
+        <p>Three forces in overlap: the Fed hike — unanimous, first in three years, with 16 of 19 FOMC members projecting at least one more before year-end. The 10-year Treasury at 5.18–5.21% — reflecting persistent inflation, fiscal concerns, and higher-for-longer policy expectations. And oil back above $94 per barrel, keeping energy-driven inflation elevated and removing any cover for the Fed to pause.</p>
+        <p>The one potential relief valve: signs have emerged that U.S. and Iranian negotiators may be exploring a phased agreement to reopen the Strait of Hormuz, which briefly pulled the 10-year off its highs Friday. Markets are currently pricing a <strong>70% probability of another 25-basis-point hike at the October 28 meeting</strong>. Tuesday's PCE release and Friday's jobs report will move that probability more than anything else this week.</p>
+      </div>
+
+      <div class="callout">
+        <p>The housing market remains supported by a solid labor market and an economy that is growing at a healthy rate.</p>
+        <p class="callout-attr">— Sam Khater, Chief Economist, Freddie Mac · September 24, 2026</p>
+      </div>
+    </div>
+
+    <!-- SECTION 2: HOUSING MARKET — PEOPLE ARE STILL BUYING -->
+    <div class="section">
+      <div class="sec-label"><div class="sec-pip"></div><div class="sec-title">Rates have been above 7% for over a week — and people are still buying houses</div></div>
+
+      <p>Three purchase clients this week. I want to sit with that for a moment before diving into the data, because it says something that a rate chart doesn't: <strong>motivated buyers with real reasons to move are not waiting for a number on a screen to change.</strong> Life doesn't pause for rate cycles. Families grow. Jobs move. Estates settle. Downsizing decisions get made on a Tuesday morning when someone sees a price cut they've been watching for months.</p>
+
+      <p>The national data confirms what I'm seeing on the ground. Here's the September 2026 housing picture in plain numbers:</p>
+
+      <div class="stat-row">
+        <div class="stat-card gold">
+          <div class="stat-num">$395K</div>
+          <div class="stat-label">National median home sale price — August 2026, up 2.1% YoY</div>
+        </div>
+        <div class="stat-card flat">
+          <div class="stat-num">1.42M</div>
+          <div class="stat-label">Homes for sale nationally — up 4.4% YoY, highest since pre-pandemic</div>
+        </div>
+        <div class="stat-card flat">
+          <div class="stat-num">56</div>
+          <div class="stat-label">Average days on market nationally — market is slower, not stopped</div>
+        </div>
+      </div>
+
+      <p>Prices are not declining nationally — the median sale price of $395,000 in August was up 2.1% year-over-year. What is changing is <strong>negotiating leverage</strong>. With 1.42 million active listings — up 42.7% from three years ago — buyers are finding more choices, more days to decide, and more willingness from sellers to cover closing costs or offer rate buydowns. <strong>The buyers who have been pre-approved and waiting for the market to "improve" are discovering that the best leverage point isn't a lower rate. It's a motivated seller in a market with more inventory than buyers.</strong></p>
+
+      <div class="opp-box">
+        <div class="opp-label">📅 Realtor.com: The Best Week to Buy Is Right Now</div>
+        <p>Realtor.com's annual analysis of historical housing data identified the <strong>week of September 27 – October 3</strong> as the statistically optimal time to buy a home nationally. Their data shows this window typically offers 32% more active listings than the start of the year and approximately <strong>$14,000 in savings</strong> compared to summer's price peak. List prices are projected to run about 3.5% below their seasonal high during this final week of September.</p>
+        <p>That is not a rate story. It is an inventory and negotiation story. And it is happening right now, in this window, regardless of where the 10-year Treasury is trading. <strong>A buyer who is pre-approved this week is buying into the best seller-negotiation environment of the year — and through the wholesale channel, they're accessing a rate that's 0.375–0.50% below what the retail headline suggests.</strong></p>
+      </div>
+
+      <p>Getting a home ready to sell is its own story — one I understand better than I did a few months ago. The Steele Creek house is finally done, and I won't pretend it was easy. Between managing contractors, making decisions I wasn't trained to make, and handling problems that showed up without warning, it was a real education in what sellers go through before a home ever hits the market. The people listing homes that need work right now are navigating that same exhaustion. That context changes how you advise clients on pricing, timing, and realistic expectations — because you've lived a version of it yourself.</p>
+    </div>
+
+    <!-- SECTION 3: BE AVAILABLE -->
+    <div class="section">
+      <div class="sec-label"><div class="sec-pip"></div><div class="sec-title">Be available when others aren't — the pre-approval that came before 8am</div></div>
+
+      <p>One of the three purchases this week came in a way I want to share because it's a simple reminder of something that gets forgotten in a busy market.</p>
+
+      <p>A past client — someone I did a cash-out refinance for last year — is downsizing. He's been watching a specific area, tracking prices. Earlier this week, before 8am, he saw a price cut hit on a house in Lincolnton. Ten thousand dollars off. He called me five minutes later. By the time he was done with his coffee, he had a pre-approval letter in his inbox and an agent on the phone.</p>
+
+      <div class="dark-box">
+        <div class="dark-label">On Being Available</div>
+        <p>That deal didn't happen because I had the best rate or the most sophisticated CRM. It happened because I picked up the phone before 8am. The window between a buyer seeing a price cut and making an offer can be hours in a market with real competition. A client who has to wait until business hours to reach their lender is a client who might lose the deal — or worse, find another lender who was available.</p>
+        <p><strong>Availability is a competitive advantage that most people in this business underestimate.</strong> It doesn't mean being on call 24 hours a day without boundaries. It means that your best clients — the ones who trust you, who you've served well, who refer you business — know that when something real shows up, you'll be there. That reputation is built one answered call at a time. <em>You can't manufacture it. You can only earn it.</em></p>
+      </div>
+    </div>
+
+    <!-- SECTION 4: WHAT TO WATCH -->
+    <div class="section">
+      <div class="sec-label"><div class="sec-pip"></div><div class="sec-title">This week is one of the most data-heavy of 2026 — here's every release that matters</div></div>
+
+      <div class="watch-box">
+        <div class="watch-label">📅 This Week Is One of the Most Important of the Year — Sept 29 – Oct 3</div>
+        <p><strong>Monday Sept 29 — JOLTS (Job Openings, August) · 10:00am ET.</strong> The first major data point of the week. Job openings peaked above 12 million in 2022 and have been steadily declining. A reading below 7.5 million signals real labor market softening — bond-market friendly. This sets the tone heading into a heavy-data Tuesday.</p>
+        <p><strong>Tuesday Sept 30 — PCE Inflation (August) · 8:30am ET.</strong> This is the big one. The Fed's preferred inflation gauge — the exact number Warsh cited when he hiked on September 16. Core PCE has been running above 3% all year. If August shows even modest moderation toward 2.8–3.0%, the market will immediately reprice the probability of an October hike lower. Rates could improve 15–25 basis points within hours of this release. A hot print at 3.3%+ cements October as a live hike meeting. <strong>Set an alarm. This number matters more for your borrowers than anything else this week.</strong></p>
+        <p><strong>Tuesday Sept 30 — Q2 GDP Third Estimate · 8:30am ET.</strong> Released simultaneously with PCE. The third and final read on Q2 economic growth. Consensus is around 2.1% annualized. A downward revision toward 1.5% or below introduces recession risk into the conversation and is paradoxically favorable for rates — the Fed has less room to keep hiking if the economy is slowing.</p>
+        <p><strong>Wednesday Oct 1 — ISM Manufacturing PMI · 10:00am ET.</strong> A reading above 50 = expansion; below 50 = contraction. Manufacturing has been in contraction territory for much of 2026. A second consecutive sub-48 reading reinforces the slowdown narrative and softens rate hike expectations going into October 28.</p>
+        <p><strong>Friday Oct 2 — Jobs Report (September) · 8:30am ET.</strong> The single most market-moving release of the month. July printed -23,000 — a genuine job loss. August is expected to bounce back toward 80,000–100,000. If September comes in soft again, the October hike discussion becomes a hold discussion almost immediately. If it prints above 150,000, Warsh hikes October 28 and the 30-year pushes toward 7.50%. <strong>This number will define the rate environment through year-end more than any single data point remaining.</strong></p>
+        <p><strong>Tuesday Oct 14 — CPI (September) · 8:30am ET.</strong> The last major inflation read before the October 28–29 FOMC meeting. Combined with PCE on Tuesday and the jobs report Friday, this completes the picture. October CPI + September Jobs together will either confirm a second hike or force a pause.</p>
+        <p><strong>Tuesday–Wednesday Oct 28–29 — FOMC Meeting.</strong> The rate decision the entire market is watching. Currently priced at 70% probability of another 25-basis-point hike. That probability will move significantly based on the data released between now and then — starting this Tuesday with PCE.</p>
+      </div>
+    </div>
+
+    <!-- ORNAMENT -->
+    <div class="ornament"><hr><div class="ornament-mark">· · ·</div><hr></div>
+
+    <p class="closing">Sixteen issues. I'm back, and I'm sorry for the silence. The Steele Creek house is finished — finally — and it wasn't a small thing to get there. The next five days may be the most consequential stretch of economic data this year: PCE Tuesday morning, the September jobs report Friday, and two supporting releases in between. Whatever happens to rates next week starts with what those numbers say. Stay close to it. Reply anytime. <b>— Anthony</b></p>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-sig">Written by <b>Anthony</b> · Loan Pronto · September 28, 2026</div>
+    <div class="footer-nmls">NMLS #2096979 · Equal Housing Lender</div>
+  </div>
+
+</div>
+</body>
+</html>
