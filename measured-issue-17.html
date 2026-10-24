@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Measured — Issue No. 17 · October 23, 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,400;1,500&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;1,8..60,300&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --paper:#F8F4EE;--white:#FDFBF8;--ink:#1A1915;--muted:#6A6358;
+    --rule:rgba(26,25,21,0.09);--rust:#B05A32;--rust-lt:#ECD9CE;
+    --gold:#C2913A;--forest:#2F6B3E;--forest-lt:#D4E8D9;
+    --navy:#1E3A5F;--navy-lt:#D2DFF0;--amber:#C47A10;--amber-lt:#FAE9CB;
+    --warn:#8B2020;--warn-lt:#F5D5D5;
+  }
+  body{font-family:'DM Sans',sans-serif;background:#EDE8DF;color:var(--ink);padding:32px 16px 64px}
+  .wrap{max-width:620px;margin:0 auto;background:var(--white);border-radius:2px;overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,0.04),0 8px 24px rgba(0,0,0,0.07),0 32px 64px rgba(0,0,0,0.07)}
+
+  /* MASTHEAD */
+  .masthead{background:var(--ink)}
+  .masthead-top{display:flex;align-items:stretch;border-bottom:1px solid rgba(255,255,255,0.06)}
+  .brand{flex:1;padding:22px 36px}
+  .brand-name{font-family:'Playfair Display',serif;color:#F8F4EE;font-size:24px;letter-spacing:0.01em;line-height:1}
+  .brand-sub{font-size:10px;color:rgba(248,244,238,0.35);letter-spacing:0.12em;text-transform:uppercase;margin-top:5px}
+  .masthead-meta{padding:22px 36px;text-align:right;border-left:1px solid rgba(255,255,255,0.06);display:flex;flex-direction:column;justify-content:center;gap:4px}
+  .meta-issue{font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold)}
+  .meta-date{font-size:11px;color:rgba(248,244,238,0.3)}
+  .author-bar{background:var(--rust-lt);padding:14px 36px;display:flex;align-items:center;gap:13px}
+  .avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--rust));display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:17px;color:white;flex-shrink:0;box-shadow:0 2px 6px rgba(176,90,50,0.3)}
+  .author-name{font-size:13.5px;font-weight:500;color:var(--ink)}
+  .author-role{font-size:11.5px;color:var(--muted);margin-top:1px}
+
+  /* HERO */
+  .hero{background:var(--ink);padding:36px 36px 32px;border-top:1px solid rgba(255,255,255,0.04);position:relative;overflow:hidden}
+  .hero::after{content:'';position:absolute;top:-80px;right:-60px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(194,145,58,0.07) 0%,transparent 65%);pointer-events:none}
+  .hero-kicker{font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:16px}
+  .hero-hed{font-family:'Playfair Display',serif;font-size:28px;line-height:1.22;color:#F8F4EE;margin-bottom:14px;max-width:500px}
+  .hero-hed em{font-style:italic;color:var(--gold)}
+  .hero-deck{font-size:13.5px;color:rgba(248,244,238,0.48);line-height:1.65;max-width:460px}
+
+  /* BODY */
+  .body{padding:36px 36px 32px}
+  .opener{font-family:'Source Serif 4',serif;font-size:15px;line-height:1.78;color:var(--ink);font-style:italic;padding-bottom:28px;border-bottom:1px solid var(--rule);margin-bottom:32px}
+  p{font-size:14.5px;line-height:1.78;color:#38342E;margin-bottom:15px}
+  p:last-child{margin-bottom:0}
+  strong{color:var(--ink);font-weight:500}
+  .section{margin-bottom:34px;padding-bottom:34px;border-bottom:1px solid var(--rule)}
+  .section:last-of-type{border-bottom:none;margin-bottom:0;padding-bottom:0}
+  .sec-label{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+  .sec-pip{width:6px;height:6px;border-radius:50%;background:var(--rust);flex-shrink:0}
+  .sec-title{font-family:'Playfair Display',serif;font-size:17px;color:var(--ink);font-weight:500}
+
+  /* Rate cards */
+  .rate-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:20px 0}
+  .rate-card{background:var(--paper);border-radius:2px;padding:14px 15px;border-top:2px solid var(--rule)}
+  .rate-card.ok{border-top-color:var(--forest)}
+  .rate-card.flat{border-top-color:var(--navy)}
+  .rate-card.warn{border-top-color:var(--warn)}
+  .rate-card.gold{border-top-color:var(--gold)}
+  .rate-num{font-family:'Playfair Display',serif;font-size:22px;color:var(--ink);line-height:1}
+  .rate-desc{font-size:11px;color:var(--muted);margin-top:5px;line-height:1.4}
+  .rate-delta{font-size:11px;margin-top:4px}
+  .rate-delta.ok{color:var(--forest)}
+  .rate-delta.flat{color:var(--muted)}
+  .rate-delta.warn{color:var(--warn)}
+
+  /* MBS / bond move highlight */
+  .move-box{background:var(--ink);border-radius:2px;padding:24px 26px;margin:20px 0;position:relative;overflow:hidden;border-left:4px solid var(--gold)}
+  .move-box::after{content:'';position:absolute;top:-40px;right:-40px;width:140px;height:140px;border-radius:50%;background:radial-gradient(circle,rgba(194,145,58,0.12) 0%,transparent 70%);pointer-events:none}
+  .move-label{font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:12px}
+  .move-box p{font-size:14px;color:rgba(248,244,238,0.78);margin-bottom:10px;line-height:1.78}
+  .move-box p:last-child{margin-bottom:0}
+  .move-box strong{color:#F8F4EE}
+
+  /* Callout */
+  .callout{border-left:3px solid var(--rust);background:var(--paper);padding:16px 20px;margin:20px 0;border-radius:0 2px 2px 0}
+  .callout p{font-family:'Source Serif 4',serif;font-style:italic;font-size:14.5px;color:var(--ink);margin-bottom:0;line-height:1.7}
+  .callout-attr{font-size:10.5px !important;color:var(--muted) !important;margin-top:8px !important;font-style:normal !important;font-family:'DM Sans',sans-serif !important;letter-spacing:0.05em}
+
+  /* Stat cards */
+  .stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:20px 0}
+  .stat-card{background:var(--paper);border-radius:2px;padding:13px 14px;border-top:2px solid var(--navy)}
+  .stat-card.ok{border-top-color:var(--forest)}
+  .stat-card.warn{border-top-color:var(--warn)}
+  .stat-card.gold{border-top-color:var(--gold)}
+  .stat-num{font-family:'Playfair Display',serif;font-size:21px;color:var(--ink);line-height:1}
+  .stat-label{font-size:11px;color:var(--muted);margin-top:5px;line-height:1.4}
+
+  /* Navy data */
+  .data-box{border:1px solid rgba(30,58,95,0.18);background:var(--navy-lt);border-radius:2px;padding:18px 20px;margin:20px 0}
+  .data-label{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--navy);font-weight:500;margin-bottom:8px}
+  .data-box p{font-size:14px;color:#1A2D42;margin-bottom:8px;line-height:1.7}
+  .data-box p:last-child{margin-bottom:0}
+  .data-box strong{color:#0F1E2E}
+
+  /* Green */
+  .opp-box{border:1px solid rgba(47,107,62,0.2);background:var(--forest-lt);border-radius:2px;padding:20px 22px;margin:20px 0}
+  .opp-label{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--forest);font-weight:500;margin-bottom:8px}
+  .opp-box p{font-size:14px;color:#1C3D24;margin-bottom:8px;line-height:1.72}
+  .opp-box p:last-child{margin-bottom:0}
+  .opp-box strong{color:#122618}
+
+  /* Warn */
+  .warn-box{border:1px solid rgba(139,32,32,0.2);background:var(--warn-lt);border-radius:2px;padding:20px 22px;margin:20px 0}
+  .warn-label{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--warn);font-weight:500;margin-bottom:8px}
+  .warn-box p{font-size:14px;color:#2E0A0A;margin-bottom:8px;line-height:1.7}
+  .warn-box p:last-child{margin-bottom:0}
+  .warn-box strong{color:#1A0505}
+
+  /* Amber watch */
+  .watch-box{border:1px solid rgba(196,122,16,0.2);background:var(--amber-lt);border-radius:2px;padding:18px 20px;margin:20px 0}
+  .watch-label{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--amber);font-weight:500;margin-bottom:8px}
+  .watch-box p{font-size:14px;color:#3D2200;margin-bottom:8px;line-height:1.7}
+  .watch-box p:last-child{margin-bottom:0}
+  .watch-box strong{color:#1F1000}
+
+  /* Take */
+  .take-box{border:1px solid rgba(176,90,50,0.2);background:var(--rust-lt);border-radius:2px;padding:20px 22px;margin:20px 0}
+  .take-label{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--rust);font-weight:500;margin-bottom:8px}
+  .take-box p{font-size:14px;color:#3D1E0A;margin-bottom:8px;line-height:1.72}
+  .take-box p:last-child{margin-bottom:0}
+  .take-box strong{color:#231005}
+
+  /* Ornament */
+  .ornament{display:flex;align-items:center;gap:12px;margin:30px 0}
+  .ornament hr{flex:1;border:none;border-top:1px solid var(--rule)}
+  .ornament-mark{font-size:10px;color:var(--gold);letter-spacing:0.12em}
+
+  /* Closing */
+  .closing{font-family:'Source Serif 4',serif;font-size:14.5px;font-style:italic;color:var(--muted);line-height:1.75;padding-top:24px;border-top:1px solid var(--rule)}
+  .closing b{color:var(--ink);font-style:normal;font-weight:500}
+
+  /* Footer */
+  .footer{background:var(--paper);border-top:1px solid var(--rule);padding:18px 36px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px}
+  .footer-sig{font-family:'Source Serif 4',serif;font-style:italic;font-size:13px;color:var(--muted)}
+  .footer-sig b{color:var(--ink);font-style:normal;font-weight:500}
+  .footer-nmls{font-size:10px;color:rgba(106,99,88,0.4);letter-spacing:0.04em}
+
+  @media(max-width:560px){
+    .body{padding:28px 20px 24px}
+    .masthead-top{flex-direction:column}
+    .masthead-meta{text-align:left;border-left:none;border-top:1px solid rgba(255,255,255,0.06);padding:14px 36px}
+    .rate-row,.stat-row{grid-template-columns:1fr 1fr}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- MASTHEAD -->
+  <div class="masthead">
+    <div class="masthead-top">
+      <div class="brand">
+        <div class="brand-name">Measured</div>
+        <div class="brand-sub">A weekly note on mortgage decisions that matter</div>
+      </div>
+      <div class="masthead-meta">
+        <div class="meta-issue">Issue No. 17</div>
+        <div class="meta-date">Friday, October 23, 2026</div>
+      </div>
+    </div>
+    <div class="author-bar">
+      <div class="avatar">A</div>
+      <div>
+        <div class="author-name">Anthony · Loan Pronto</div>
+        <div class="author-role">Mortgage advisor · wholesale lending · plain English, always</div>
+      </div>
+    </div>
+    <div class="hero">
+      <div class="hero-kicker">This week in Measured</div>
+      <div class="hero-hed">The bond market just had its best day in over three years. Here's what it means — and <em>why it may not last.</em></div>
+      <div class="hero-deck">Thursday's 10-year Treasury yield plunged nearly 20 basis points in a single session — the biggest one-day drop since March 2023. MBS hit their best levels in a month. Rates pulled back to one-month lows. And the FOMC meets Tuesday. Here's the full picture heading into one of the most consequential weeks of the year.</div>
+    </div>
+  </div>
+
+  <!-- BODY -->
+  <div class="body">
+
+    <p class="opener">Two days changed the conversation this week in a way that nothing has since early September. The bond market moved with a force that surprised almost everyone — not because of good news on inflation or Iran, but because of a tech stock selloff that sent investors running into the safety of Treasuries. Rates are at their best levels in a month as of this afternoon. The FOMC meets Tuesday. PCE comes Wednesday. Whether this holds or reverses entirely depends on what those two events produce. Here's everything you need to know. — Anthony</p>
+
+    <!-- SECTION 1: THE WEEK'S MOVE -->
+    <div class="section">
+      <div class="sec-label"><div class="sec-pip"></div><div class="sec-title">Thursday's bond rally — the biggest since March 2023 — and where we closed today</div></div>
+
+      <p>To understand this week you need to understand what happened in a single Thursday trading session — and why mortgage rates didn't fall as much as the bond market did.</p>
+
+      <p>The 10-year Treasury yield opened Thursday morning near 5.13% — right where it had been hovering all week after the 10-year peaked at <strong>5.3645% on October 7</strong>, its highest level since April 2002. Then Meta's earnings sent the stock lower by 7%, triggering a broad AI and tech selloff. Investors moved quickly into the perceived safety of government bonds. The result: the 10-year fell <strong>nearly 20 basis points in a single session</strong> — its largest one-day drop since March 10, 2023. The 10-year closed Thursday at <strong>4.96%</strong> — the first close below 5% since September 22.</p>
+
+      <div class="move-box">
+        <div class="move-label">📉 Thursday's Bond Market Move — The Numbers</div>
+        <p><strong>10-year Treasury yield:</strong> Fell from 5.13% to 4.96% — a drop of 17 basis points in one session. Largest single-day decline since March 2023.</p>
+        <p><strong>30-year Treasury yield:</strong> Fell more than 8 basis points to 5.351% — the longer bond is more sensitive to geopolitical and inflation expectations.</p>
+        <p><strong>2-year Treasury yield:</strong> Fell more than 9 basis points to 4.731% — even the short end moved, unusual in a pure flight-to-safety trade.</p>
+        <p><strong>MBS — UMBS 30YR 6.0:</strong> Hit 99.46 on Friday — <strong>their best level in a month.</strong> When MBS prices rise, lenders can offer lower rates. This is the mechanism that translates bond market moves into your actual mortgage quote.</p>
+        <p><strong>What drove it:</strong> Not good inflation data. Not a breakthrough on Iran or the Strait of Hormuz. A tech stock rout — Meta down 7%, broader AI selloff, investors seeking cover. The bond market rewarded fear, not fundamentals. <strong>That is exactly why this move may not hold.</strong></p>
+      </div>
+
+      <p>Today, Friday October 23, the 10-year is at <strong>4.989%</strong> — holding just under 5% as the session closes. The modest uptick from Thursday's close reflects some stabilization in equities. Mortgage News Daily's real-time rate index shows the 30-year at <strong>7.33%</strong> today, up 3 basis points from Thursday's intraday low — still the best retail rate in about a month.</p>
+
+      <div class="rate-row">
+        <div class="rate-card warn">
+          <div class="rate-num">7.40%</div>
+          <div class="rate-desc">30-yr fixed<br>Freddie Mac PMMS · Oct 15 — unchanged 2 weeks</div>
+          <div class="rate-delta warn">↑ from 7.28% Oct 1</div>
+        </div>
+        <div class="rate-card ok">
+          <div class="rate-num">7.33%</div>
+          <div class="rate-desc">30-yr fixed<br>Mortgage News Daily · Today, Oct 23</div>
+          <div class="rate-delta ok">↓ 1-month low</div>
+        </div>
+        <div class="rate-card flat">
+          <div class="rate-num">4.989%</div>
+          <div class="rate-desc">10-yr Treasury<br>Closing today · just under 5%</div>
+          <div class="rate-delta ok">↓ from 5.13% this time last week</div>
+        </div>
+      </div>
+
+      <p>The full Freddie Mac October sequence tells the story of the month: <strong>7.28% on October 1, 7.40% on October 8, 7.40% on October 15</strong> — two consecutive weeks unchanged at the highest level since 2023. The October 22 survey — released next Thursday — will capture this week's bond rally and should show improvement. A year ago this week, the Freddie Mac 30-year averaged <strong>6.27%</strong>. The year-over-year gap is more than 100 basis points. Through the wholesale channel, a well-qualified borrower today is looking at approximately <strong>6.85–7.00%</strong> — still meaningfully below the retail headline.</p>
+
+      <div class="warn-box">
+        <div class="warn-label">⚠️ Why This Rally May Be Short-Lived</div>
+        <p>The bond market moved on fear, not on a fundamental improvement in the inflation picture. The 10-year peaked at 5.3645% on October 7 — its highest since 2002 — as oil pushed above $100 per barrel and the FOMC's October hike probability climbed above 70%. None of those underlying forces have changed. Iran negotiations remain inconclusive. Oil is still elevated. The Fed meets Tuesday and is widely expected to hike again.</p>
+        <p>As 24/7 Wall Street put it plainly this morning: <em>"If the 10-year closes back above 5.13% on Treasury's par curve, the whole fear rally will have reversed."</em> That is the level to watch. If next week's FOMC signals a December hike is still on the table — or if PCE Wednesday comes in hot — the 10-year moves back above 5% fast and the brief rate relief evaporates. <strong>The window between a rate improvement and a reversal in this environment is measured in hours, not weeks.</strong></p>
+      </div>
+    </div>
+
+    <!-- SECTION 2: FOMC + PCE -->
+    <div class="section">
+      <div class="sec-label"><div class="sec-pip"></div><div class="sec-title">Next week — FOMC Tuesday, PCE Wednesday. Everything hinges on these two.</div></div>
+
+      <p>The two most consequential market events of the month happen in the next five days. Every borrower, every real estate agent, and every lender in America should have Tuesday and Wednesday circled.</p>
+
+      <div class="watch-box">
+        <div class="watch-label">📅 The Week Ahead · October 27–31, 2026</div>
+        <p><strong>Tuesday–Wednesday Oct 27–28 — FOMC Meeting · Decision Wednesday 2:00pm ET.</strong> The market is pricing approximately a <strong>65–70% probability of another 25-basis-point hike</strong> — which would bring the fed funds rate to 4.00–4.25%. This hike has been in the price for weeks. What the market doesn't know yet is what Warsh says in his Wednesday press conference about December. If he signals December is also live, the 10-year climbs back through 5% immediately and the week's bond rally reverses. If he signals a pause is possible, rates could hold near current levels or improve further. <strong>Listen to every word of his press conference — not just the rate decision itself.</strong></p>
+        <p><strong>Wednesday Oct 29 — PCE Inflation (September) · 8:30am ET.</strong> Released the same morning as the FOMC decision day — creating one of the most data-dense Wednesdays of the year. September PCE is the last major inflation reading before the Fed decides. Core PCE has been running above 3% all year. If September shows any deceleration — even a move toward 2.8% — it strengthens the case for a December pause and bond markets rally further. A hot print at or above 3.3% and the hike narrative accelerates into year-end. <strong>Set an alarm for 8:30am Wednesday. This number and the Fed decision together will define the rate environment through Thanksgiving.</strong></p>
+        <p><strong>Friday Oct 31 — Employment Cost Index (Q3).</strong> A measure of wage inflation — one of the stickiest and most Fed-watched inflation inputs. A reading above 1.1% quarter-over-quarter keeps the hike narrative intact. A softer reading removes one more argument for continued tightening.</p>
+        <p><strong>Daily — WTI crude oil and Strait of Hormuz.</strong> Still the override variable. Oil fell sharply on Thursday as part of the broader market move, but remains elevated. Any credible signal of a Hormuz agreement sends oil toward $80, pulls inflation expectations down, and is worth 20–30 basis points of rate improvement within days — independent of everything the Fed says. Watch oil every morning before anything else.</p>
+      </div>
+    </div>
+
+    <!-- SECTION 3: HOUSING MARKET -->
+    <div class="section">
+      <div class="sec-label"><div class="sec-pip"></div><div class="sec-title">The housing market right now — the data through October</div></div>
+
+      <p>Rates above 7% for most of October have slowed activity — but not stopped it. Here's the honest picture from primary sources.</p>
+
+      <div class="stat-row">
+        <div class="stat-card gold">
+          <div class="stat-num">68,440</div>
+          <div class="stat-label">Weekly pending sales — 2026 vs. 66,818 same week in 2025. Barely positive YoY.</div>
+        </div>
+        <div class="stat-card warn">
+          <div class="stat-num">41.97%</div>
+          <div class="stat-label">Price cut percentage this week — essentially unchanged from 42% a year ago.</div>
+        </div>
+        <div class="stat-card ok">
+          <div class="stat-num">+2.1%</div>
+          <div class="stat-label">National median home price YoY through August — prices are not declining.</div>
+        </div>
+      </div>
+
+      <p>HousingWire's Logan Mohtashami, whose Housing Market Tracker we've cited throughout this newsletter, summarized the 2026 picture plainly in his most recent analysis: <strong>through 2026, purchase applications have posted 25 weeks of positive year-over-year growth</strong>, 10 of which were double-digit gains. The recent stretch of mild negative YoY prints — four in a row — is not abnormal at mortgage rates above 6.64%. That threshold, which we've discussed in earlier issues, is where housing data historically begins to soften. We are well above it right now, and the market is reflecting that — but not collapsing.</p>
+
+      <div class="data-box">
+        <div class="data-label">📊 Purchase Application Scorecard · 2026 Through October</div>
+        <p><strong>13</strong> positive week-over-week prints · <strong>17</strong> negative week-over-week prints · <strong>2</strong> flat weeks</p>
+        <p><strong>25 weeks</strong> of positive year-over-year growth · <strong>10 weeks</strong> of double-digit YoY gains — most of those came before the Iran war drove rates higher in late February</p>
+        <p><strong>4 consecutive weeks</strong> of mild negative YoY prints — consistent with historical patterns when rates are above 6.64%</p>
+        <p><strong>Price cuts:</strong> 41.97% of active listings nationally have seen a price reduction — nearly identical to 42% a year ago. The seller adjustment is real but orderly.</p>
+      </div>
+
+      <div class="opp-box">
+        <div class="opp-label">📅 Realtor.com: The Best Window Is Right Now</div>
+        <p>Realtor.com's annual analysis identifies the <strong>last two weeks of October</strong> as statistically the best time to buy a home. More active inventory than any other point in the calendar year, list prices running approximately 3.5% below the summer peak, and sellers who have been on market for weeks increasingly motivated to negotiate. <strong>A buyer who is positioned and pre-approved this week is negotiating from the strongest position they'll have all year.</strong> Rates pulling back to one-month lows at exactly this moment is not a coincidence — it is the setup.</p>
+      </div>
+    </div>
+
+    <!-- SECTION 4: THE WHOLESALE REALITY -->
+    <div class="section">
+      <div class="sec-label"><div class="sec-pip"></div><div class="sec-title">What the rate actually is — retail vs. wholesale, today</div></div>
+
+      <p>The Freddie Mac 7.40% headline has been the dominant narrative in mortgage rate coverage for two straight weeks. It is accurate as a weekly average across all lenders and borrower profiles. It is not the rate a well-qualified borrower working with a wholesale advisor is actually seeing.</p>
+
+      <div class="take-box">
+        <div class="take-label">The Actual Rate Conversation This Week</div>
+        <p>Freddie Mac's PMMS at 7.40% captures applications from across the entire lender landscape — retail banks, credit unions, online lenders, broker-submitted applications. The average includes less competitive lenders and a wide range of borrower profiles. It is the right number for a headline. It is not the right number for a decision.</p>
+        <p>Today, Friday October 23, the Mortgage News Daily benchmark sits at <strong>7.33%</strong> — the best level in a month. Through the wholesale channel, where lenders compete for broker business rather than pricing for a retail margin, a well-qualified borrower — 740+ FICO, 20% down, primary residence, conventional loan — is looking at rates in the <strong>6.85–6.95% range</strong> right now. That is the conversation that doesn't make it into the headline. A year ago that same borrower was at 6.00–6.15% through the same channel. The gap is real. The decision to act now versus wait for a number that may or may not arrive is a personal one — but it should be made with accurate information.</p>
+        <p><strong>If Thursday's bond rally holds through next week's FOMC — if Warsh signals a December pause — the 30-year retail rate could pull back toward 7.10–7.15% and the wholesale rate approaches 6.65–6.75%. That is a meaningful improvement in monthly payment terms.</strong> A $400,000 loan at 6.75% runs approximately $2,594/month in principal and interest. At 7.40% it's $2,764/month. The gap is $170/month — $2,040 per year. That is real money, and it is the range of outcomes next week's data can deliver.</p>
+      </div>
+    </div>
+
+    <!-- ORNAMENT -->
+    <div class="ornament"><hr><div class="ornament-mark">· · ·</div><hr></div>
+
+    <p class="closing">Seventeen issues. This week delivered the kind of two-day move that reminds you why staying close to the data matters. A 20-basis-point drop in the 10-year in a single session doesn't happen on a slow news week — and it doesn't always hold. Tuesday's FOMC decision and Wednesday's PCE release will tell us whether this was the beginning of a real rate improvement or a brief pause in a higher-for-longer story. Either way, knowing what's coming is the advantage. Reply to this email anytime. <b>— Anthony</b></p>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-sig">Written by <b>Anthony</b> · Loan Pronto · October 23, 2026</div>
+    <div class="footer-nmls">NMLS #2096979 · Equal Housing Lender</div>
+  </div>
+
+</div>
+</body>
+</html>
