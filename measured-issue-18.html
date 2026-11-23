@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Measured — Issue 18 — November 23, 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;1,8..60,300&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --paper:#F8F4EE;
+  --cream:#F2EDE5;
+  --ink:#1A1915;
+  --muted:#6A6358;
+  --rule:rgba(26,25,21,0.10);
+  --rust:#B05A32;
+  --rust-lt:#ECD9CE;
+  --gold:#C2913A;
+  --forest:#2F6B3E;
+  --navy:#1E3A5F;
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);max-width:720px;margin:0 auto;padding:0 0 80px}
+
+/* ── HEADER ───────────────────────────────── */
+.issue-header{
+  background:var(--ink);
+  padding:52px 56px 48px;
+  position:relative;
+  overflow:hidden;
+}
+.issue-header::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:radial-gradient(ellipse 70% 70% at 90% 20%,rgba(194,145,58,0.07) 0%,transparent 60%);
+  pointer-events:none;
+}
+.header-top{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  margin-bottom:48px;
+}
+.masthead{
+  font-family:'Playfair Display',serif;
+  font-size:28px;
+  color:#F8F4EE;
+  letter-spacing:0.01em;
+  font-weight:400;
+}
+.issue-meta{
+  text-align:right;
+}
+.issue-num{
+  font-size:10.5px;
+  letter-spacing:0.14em;
+  text-transform:uppercase;
+  color:var(--gold);
+  font-weight:500;
+  display:block;
+  margin-bottom:4px;
+}
+.issue-date{
+  font-size:12px;
+  color:rgba(248,244,238,0.4);
+  letter-spacing:0.06em;
+}
+.hero-eyebrow{
+  font-size:10.5px;
+  letter-spacing:0.16em;
+  text-transform:uppercase;
+  color:var(--gold);
+  font-weight:500;
+  margin-bottom:20px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.hero-eyebrow::before{
+  content:'';
+  display:block;
+  width:28px;
+  height:1px;
+  background:var(--gold);
+  opacity:0.5;
+}
+.hero-hed{
+  font-family:'Playfair Display',serif;
+  font-size:46px;
+  line-height:1.08;
+  color:#F8F4EE;
+  font-weight:700;
+  margin-bottom:22px;
+}
+.hero-hed em{
+  font-style:italic;
+  color:var(--gold);
+}
+.hero-deck{
+  font-family:'Source Serif 4',serif;
+  font-size:17px;
+  line-height:1.72;
+  color:rgba(248,244,238,0.52);
+  font-style:italic;
+  max-width:580px;
+}
+
+/* ── STAT BAND ───────────────────────────── */
+.stat-band{
+  background:var(--cream);
+  border-bottom:1px solid var(--rule);
+  padding:28px 56px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:0;
+}
+.stat-item{
+  padding:0 24px 0 0;
+  border-right:1px solid var(--rule);
+}
+.stat-item:first-child{padding-left:0;}
+.stat-item:last-child{border-right:none;padding-right:0;padding-left:24px;}
+.stat-item:nth-child(2){padding-left:24px;}
+.stat-label{
+  font-size:9.5px;
+  letter-spacing:0.14em;
+  text-transform:uppercase;
+  color:var(--muted);
+  margin-bottom:6px;
+  font-weight:500;
+}
+.stat-val{
+  font-family:'Playfair Display',serif;
+  font-size:30px;
+  color:var(--ink);
+  font-weight:700;
+  line-height:1;
+}
+.stat-val.gold{color:var(--gold);}
+.stat-val.rust{color:var(--rust);}
+.stat-val.forest{color:var(--forest);}
+.stat-sub{
+  font-size:11.5px;
+  color:var(--muted);
+  margin-top:5px;
+  line-height:1.4;
+}
+
+/* ── BODY ─────────────────────────────────── */
+.body-wrap{padding:0 56px;}
+.section{
+  padding:48px 0;
+  border-bottom:1px solid var(--rule);
+}
+.section:last-child{border-bottom:none;}
+
+.section-kicker{
+  font-size:9.5px;
+  letter-spacing:0.16em;
+  text-transform:uppercase;
+  color:var(--rust);
+  font-weight:600;
+  margin-bottom:14px;
+}
+.section-hed{
+  font-family:'Playfair Display',serif;
+  font-size:30px;
+  line-height:1.2;
+  color:var(--ink);
+  font-weight:700;
+  margin-bottom:20px;
+}
+.section-hed em{
+  font-style:italic;
+  color:var(--rust);
+}
+.prose{
+  font-family:'Source Serif 4',serif;
+  font-size:16.5px;
+  line-height:1.78;
+  color:#3A3630;
+}
+.prose p{margin-bottom:18px;}
+.prose p:last-child{margin-bottom:0;}
+.prose strong{color:var(--ink);font-weight:600;}
+.prose em{font-style:italic;}
+
+/* ── DATA CARDS ──────────────────────────── */
+.data-row{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+  margin:28px 0;
+}
+.data-row.three{grid-template-columns:1fr 1fr 1fr;}
+.data-card{
+  background:var(--cream);
+  border:1px solid var(--rule);
+  padding:22px 20px;
+}
+.dc-label{
+  font-size:9.5px;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+  color:var(--muted);
+  margin-bottom:8px;
+  font-weight:500;
+}
+.dc-val{
+  font-family:'Playfair Display',serif;
+  font-size:34px;
+  font-weight:700;
+  color:var(--ink);
+  line-height:1;
+}
+.dc-val.up{color:var(--forest);}
+.dc-val.down{color:var(--rust);}
+.dc-val.gold{color:var(--gold);}
+.dc-note{
+  font-size:12px;
+  color:var(--muted);
+  margin-top:6px;
+  line-height:1.5;
+}
+
+/* ── PULL QUOTE / CALLOUT ─────────────────── */
+.callout{
+  background:var(--ink);
+  padding:28px 32px;
+  margin:28px 0;
+}
+.callout-label{
+  font-size:9.5px;
+  letter-spacing:0.14em;
+  text-transform:uppercase;
+  color:var(--gold);
+  font-weight:600;
+  margin-bottom:10px;
+}
+.callout-text{
+  font-family:'Source Serif 4',serif;
+  font-size:16px;
+  line-height:1.7;
+  color:rgba(248,244,238,0.75);
+  font-style:italic;
+}
+.callout-text strong{color:#F8F4EE;font-style:normal;}
+
+.pull-quote{
+  border-left:3px solid var(--gold);
+  padding:4px 0 4px 24px;
+  margin:28px 0;
+}
+.pq-text{
+  font-family:'Playfair Display',serif;
+  font-size:22px;
+  line-height:1.4;
+  color:var(--ink);
+  font-style:italic;
+  font-weight:400;
+}
+
+/* ── RATE TABLE ──────────────────────────── */
+.rate-table{
+  width:100%;
+  border-collapse:collapse;
+  margin:24px 0;
+  font-size:14px;
+}
+.rate-table th{
+  text-align:left;
+  font-size:9.5px;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+  color:var(--muted);
+  font-weight:500;
+  padding:10px 14px;
+  border-bottom:2px solid var(--rule);
+  background:var(--cream);
+}
+.rate-table td{
+  padding:12px 14px;
+  border-bottom:1px solid var(--rule);
+  color:var(--ink);
+  line-height:1.4;
+}
+.rate-table tr:last-child td{border-bottom:none;}
+.rate-table td:nth-child(2){
+  font-family:'Playfair Display',serif;
+  font-size:18px;
+  font-weight:700;
+  color:var(--ink);
+}
+.rate-table td.highlight{color:var(--forest);font-weight:600;}
+.rate-table td.low{color:var(--muted);}
+
+/* ── MOVE BOX ────────────────────────────── */
+.move-box{
+  background:var(--navy);
+  padding:28px 32px;
+  margin:28px 0;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:0;
+}
+.mb-col{
+  padding:0 24px 0 0;
+  border-right:1px solid rgba(255,255,255,0.08);
+}
+.mb-col:last-child{padding:0 0 0 24px;border-right:none;}
+.mb-label{
+  font-size:9px;
+  letter-spacing:0.14em;
+  text-transform:uppercase;
+  color:rgba(248,244,238,0.35);
+  margin-bottom:6px;
+  font-weight:500;
+}
+.mb-val{
+  font-family:'Playfair Display',serif;
+  font-size:36px;
+  font-weight:700;
+  color:#F8F4EE;
+  line-height:1;
+}
+.mb-val.gold{color:var(--gold);}
+.mb-val.rust{color:#E07A5F;}
+.mb-sub{
+  font-size:11.5px;
+  color:rgba(248,244,238,0.3);
+  margin-top:5px;
+  line-height:1.4;
+}
+
+/* ── BULLET LIST ─────────────────────────── */
+.bullet-list{
+  list-style:none;
+  margin:20px 0;
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+}
+.bullet-list li{
+  display:flex;
+  gap:14px;
+  align-items:flex-start;
+}
+.bullet-list li::before{
+  content:'';
+  display:block;
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:var(--gold);
+  flex-shrink:0;
+  margin-top:9px;
+}
+.bullet-list li span{
+  font-family:'Source Serif 4',serif;
+  font-size:15.5px;
+  line-height:1.65;
+  color:#3A3630;
+}
+.bullet-list li span strong{color:var(--ink);}
+
+/* ── SECTION DIVIDER ─────────────────────── */
+.divider{
+  display:flex;
+  align-items:center;
+  gap:16px;
+  margin:8px 0 32px;
+}
+.div-line{flex:1;height:1px;background:var(--rule);}
+.div-dot{width:5px;height:5px;border-radius:50%;background:var(--gold);}
+
+/* ── FOOTER ──────────────────────────────── */
+.issue-footer{
+  background:var(--ink);
+  padding:40px 56px;
+  margin-top:0;
+}
+.footer-top{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  margin-bottom:28px;
+  padding-bottom:28px;
+  border-bottom:1px solid rgba(255,255,255,0.07);
+}
+.footer-brand{
+  font-family:'Playfair Display',serif;
+  font-size:22px;
+  color:#F8F4EE;
+}
+.footer-tagline{
+  font-size:12px;
+  color:rgba(248,244,238,0.3);
+  margin-top:6px;
+  font-style:italic;
+}
+.footer-sig{
+  text-align:right;
+  font-family:'Source Serif 4',serif;
+  font-size:14px;
+  color:rgba(248,244,238,0.4);
+  line-height:1.7;
+  font-style:italic;
+}
+.footer-sig strong{color:rgba(248,244,238,0.65);font-style:normal;}
+.footer-nmls{
+  font-size:10.5px;
+  color:rgba(248,244,238,0.15);
+  letter-spacing:0.04em;
+  line-height:1.7;
+}
+
+@media(max-width:600px){
+  .issue-header{padding:36px 24px 36px;}
+  .hero-hed{font-size:34px;}
+  .stat-band{padding:20px 24px;grid-template-columns:1fr;}
+  .stat-item{border-right:none;border-bottom:1px solid var(--rule);padding:0 0 16px;margin-bottom:16px;}
+  .stat-item:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
+  .body-wrap{padding:0 24px;}
+  .data-row{grid-template-columns:1fr;}
+  .data-row.three{grid-template-columns:1fr;}
+  .move-box{grid-template-columns:1fr;}
+  .mb-col{border-right:none;padding:0 0 16px;border-bottom:1px solid rgba(255,255,255,0.08);}
+  .mb-col:last-child{padding:16px 0 0;border-bottom:none;}
+  .issue-footer{padding:32px 24px;}
+  .footer-top{flex-direction:column;gap:20px;}
+  .footer-sig{text-align:left;}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════
+     HEADER
+═══════════════════════════════════════ -->
+<header class="issue-header">
+  <div class="header-top">
+    <div class="masthead">Measured</div>
+    <div class="issue-meta">
+      <span class="issue-num">Issue No. 18</span>
+      <span class="issue-date">November 23, 2026</span>
+    </div>
+  </div>
+  <div class="hero-eyebrow">Rates · Market · Opportunity</div>
+  <h1 class="hero-hed">A lot has changed<br>since November 4th.<br><em>Here's the full picture.</em></h1>
+  <p class="hero-deck">The election brought a 20-basis-point rate drop overnight. Rates touched 7.09%. Then reversed. The 10-year is back near 5%. Builders are pulling permits at their lowest level since 2020. And a category of loans that most advisors still aren't talking about is now one in ten mortgages. We're back — and there's a lot to cover.</p>
+</header>
+
+<!-- STAT BAND -->
+<div class="stat-band">
+  <div class="stat-item">
+    <div class="stat-label">30-Yr Fixed (Freddie Mac)</div>
+    <div class="stat-val rust">7.28%</div>
+    <div class="stat-sub">Nov 19 — up from 7.11% the week prior</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-label">10-Yr Treasury</div>
+    <div class="stat-val gold">4.97%</div>
+    <div class="stat-sub">Hovering near 5% heading into Thanksgiving</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-label">Purchase Apps (YoY)</div>
+    <div class="stat-val rust">−18%</div>
+    <div class="stat-sub">Week of Nov 13 vs. same week in 2025</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     BODY
+═══════════════════════════════════════ -->
+<div class="body-wrap">
+
+  <!-- SECTION 1: SINCE NOV 4 -->
+  <section class="section">
+    <div class="section-kicker">The Election Window · Nov 4 – Today</div>
+    <h2 class="section-hed">Rates dropped 28 basis points<br>the week after the election.<br><em>Then gave almost all of it back.</em></h2>
+    <div class="divider"><div class="div-line"></div><div class="div-dot"></div><div class="div-line"></div></div>
+
+    <div class="prose">
+      <p>On November 4th — the day after Election Day — the 10-year Treasury closed at 4.90% and the 30-year fixed was 7.17%. That was the number. Democrats took both the House and Senate, fiscal uncertainty eased, and bond markets exhaled. By November 5th the 10-year was at 4.84% and mortgage rates had dipped to their lowest level since September — 7.09% on some surveys.</p>
+      <p>That window lasted about two weeks.</p>
+      <p>By November 13th, the MBA's 30-year conforming rate had climbed back to 7.35%. And Freddie Mac's November 19 reading came in at <strong>7.28%</strong> — up 17 basis points in a single week, the biggest one-week jump since the September hike. The 10-year is now hovering around 4.97%.</p>
+      <p>The lesson in that two-week window: rate moves driven by sentiment reverse faster than moves driven by data. The election wasn't a fundamental change to the inflation picture. Oil is still above $95. The Fed is still signaling a December hike. The 10-year doesn't care about which party controls Congress when PCE is running hot.</p>
+    </div>
+
+    <div class="move-box">
+      <div class="mb-col">
+        <div class="mb-label">10-Yr on Nov 4 (day after election)</div>
+        <div class="mb-val gold">4.90%</div>
+        <div class="mb-sub">Bond rally post-midterm. Rates hit 7.09%.</div>
+      </div>
+      <div class="mb-col">
+        <div class="mb-label">10-Yr Today (Nov 20 close)</div>
+        <div class="mb-val rust">4.97%</div>
+        <div class="mb-sub">Nearly all of the rally has reversed.</div>
+      </div>
+    </div>
+
+    <div class="data-row">
+      <div class="data-card">
+        <div class="dc-label">Freddie Mac — Nov 5</div>
+        <div class="dc-val forest">7.18%</div>
+        <div class="dc-note">3rd consecutive weekly decline post-Fed hold</div>
+      </div>
+      <div class="data-card">
+        <div class="dc-label">Freddie Mac — Nov 12</div>
+        <div class="dc-val forest">7.11%</div>
+        <div class="dc-note">4th consecutive decline. 7-week low.</div>
+      </div>
+      <div class="data-card">
+        <div class="dc-label">Freddie Mac — Nov 19</div>
+        <div class="dc-val rust">7.28%</div>
+        <div class="dc-note">+0.17 in one week. The bounce.</div>
+      </div>
+      <div class="data-card">
+        <div class="dc-label">1 Year Ago (Nov 2025)</div>
+        <div class="dc-val">6.26%</div>
+        <div class="dc-note">Rates are 102 bps higher YoY.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 2: PENNYMAC WESTLAKE -->
+  <section class="section">
+    <div class="section-kicker">PennyMac TPO Partner Forum · Westlake Village, CA</div>
+    <h2 class="section-hed">What we heard at<br><em>Four Seasons Westlake Village.</em></h2>
+    <div class="divider"><div class="div-line"></div><div class="div-dot"></div><div class="div-line"></div></div>
+    <div class="prose">
+      <p>November 3–5. Four Seasons Westlake Village. PennyMac's invitation-only TPO Partner Forum brings together their top wholesale partners for two days of market strategy, product updates, and direction-setting going into next year. This one was different — in a good way.</p>
+      <p>Matt Graham from MBS Live walked through the bond market in a way most people in the room had never seen it laid out before. The relationship between the 10-year, MBS pricing, and the actual rate that hits a lock sheet isn't a straight line — and understanding the lag, the spread, and what has to happen for rates to actually improve is the kind of edge that changes how you advise clients.</p>
+      <p>The broader takeaway from the two days: the advisors who are winning in this environment aren't the ones waiting for rates to come down. They're the ones who have already reoriented around the borrowers that exist right now — investors, self-employed, non-traditional income. Products that didn't exist five years ago are now doing real volume. The market has changed. The winning approach has changed with it.</p>
+    </div>
+
+    <div class="callout">
+      <div class="callout-label">From the Room</div>
+      <div class="callout-text">"The partners who dominated purchase business in 2021 and went quiet in 2023 are not the same ones dominating now. The market sorted. <strong>The advisors still standing built relationships before they needed them.</strong>"</div>
+    </div>
+  </section>
+
+  <!-- SECTION 3: NON-QM -->
+  <section class="section">
+    <div class="section-kicker">Non-QM · The Category Most Advisors Are Still Sleeping On</div>
+    <h2 class="section-hed">1 in 10 mortgages<br>is now Non-QM.<br><em>Are you writing them?</em></h2>
+    <div class="divider"><div class="div-line"></div><div class="div-dot"></div><div class="div-line"></div></div>
+    <div class="prose">
+      <p>As of July 2026, Non-QM loans crossed 10% of total rate-lock volume — a record. Conforming loans, which made up 52% of production just a year earlier, are now below 48% of the market. The shift isn't a blip. It's structural.</p>
+      <p>Three product types are driving it:</p>
+    </div>
+
+    <ul class="bullet-list">
+      <li><span><strong>Bank Statement loans</strong> — 30.6% of Non-QM production. Self-employed borrowers who run income through their business and can't show it on a 1040 the way an underwriter wants to see it. These borrowers exist in every market. Most of them have been told no by someone who didn't know the product.</span></li>
+      <li><span><strong>DSCR / Investor loans</strong> — 33.5% of Non-QM production, up nearly 5 points year-over-year. Debt Service Coverage Ratio loans qualify on the property's income, not the borrower's W-2. If the rent covers the mortgage, the loan works. These are the fastest-growing segment in the channel.</span></li>
+      <li><span><strong>Expanded-guideline products</strong> — 35.9%. Asset depletion, 1-year tax return, recent credit events, non-warrantable condos. Borrowers that conventional and FHA simply cannot touch — but wholesale can.</span></li>
+    </ul>
+
+    <div class="prose" style="margin-top:20px;">
+      <p>Here is the practical reality: in a market where purchase applications are 18% below last year and refi volume is down 54%, the advisors adding new business are the ones expanding their qualified borrower pool. Non-QM is not a niche product. It is a business strategy.</p>
+      <p>The wholesale channel runs these products at rates and terms retail simply can't match. If you have a referral partner — a realtor, a financial planner, a CPA — who works with business owners or investors, you have a Non-QM pipeline. It just might not know you do.</p>
+    </div>
+
+    <div class="data-row three">
+      <div class="data-card">
+        <div class="dc-label">Non-QM Market Share</div>
+        <div class="dc-val gold">10%+</div>
+        <div class="dc-note">Of total rate-lock volume as of July 2026. Up from 8% a year ago.</div>
+      </div>
+      <div class="data-card">
+        <div class="dc-label">Conforming Share</div>
+        <div class="dc-val">47.3%</div>
+        <div class="dc-note">Below 50% for the first time. Down from 52% one year ago.</div>
+      </div>
+      <div class="data-card">
+        <div class="dc-label">DSCR Growth (YoY)</div>
+        <div class="dc-val forest">+4.8 pts</div>
+        <div class="dc-note">Investor/DSCR is the fastest-growing Non-QM segment.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 4: MORTGAGE APPS + HOUSING -->
+  <section class="section">
+    <div class="section-kicker">Market Data · Applications + Housing Starts</div>
+    <h2 class="section-hed">Apps are down. Permits<br>hit a 6-year low. But<br><em>starts bounced — here's why.</em></h2>
+    <div class="divider"><div class="div-line"></div><div class="div-dot"></div><div class="div-line"></div></div>
+
+    <div class="prose">
+      <p>The October housing data tells a split story that's worth understanding before you have your next conversation with a buyer who's on the fence.</p>
+      <p><strong>Housing starts</strong> for October rose 9.9% month-over-month to a 1.309 million annualized rate — the headline number most outlets ran with. But look one line down: building permits fell 7.4% and are now at their lowest level since May 2020. Single-family permits dropped 8.7% in a single month. Builders are completing the pipeline they already have. They are not starting new one.</p>
+      <p>That distinction matters. Permits are the leading indicator. When permit issuance drops to a 6-year low, the message from builders is: at 7.4% rates, with affordability this stretched, we are not betting on demand coming back in the next 12–18 months. That is not a vote of confidence in the near-term market.</p>
+      <p>Meanwhile, <strong>new-home mortgage applications</strong> fell 13.6% year-over-year in October — the fourth straight annual decline. The average loan size on a new-home purchase dropped to $368,934 from $374,724 the prior month. Buyers are coming in lower, taking smaller homes, or walking away entirely.</p>
+    </div>
+
+    <div class="data-row">
+      <div class="data-card">
+        <div class="dc-label">Housing Starts (Oct)</div>
+        <div class="dc-val forest">1.309M</div>
+        <div class="dc-note">+9.9% MoM. Completing existing pipeline.</div>
+      </div>
+      <div class="data-card">
+        <div class="dc-label">Building Permits (Oct)</div>
+        <div class="dc-val rust">1.295M</div>
+        <div class="dc-note">−7.4% MoM. Lowest since May 2020.</div>
+      </div>
+      <div class="data-card">
+        <div class="dc-label">Single-Family Permits</div>
+        <div class="dc-val rust">772K</div>
+        <div class="dc-note">−8.7% month over month. −12.9% year over year.</div>
+      </div>
+      <div class="data-card">
+        <div class="dc-label">New-Home Apps (YoY)</div>
+        <div class="dc-val rust">−13.6%</div>
+        <div class="dc-note">4th straight annual decline. Avg loan: $368,934.</div>
+      </div>
+    </div>
+
+    <div class="prose">
+      <p>The existing-home picture is equally telling. Median sale prices have fallen year-over-year for four straight weeks — the first time that's happened since 2023. <strong>20.7% of active listings have had a price reduction</strong>, up from 19.6% the week prior. There are over half a million more sellers than buyers nationally. Pending sales are running 15% below last year. The gap between what sellers want and what buyers can afford — at 7.28% rates — is not closing.</p>
+    </div>
+
+    <div class="callout">
+      <div class="callout-label">What This Means for Buyers in Your Pipeline</div>
+      <div class="callout-text">Redfin calls this <strong>the strongest buyer's market since 2013.</strong> Months of supply are at 4.8. Negotiating power has shifted. The buyers who act now — before December's probable hike — are negotiating on price <em>and</em> catching rates before they move higher. That is a conversation worth having with anyone who has been sitting on the sidelines.</div>
+    </div>
+  </section>
+
+  <!-- SECTION 5: EFFICIENCY + AI + SPEED TO LEAD -->
+  <section class="section">
+    <div class="section-kicker">Operations · AI · Speed to Lead</div>
+    <h2 class="section-hed">Grok, AI tools, and<br>the efficiency gap that's<br><em>separating advisors right now.</em></h2>
+    <div class="divider"><div class="div-line"></div><div class="div-dot"></div><div class="div-line"></div></div>
+    <div class="prose">
+      <p>At Westlake Village, the conversation about AI tools wasn't theoretical. The advisors and account managers in that room who are using AI operationally — not for content, for actual workflow — are running leaner and moving faster than advisors who aren't. The gap is widening.</p>
+      <p>The specific application that keeps coming up: <strong>speed to lead.</strong> Studies across the mortgage industry consistently show that the first advisor to respond to an inquiry wins the deal at a disproportionate rate — not the best rate sheet, not the most experienced loan officer. The first one to respond. AI changes the math here fundamentally. An automated first-touch that asks the right qualifying questions, confirms availability, and schedules a setting call — triggered the moment a lead comes in — is not science fiction. It is table stakes in 2026.</p>
+      <p><strong>Grok</strong> and similar AI tools are being used right now for scenario building, objection prep, pre-qual analysis, and market commentary. For account managers specifically, the opportunity is around the volume of repetitive communication that eats the day — status updates, rate change notifications, pipeline follow-ups. Templated, well-written, personalized at scale. That is what's available today.</p>
+      <p>The advisors using these tools aren't replacing the relationship. They're protecting the time that lets the relationship exist. The goal is simple: make the human conversation better by automating everything that doesn't need to be human.</p>
+    </div>
+
+    <div class="pull-quote">
+      <div class="pq-text">"Speed to lead isn't about being aggressive. It's about being available. The borrower who submits a form at 7:14pm on a Tuesday and hears back in four minutes — that advisor wins the conversation before anyone else even wakes up."</div>
+    </div>
+
+    <div class="prose">
+      <p>The setting call matters. Getting a prospect on the phone for 15 minutes — before they've talked to three other advisors — is the whole game. AI gets you to that call faster. The relationship closes it.</p>
+    </div>
+  </section>
+
+  <!-- SECTION 6: AGENT COMMUNICATION -->
+  <section class="section">
+    <div class="section-kicker">The Agent Relationship</div>
+    <h2 class="section-hed">What agents actually want<br>from their mortgage advisor<br><em>in a market like this.</em></h2>
+    <div class="divider"><div class="div-line"></div><div class="div-dot"></div><div class="div-line"></div></div>
+    <div class="prose">
+      <p>Right now, most agents are having conversations with buyers who are frustrated, confused, or just waiting. Waiting for rates to drop. Waiting for prices to fall more. Waiting for something to change. The agents who are still closing deals in this environment are the ones with advisors who arm them with language — specific, data-backed, honest language — that moves a conversation forward instead of parking it.</p>
+      <p>Three things agents in this market want from their mortgage advisor:</p>
+    </div>
+
+    <ul class="bullet-list">
+      <li><span><strong>A weekly rate update they can actually use in conversation</strong> — not just a number, but context. "Rates are 7.28% this week — here's what moved them and here's what December looks like" is a sentence an agent can use with a client on a showing.</span></li>
+      <li><span><strong>A fast pre-approval process that doesn't embarrass them</strong> — in a buyer's market, agents are using pre-approval speed as a competitive advantage. If your process is 48 hours while another advisor is doing same-day, you are costing your agents deals.</span></li>
+      <li><span><strong>Scenario clarity on Non-QM and non-standard borrowers</strong> — agents are increasingly running into self-employed buyers, investors, and borrowers with complicated income. The advisor who can say "I have a product for that" is the one who gets called first on the next deal.</span></li>
+    </ul>
+
+    <div class="prose" style="margin-top:20px;">
+      <p>The relationship economy in real estate hasn't changed. What has changed is that the advisors who show up with <em>information</em> — real market data, real product knowledge, real availability — are the ones agents are calling. The ones who show up with rate sheets and a smile are getting filtered out.</p>
+    </div>
+  </section>
+
+  <!-- SECTION 7: RATE TABLE + WHERE WE ARE -->
+  <section class="section">
+    <div class="section-kicker">Rates Right Now · November 23, 2026</div>
+    <h2 class="section-hed">The full rate picture —<br>and <em>where wholesale fits.</em></h2>
+    <div class="divider"><div class="div-line"></div><div class="div-dot"></div><div class="div-line"></div></div>
+
+    <div class="prose">
+      <p>The Freddie Mac benchmark is what gets reported. It's what shows up on news sites, in bank windows, and in most agent conversations. It is not what wholesale borrowers pay. Here is what the full picture looks like right now:</p>
+    </div>
+
+    <table class="rate-table">
+      <thead>
+        <tr>
+          <th>Benchmark</th>
+          <th>Rate</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Freddie Mac PMMS (Nov 19)</td>
+          <td>7.28%</td>
+          <td class="low">Weekly survey — reflects Mon–Wed lock activity</td>
+        </tr>
+        <tr>
+          <td>MBA 30-Yr Conforming (Nov 13)</td>
+          <td>7.35%</td>
+          <td class="low">3-week high as of that survey</td>
+        </tr>
+        <tr>
+          <td>MND Daily (Nov 20)</td>
+          <td>7.33%</td>
+          <td class="low">Real-time — fluctuates with bond market daily</td>
+        </tr>
+        <tr>
+          <td>15-Year Fixed (MBA)</td>
+          <td>6.64%</td>
+          <td class="low">From week of Nov 6 — best 15-yr level in 2 months</td>
+        </tr>
+        <tr>
+          <td>5/1 ARM (MBA)</td>
+          <td>6.28%</td>
+          <td class="low">ARM share 10.8% — highest in over a year</td>
+        </tr>
+        <tr>
+          <td>Wholesale Channel (est.)</td>
+          <td class="highlight">~6.75–6.90%</td>
+          <td class="low">0.375–0.50% below retail on the same loan</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="prose">
+      <p>On a $400,000 loan, the difference between 7.28% (what a retail borrower might pay) and 6.85% (what a wholesale borrower might pay through this channel) is <strong>approximately $160 per month.</strong> Over the life of a 30-year loan, that is over $57,000. That gap is not in the marketing. It is real and it is verifiable.</p>
+    </div>
+  </section>
+
+</div><!-- /body-wrap -->
+
+<!-- ═══════════════════════════════════════
+     FOOTER
+═══════════════════════════════════════ -->
+<footer class="issue-footer">
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand">Measured</div>
+      <div class="footer-tagline">Plain talk on mortgage decisions that matter.</div>
+    </div>
+    <div class="footer-sig">
+      <strong>Anthony Deal</strong><br>
+      Senior Mortgage Consultant · Loan Pronto<br>
+      Wholesale Lending · 14 States<br>
+      November 23, 2026
+    </div>
+  </div>
+  <div class="footer-nmls">
+    Anthony Deal · NMLS #2096979 · Loan Pronto · Equal Housing Lender<br>
+    This newsletter is for informational purposes only and does not constitute financial or lending advice. Rates shown are benchmarks and may not reflect individual qualification. Wholesale rates estimated; actual rates depend on loan parameters and borrower profile.
+  </div>
+</footer>
+
+</body>
+</html>
